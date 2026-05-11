@@ -1,5 +1,5 @@
 -- =============================================================================
--- FrontendPrep — initial schema
+-- FrontendAce — initial schema
 -- Run this in the Supabase SQL editor (or `supabase db push` with the CLI).
 -- =============================================================================
 

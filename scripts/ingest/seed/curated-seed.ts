@@ -6487,7 +6487,7 @@ Frameworks usually wrap the boilerplate: Next.js \`<Image>\` does srcset, format
   fetchpriority="high"
   loading="eager"
   decoding="async"
-  alt="Frontend Prep dashboard"
+  alt="FrontendAce dashboard"
 />`,
         },
         {

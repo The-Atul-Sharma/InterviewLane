@@ -87,7 +87,7 @@ export function SiteFooter() {
       </div>
       <div className="container-page flex flex-col items-start justify-between gap-2 border-t py-5 text-[11.5px] sm:flex-row sm:items-center">
         <span className="font-mono text-muted-foreground">
-          © {new Date().getFullYear()} FrontendPrep
+          © {new Date().getFullYear()} FrontendAce
         </span>
         <span className="font-mono text-muted-foreground">
           Built for senior frontend engineers

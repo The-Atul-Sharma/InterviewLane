@@ -1,5 +1,5 @@
 -- =============================================================================
--- FrontendPrep — questions / categories / tags 
+-- FrontendAce — questions / categories / tags 
 -- Idempotent: safe to re-run. Adds content tables on top of 0001_init.sql.
 -- Reads (questions, categories, tags) are public; writes are
 -- service-role only.

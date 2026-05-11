@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Sign in",
-  description: "Sign in to FrontendPrep with email + one-time code.",
+  description: "Sign in to FrontendAce with email + one-time code.",
 };
 
 export default function LoginPage() {

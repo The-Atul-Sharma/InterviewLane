@@ -9,10 +9,10 @@ import { SiteFooter } from "@/components/site-footer";
 import { siteUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://frontendprep.dev"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://FrontendAce.vercel.app"),
   title: {
-    default: "FrontendPrep — Ace your frontend interview",
-    template: "%s · FrontendPrep",
+    default: "FrontendAce — Ace your frontend interview",
+    template: "%s · FrontendAce",
   },
   description:
     "Curated questions, structured roadmaps, and a clear path from refresher to interview-ready. Practice. Reason. Ship.",
@@ -22,21 +22,23 @@ export const metadata: Metadata = {
     "javascript interview",
     "system design",
     "frontend prep",
+    "frontend ace",
+    "dsa algorithms",
     "blind 75",
     "web performance",
   ],
-  authors: [{ name: "FrontendPrep" }],
+  authors: [{ name: "FrontendAce" }],
   openGraph: {
     type: "website",
     url: siteUrl(),
-    siteName: "FrontendPrep",
-    title: "FrontendPrep — Ace your frontend interview",
+    siteName: "FrontendAce",
+    title: "FrontendAce — Ace your frontend interview",
     description:
       "Curated questions, structured roadmaps, and a clear path from refresher to interview-ready.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "FrontendPrep",
+    title: "FrontendAce",
     description:
       "Curated questions and structured roadmaps for frontend interviews.",
   },

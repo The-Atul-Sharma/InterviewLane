@@ -17,7 +17,7 @@ export function Logo({
   return (
     <span
       className={cn("inline-flex items-center gap-2 leading-none", className)}
-      aria-label="FrontendPrep"
+      aria-label="FrontendAce"
     >
       <svg width={size} height={size} viewBox="0 0 28 28" className="block">
         <defs>
@@ -51,8 +51,8 @@ export function Logo({
           className="font-semibold tracking-tight"
           style={{ fontSize: size * 0.72 }}
         >
-          frontend
-          <span className="font-medium text-muted-foreground">Prep</span>
+          Frontend
+          <span className="font-medium text-muted-foreground">Ace</span>
         </span>
       )}
     </span>
