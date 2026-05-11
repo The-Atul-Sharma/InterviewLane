@@ -1,0 +1,126 @@
+import type { CategoryMeta } from "./schema/question";
+
+export const CATEGORY_META: Record<string, CategoryMeta> = {
+  frontend: {
+    slug: "frontend",
+    name: "Frontend",
+    description: "Cross-cutting frontend questions covering modern best practices.",
+    icon: "Layout",
+    accent: "from-sky-500 to-indigo-500",
+  },
+  react: {
+    slug: "react",
+    name: "React",
+    description: "Hooks, Fiber, concurrent rendering, hydration, and performance.",
+    icon: "Atom",
+    accent: "from-cyan-400 to-blue-500",
+  },
+  javascript: {
+    slug: "javascript",
+    name: "JavaScript",
+    description: "Closures, async, prototypes, modules, and language internals.",
+    icon: "Braces",
+    accent: "from-yellow-400 to-orange-500",
+  },
+  typescript: {
+    slug: "typescript",
+    name: "TypeScript",
+    description: "Generics, conditional types, inference, and design patterns.",
+    icon: "FileType2",
+    accent: "from-blue-500 to-indigo-600",
+  },
+  css: {
+    slug: "css",
+    name: "CSS",
+    description: "Layout, specificity, animations, modern Grid/Flex.",
+    icon: "Palette",
+    accent: "from-pink-500 to-rose-500",
+  },
+  html: {
+    slug: "html",
+    name: "HTML",
+    description: "Semantics, forms, accessibility primitives, web components.",
+    icon: "Code",
+    accent: "from-orange-500 to-red-500",
+  },
+  "browser-internals": {
+    slug: "browser-internals",
+    name: "Browser Internals",
+    description: "Event loop, V8, GC, rendering pipeline, paint and layout.",
+    icon: "Cpu",
+    accent: "from-violet-500 to-purple-600",
+  },
+  performance: {
+    slug: "performance",
+    name: "Performance",
+    description: "Bundle size, Core Web Vitals, virtualization, caching.",
+    icon: "Gauge",
+    accent: "from-emerald-500 to-green-600",
+  },
+  accessibility: {
+    slug: "accessibility",
+    name: "Accessibility",
+    description: "ARIA, keyboard navigation, screen readers, WCAG.",
+    icon: "Accessibility",
+    accent: "from-teal-500 to-cyan-600",
+  },
+  "system-design": {
+    slug: "system-design",
+    name: "System Design",
+    description: "Frontend architecture for scale, micro-frontends, modular apps.",
+    icon: "Network",
+    accent: "from-indigo-500 to-purple-600",
+  },
+  "machine-coding": {
+    slug: "machine-coding",
+    name: "Machine Coding",
+    description: "Build live: autocomplete, infinite scroll, carousels, etc.",
+    icon: "Terminal",
+    accent: "from-amber-500 to-orange-600",
+  },
+  testing: {
+    slug: "testing",
+    name: "Testing",
+    description: "Unit, integration, E2E, mocking, RTL, Playwright, Cypress.",
+    icon: "FlaskConical",
+    accent: "from-lime-500 to-green-500",
+  },
+  security: {
+    slug: "security",
+    name: "Security",
+    description: "XSS, CSRF, CSP, cookies, auth flows, OWASP for frontend.",
+    icon: "ShieldCheck",
+    accent: "from-red-500 to-rose-600",
+  },
+  networking: {
+    slug: "networking",
+    name: "Networking",
+    description: "HTTP, caching, CORS, WebSockets, HTTP/2 vs HTTP/3.",
+    icon: "Wifi",
+    accent: "from-blue-400 to-sky-600",
+  },
+  architecture: {
+    slug: "architecture",
+    name: "Architecture",
+    description: "Scalable apps, monorepos, design systems, state strategy.",
+    icon: "Boxes",
+    accent: "from-slate-500 to-zinc-700",
+  },
+  behavioral: {
+    slug: "behavioral",
+    name: "Behavioral",
+    description: "Project deep dives, leadership, collaboration, trade-offs.",
+    icon: "MessageSquare",
+    accent: "from-rose-400 to-pink-600",
+  },
+  "dsa-algorithms": {
+    slug: "dsa-algorithms",
+    name: "DSA & Algorithms",
+    description:
+      "Grind 75 - a hand-picked, priority-ranked LeetCode set. Arrays, graphs, trees, DP, and more, sized to fit an 8-week run-up to interviews.",
+    icon: "Binary",
+    accent: "from-red-500 to-orange-600",
+  },
+};
+
+export const CATEGORY_LIST = Object.values(CATEGORY_META);

@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Color tokens — InterviewPerp aesthetic.
+ * Dark = near-black, Light = warm off-white. Hairline borders, restrained.
+ */
+@layer base {
+  :root {
+    --background: 60 14% 97%;        /* #fafaf7 */
+    --foreground: 240 9% 11%;        /* #18181c */
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 9% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 9% 11%;
+
+    --primary: 240 9% 11%;
+    --primary-foreground: 60 14% 97%;
+
+    --secondary: 60 7% 95%;          /* #f5f5f0 */
+    --secondary-foreground: 240 9% 11%;
+
+    --muted: 60 7% 95%;
+    --muted-foreground: 232 6% 42%;  /* #67676f */
+
+    --accent: 60 7% 95%;
+    --accent-foreground: 240 9% 11%;
+
+    --destructive: 0 73% 50%;
+    --destructive-foreground: 60 14% 97%;
+
+    --border: 50 12% 90%;            /* #e8e8e1 */
+    --input: 50 12% 90%;
+    --ring: 240 9% 11%;
+
+    /* Brand */
+    --brand: 244 100% 69%;           /* #6c63ff (light) */
+    --brand-foreground: 0 0% 100%;
+    --brand-soft: 244 100% 69% / 0.10;
+    --brand-glow: 244 100% 69% / 0.18;
+    --teal: 175 84% 32%;             /* #0d9488 */
+    --success: 142 71% 45%;          /* #16a34a */
+    --warning: 27 96% 49%;           /* #d97706 */
+    --danger: 0 73% 50%;             /* #dc2626 */
+
+    --grid: 240 9% 11% / 0.05;
+    --radius: 0.875rem;              /* 14px — design uses 14 for cards */
+    --radius-btn: 0.5rem;            /* 8px buttons */
+  }
+
+  .dark {
+    --background: 240 11% 4%;        /* #08080a */
+    --foreground: 240 7% 93%;        /* #ededf0 */
+
+    --card: 240 11% 6%;              /* #0e0e11 */
+    --card-foreground: 240 7% 93%;
+
+    --popover: 240 11% 4%;
+    --popover-foreground: 240 7% 93%;
+
+    --primary: 240 7% 93%;
+    --primary-foreground: 240 11% 4%;
+
+    --secondary: 240 9% 9%;          /* #141418 */
+    --secondary-foreground: 240 7% 93%;
+
+    --muted: 240 9% 9%;
+    --muted-foreground: 232 6% 60%;  /* #9595a0 */
+
+    --accent: 240 11% 11%;           /* #1a1a20 */
+    --accent-foreground: 240 7% 93%;
+
+    --destructive: 0 90% 71%;
+    --destructive-foreground: 240 7% 93%;
+
+    --border: 240 11% 14%;           /* #1f1f26 */
+    --input: 240 11% 14%;
+    --ring: 240 7% 93%;
+
+    --brand: 245 100% 76%;           /* #8b85ff */
+    --brand-soft: 245 100% 76% / 0.16;
+    --brand-glow: 245 100% 76% / 0.35;
+    --teal: 165 76% 64%;             /* #5eead4 */
+    --success: 142 76% 58%;          /* #4ade80 */
+    --warning: 43 96% 56%;           /* #fbbf24 */
+    --danger: 0 90% 71%;             /* #f87171 */
+
+    --grid: 0 0% 100% / 0.035;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "cv11";
+    letter-spacing: -0.005em;
+  }
+
+  ::selection {
+    @apply bg-foreground/15;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1180px] px-5 sm:px-8;
+  }
+  .container-prose {
+    @apply mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8;
+  }
+  .surface {
+    @apply rounded-[14px] border bg-card;
+  }
+  .surface-hover {
+    @apply transition-colors hover:border-foreground/30;
+  }
+
+  /* Subtle dot/grid background for hero & roadmap. */
+  .grid-bg-dots {
+    background-image: radial-gradient(hsl(var(--grid)) 1px, transparent 1px);
+    background-size: 18px 18px;
+    -webkit-mask-image: radial-gradient(ellipse at center, black 35%, transparent 80%);
+    mask-image: radial-gradient(ellipse at center, black 35%, transparent 80%);
+  }
+  .grid-bg-lines {
+    background-image:
+      linear-gradient(to right, hsl(var(--grid)) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid)) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: radial-gradient(ellipse at center, black 35%, transparent 80%);
+    mask-image: radial-gradient(ellipse at center, black 35%, transparent 80%);
+  }
+
+  /* Mono uppercase eyebrow used throughout. */
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground;
+  }
+  .eyebrow-brand {
+    @apply font-mono text-[11px] uppercase tracking-[0.06em] text-[hsl(var(--brand))];
+  }
+
+  /* Long-form answer prose. */
+  .prose-q {
+    @apply max-w-none text-[15px] leading-7 text-foreground/90;
+  }
+  .prose-q p { @apply mb-4; }
+  .prose-q h1 { @apply mt-10 mb-4 text-2xl font-semibold tracking-tight; }
+  .prose-q h2 { @apply mt-8 mb-3 text-xl font-semibold tracking-tight; }
+  .prose-q h3 { @apply mt-6 mb-2 text-lg font-semibold; }
+  .prose-q strong { @apply font-semibold text-foreground; }
+  .prose-q ul, .prose-q ol { @apply mb-4 ml-6 space-y-1.5; }
+  .prose-q ul { @apply list-disc; }
+  .prose-q ol { @apply list-decimal; }
+  .prose-q a { @apply font-medium text-foreground underline-offset-4 hover:underline; }
+  .prose-q code { @apply rounded bg-muted px-1.5 py-0.5 font-mono text-[0.85em]; }
+  .prose-q blockquote { @apply mb-4 border-l-2 pl-4 italic text-muted-foreground; }
+  .prose-q table { @apply mb-4 w-full text-sm; }
+  .prose-q th, .prose-q td { @apply border px-3 py-2 text-left; }
+}
+
+.scrollbar-thin { scrollbar-width: thin; }
+.scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 4px; }
