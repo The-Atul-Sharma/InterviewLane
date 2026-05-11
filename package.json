@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:sync": "tsx scripts/ingest-to-supabase.ts",
+    "db:add": "tsx scripts/db-add.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

@@ -137,7 +137,7 @@ export default async function HomePage() {
 
       {/* ─── Stats strip ───────────────────────────────────── */}
       <section className="border-t border-b">
-        <div className="container-page flex flex-wrap justify-center gap-0 py-7">
+        <div className="container-page flex flex-nowrap justify-center gap-0 py-7">
           {[
             { v: formatNumber(stats.total), l: "curated questions" },
             { v: formatNumber(Object.keys(stats.byCategory).length), l: "categories" },
@@ -145,14 +145,14 @@ export default async function HomePage() {
           ].map((s, i) => (
             <div
               key={s.l}
-              className={`flex flex-col items-center gap-1 px-7 text-center ${
+              className={`flex flex-col items-center gap-1 px-4 text-center sm:px-7 ${
                 i > 0 ? "border-l border-border" : ""
               }`}
             >
-              <div className="text-[32px] font-semibold tracking-extra-tight leading-none">
+              <div className="text-2xl sm:text-[32px] font-semibold tracking-extra-tight leading-none">
                 {s.v}
               </div>
-              <span className="font-mono text-[11px] text-muted-foreground">{s.l}</span>
+              <span className="font-mono text-[10px] sm:text-[11px] text-muted-foreground whitespace-nowrap">{s.l}</span>
             </div>
           ))}
         </div>
