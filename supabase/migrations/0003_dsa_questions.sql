@@ -1,5 +1,5 @@
 -- =============================================================================
--- FrontendAce — DSA / Grind 169 LeetCode question list
+-- FrontendAce — DSA & Algorithms LeetCode question list
 -- Idempotent: safe to re-run. Public read; service-role writes.
 -- =============================================================================
 

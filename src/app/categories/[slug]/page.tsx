@@ -40,7 +40,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const { slug } = await params;
   if (!CATEGORIES.includes(slug as Category)) notFound();
   const meta = CATEGORY_META[slug];
-  const isDsa = slug === "dsa-algorithms";
+  const isDsa = slug === "dsa-algorithms-75" || slug === "dsa-algorithms-169";
   const dsaQuestions = isDsa ? await listDsaQuestions() : [];
   const questions = isDsa ? [] : await repository.listByCategory(slug as Category);
   const count = isDsa ? 0 : questions.length;
@@ -67,7 +67,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       </header>
 
       {isDsa ? (
-        <DsaGrindList questions={dsaQuestions} />
+        <DsaGrindList questions={dsaQuestions} showAll={slug === "dsa-algorithms-169"} />
       ) : questions.length === 0 ? (
         <div className="rounded-lg border bg-card p-10 text-center text-muted-foreground">
           <p>No questions in this category yet.</p>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Binary, Layers, Zap, Construction } from "lucide-react";
+import { ArrowRight, Layers, Zap, Construction } from "lucide-react";
 import { ROADMAPS } from "@/lib/roadmaps";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -15,7 +15,6 @@ export const metadata: Metadata = {
 const ICONS = {
   "frontend-foundations": Layers,
   "senior-frontend": Zap,
-  "dsa-frontend": Binary,
 } as const;
 
 export default function RoadmapsPage() {

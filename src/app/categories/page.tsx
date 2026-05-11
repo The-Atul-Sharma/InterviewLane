@@ -8,15 +8,14 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Categories",
-  description: "All frontend interview categories — React, JavaScript, Performance, System Design, and more.",
+  description:
+    "All frontend interview categories — React, JavaScript, Performance, System Design, and more.",
 };
 
 export default async function CategoriesPage() {
-  const [stats, dsaQuestions] = await Promise.all([
-    repository.getStats(),
-    listDsaQuestions(),
-  ]);
-  stats.byCategory["dsa-algorithms"] = dsaQuestions.filter((q) => q.inGrind75).length;
+  const [stats, dsaQuestions] = await Promise.all([repository.getStats(), listDsaQuestions()]);
+  stats.byCategory["dsa-algorithms-75"] = dsaQuestions.filter((q) => q.inGrind75).length;
+  stats.byCategory["dsa-algorithms-169"] = dsaQuestions.length;
   return (
     <div className="container-page py-12">
       <header className="mb-8">

@@ -15,7 +15,8 @@ const HUE: Record<string, number> = {
   performance: 30,
   accessibility: 175,
   "system-design": 270,
-  "dsa-algorithms": 0,
+  "dsa-algorithms-75": 0,
+  "dsa-algorithms-169": 10,
   "machine-coding": 40,
   testing: 130,
   security: 5,
@@ -41,7 +42,7 @@ export function CategoryCard({
   return (
     <Link
       href={`/categories/${cat.slug}`}
-      className="group surface surface-hover relative flex flex-col gap-3.5 p-[18px] transition-all"
+      className="surface surface-hover group relative flex flex-col gap-3.5 p-[18px] transition-all"
     >
       <div
         className="grid h-8 w-8 place-items-center rounded-lg text-white shadow-sm"

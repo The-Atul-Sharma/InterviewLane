@@ -16,14 +16,14 @@ export const dynamic = "force-static";
 export const metadata: Metadata = {
   title: "Resources",
   description:
-    "A curated, opinionated reading list for frontend interviews — organized by topic with an 8-week study track.",
+    "A curated, opinionated reading list for frontend interviews — organized by topic with a 10-week study track.",
 };
 
 const totalCount = RESOURCE_SECTIONS.reduce((n, s) => n + s.resources.length, 0);
 
 export default function ResourcesPage() {
   return (
-    <div className="container-page py-12 space-y-12">
+    <div className="container-page space-y-12 py-12">
       <Hero />
 
       <StudyTrack />
@@ -69,7 +69,8 @@ function Hero() {
         </h1>
         <p className="max-w-2xl text-muted-foreground">
           Every link worth bookmarking, organized by topic. {totalCount} resources across{" "}
-          {RESOURCE_SECTIONS.length} tracks — from DSA fundamentals to behavioral stories.
+          {RESOURCE_SECTIONS.length} tracks — from DSA fundamentals to behavioral stories. 10-week
+          study track included.
         </p>
         <div className="flex flex-wrap gap-2 pt-2">
           <a
@@ -96,14 +97,14 @@ function StudyTrack() {
       <div className="flex items-baseline justify-between gap-4">
         <div>
           <h2 id="study-track" className="text-xl font-semibold tracking-tight">
-            Suggested 8-week track
+            Suggested 10-week track
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
             Light scaffolding if you&apos;re starting from zero — adjust to the time you have.
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
         {STUDY_TRACK.map((w, i) => (
           <Card key={w.week} className="p-4">
             <div className="flex items-center gap-2">
@@ -134,13 +135,12 @@ function StudyTrack() {
 function Section({ section }: { section: ResourceSection }) {
   const Icon = section.icon;
   return (
-    <section id={section.slug} aria-labelledby={`${section.slug}-h`} className="scroll-mt-24 space-y-4">
-      <div
-        className={cn(
-          "rounded-xl border bg-gradient-to-br p-5",
-          section.accent,
-        )}
-      >
+    <section
+      id={section.slug}
+      aria-labelledby={`${section.slug}-h`}
+      className="scroll-mt-24 space-y-4"
+    >
+      <div className={cn("rounded-xl border bg-gradient-to-br p-5", section.accent)}>
         <div className="flex items-start gap-3">
           <div className="rounded-lg border bg-background/70 p-2 shadow-sm">
             <Icon className="h-4 w-4" />
@@ -154,9 +154,6 @@ function Section({ section }: { section: ResourceSection }) {
             </h2>
             <p className="mt-1 max-w-3xl text-sm text-muted-foreground">{section.blurb}</p>
           </div>
-          <span className="ml-auto shrink-0 text-xs text-muted-foreground">
-            {section.resources.length} {section.resources.length === 1 ? "link" : "links"}
-          </span>
         </div>
       </div>
 
@@ -201,7 +198,7 @@ function ResourceLink({ resource }: { resource: Resource }) {
         <Badge variant="outline">{KIND_LABEL[resource.kind]}</Badge>
         {resource.free ? <span>· Free</span> : null}
         <span className="ml-auto truncate font-mono text-[10px]">
-          {isExternal ? hostnameOf(resource.url) : "frontendprep"}
+          {isExternal ? hostnameOf(resource.url) : "frontendAce"}
         </span>
       </div>
     </a>

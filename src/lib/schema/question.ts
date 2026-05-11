@@ -17,7 +17,8 @@ export const CATEGORIES = [
   "networking",
   "architecture",
   "behavioral",
-  "dsa-algorithms",
+  "dsa-algorithms-75",
+  "dsa-algorithms-169",
 ] as const;
 
 export const DIFFICULTIES = ["easy", "medium", "hard"] as const;

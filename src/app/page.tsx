@@ -1,14 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  Bolt,
-  Calendar,
-  Check,
-  Flame,
-  Play,
-  Shuffle,
-  TrendingUp,
-} from "lucide-react";
+import { ArrowRight, Bolt, Calendar, Check, Flame, Play, Shuffle, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge, DifficultyBadge } from "@/components/ui/badge";
 import { CategoryCard } from "@/components/category-card";
@@ -27,18 +18,17 @@ export default async function HomePage() {
     repository.listAll(),
     listDsaQuestions(),
   ]);
-  stats.byCategory["dsa-algorithms"] = dsaQuestions.filter((q) => q.inGrind75).length;
+  stats.byCategory["dsa-algorithms-75"] = dsaQuestions.filter((q) => q.inGrind75).length;
+  stats.byCategory["dsa-algorithms-169"] = dsaQuestions.length;
 
-  const trending = all
-    .filter((q) => q.frequency === "very-high")
-    .slice(0, 5);
+  const trending = all.filter((q) => q.frequency === "very-high").slice(0, 5);
   const dailyPick = all[0];
   const featuredCategories = CATEGORY_LIST.filter((c) =>
     [
       "frontend",
       "react",
       "javascript",
-      "dsa-algorithms",
+      "dsa-algorithms-75",
       "performance",
       "system-design",
       "browser-internals",
@@ -96,13 +86,14 @@ export default async function HomePage() {
           aria-hidden
           className="pointer-events-none absolute -top-40 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full blur-[120px]"
           style={{
-            background:
-              "radial-gradient(circle, hsl(var(--brand-glow)) 0%, transparent 70%)",
+            background: "radial-gradient(circle, hsl(var(--brand-glow)) 0%, transparent 70%)",
           }}
         />
-        <div className="container-page relative flex flex-col items-center gap-6 pt-24 pb-16 text-center sm:pt-28">
+        <div className="container-page relative flex flex-col items-center gap-6 pb-16 pt-24 text-center sm:pt-28">
           <div className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-[12px] text-muted-foreground shadow-sm">
-            <Badge variant="brand" className="h-[18px] px-1.5 text-[10px]">★</Badge>
+            <Badge variant="brand" className="h-[18px] px-1.5 text-[10px]">
+              ★
+            </Badge>
             <span>Stop grinding. Start interviewing.</span>
             <ArrowRight className="h-3 w-3" />
           </div>
@@ -136,7 +127,7 @@ export default async function HomePage() {
       </section>
 
       {/* ─── Stats strip ───────────────────────────────────── */}
-      <section className="border-t border-b">
+      <section className="border-b border-t">
         <div className="container-page flex flex-nowrap justify-center gap-0 py-7">
           {[
             { v: formatNumber(stats.total), l: "curated questions" },
@@ -149,10 +140,12 @@ export default async function HomePage() {
                 i > 0 ? "border-l border-border" : ""
               }`}
             >
-              <div className="text-2xl sm:text-[32px] font-semibold tracking-extra-tight leading-none">
+              <div className="text-2xl font-semibold leading-none tracking-extra-tight sm:text-[32px]">
                 {s.v}
               </div>
-              <span className="font-mono text-[10px] sm:text-[11px] text-muted-foreground whitespace-nowrap">{s.l}</span>
+              <span className="whitespace-nowrap font-mono text-[10px] text-muted-foreground sm:text-[11px]">
+                {s.l}
+              </span>
             </div>
           ))}
         </div>
@@ -180,7 +173,7 @@ export default async function HomePage() {
       </section>
 
       {/* ─── Roadmap preview ──────────────────────────────── */}
-      <section className="relative border-t border-b bg-card overflow-hidden">
+      <section className="relative overflow-hidden border-b border-t bg-card">
         <div className="grid-bg-dots absolute inset-0 opacity-60" aria-hidden />
         <div className="container-page relative py-20">
           <div className="mb-10 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
@@ -386,7 +379,7 @@ function PhaseCard({
         <DifficultyBadge level={phase} />
         <span className="font-mono text-[10.5px] text-muted-foreground">{subtitle}</span>
       </div>
-      <div className="text-[26px] font-semibold leading-none tracking-extra-tight tabular-nums">
+      <div className="text-[26px] font-semibold tabular-nums leading-none tracking-extra-tight">
         {pct}%
       </div>
       <div className="h-1 w-full overflow-hidden rounded-full bg-secondary">
@@ -438,7 +431,7 @@ function ShortcutCard({
   return (
     <Link
       href={href}
-      className="group surface surface-hover flex items-start gap-3.5 p-5 transition-colors"
+      className="surface surface-hover group flex items-start gap-3.5 p-5 transition-colors"
     >
       <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-secondary">
         <Icon className="h-4 w-4" />

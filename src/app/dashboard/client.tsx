@@ -5,11 +5,7 @@ import { Bookmark, CheckCircle2, Eye, Flame, Loader2, LogOut } from "lucide-reac
 import { useUserStore } from "@/lib/store/user-state";
 import type { CategoryMeta, QuestionMeta } from "@/lib/schema/question";
 import type { RepoStats } from "@/lib/repository";
-import {
-  DSA_SLUG_PREFIX,
-  leetcodeSlugKey,
-  type GrindQuestion,
-} from "@/lib/dsa-types";
+import { DSA_SLUG_PREFIX, leetcodeSlugKey, type GrindQuestion } from "@/lib/dsa-types";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -77,7 +73,7 @@ function Inner({
     dsaPool.filter((q) => q.inGrind75).map((q) => leetcodeSlugKey(q.slug)),
   );
   const dsaCompleted = completed.filter((s) => grind75Slugs.has(s)).length;
-  if (dsaCompleted > 0) completedByCat["dsa-algorithms"] = dsaCompleted;
+  if (dsaCompleted > 0) completedByCat["dsa-algorithms-75"] = dsaCompleted;
 
   const totalPool = pool.length + grind75Slugs.size;
   const totalCompleted =
@@ -111,12 +107,7 @@ function Inner({
           sub={`${overall}% of ${totalPool}`}
         />
         <Metric icon={Bookmark} label="Bookmarks" value={bookmarks.length} />
-        <Metric
-          icon={Flame}
-          label="Day streak"
-          value={streak.days}
-          sub={streak.lastDate ?? "—"}
-        />
+        <Metric icon={Flame} label="Day streak" value={streak.days} sub={streak.lastDate ?? "—"} />
         <Metric icon={Eye} label="Recently viewed" value={recentItems.length} />
       </div>
 

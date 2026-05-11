@@ -113,13 +113,21 @@ export const CATEGORY_META: Record<string, CategoryMeta> = {
     icon: "MessageSquare",
     accent: "from-rose-400 to-pink-600",
   },
-  "dsa-algorithms": {
-    slug: "dsa-algorithms",
+  "dsa-algorithms-75": {
+    slug: "dsa-algorithms-75",
     name: "DSA & Algorithms",
     description:
-      "Grind 75 - a hand-picked, priority-ranked LeetCode set. Arrays, graphs, trees, DP, and more, sized to fit an 8-week run-up to interviews.",
+      "75 hand-picked, priority-ranked LeetCode problems. Arrays, graphs, trees, DP, and more",
     icon: "Binary",
     accent: "from-red-500 to-orange-600",
+  },
+  "dsa-algorithms-169": {
+    slug: "dsa-algorithms-169",
+    name: "DSA & Algorithms",
+    description:
+      "169 problem set covering every 75 problems plus deeper coverage across all major patterns.",
+    icon: "Binary",
+    accent: "from-rose-500 to-red-700",
   },
 };
 

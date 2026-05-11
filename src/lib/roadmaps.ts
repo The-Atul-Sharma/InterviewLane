@@ -1,8 +1,3 @@
-/**
- * Roadmap definitions. The DSA roadmap is intentionally a structured
- * placeholder for now — the question pool and the in-browser practice
- * editor land in the DSA phase (per spec).
- */
 export interface RoadmapTopic {
   slug: string;
   name: string;
@@ -46,29 +41,6 @@ export const ROADMAPS: Roadmap[] = [
       { slug: "system-design", name: "System Design", description: "Scaling, modular apps, micro-frontends.", itemCount: 0 },
       { slug: "security", name: "Security", description: "XSS, CSRF, cookies, auth flows.", itemCount: 0 },
       { slug: "architecture", name: "Architecture", description: "Design systems, monorepos, state strategy.", itemCount: 0 },
-    ],
-  },
-  {
-    slug: "dsa-frontend",
-    name: "DSA for Frontend (Blind 75 / Grind 75 style)",
-    description:
-      "Frontend-focused DSA with an in-browser practice editor. Arrays → Strings → Hashing → Stack/Queue → Trees → Graphs → DP. Easy → Medium → Hard progression.",
-    estimatedHours: 80,
-    status: "coming-soon",
-    topics: [
-      { slug: "arrays", name: "Arrays", description: "Two pointers, sliding window.", itemCount: 0 },
-      { slug: "strings", name: "Strings", description: "Substring, parsing.", itemCount: 0 },
-      { slug: "hashing", name: "Hashing", description: "Maps, sets, dedupe.", itemCount: 0 },
-      { slug: "stack", name: "Stack", description: "Monotonic, validation.", itemCount: 0 },
-      { slug: "queue", name: "Queue", description: "BFS, levels.", itemCount: 0 },
-      { slug: "trees", name: "Trees", description: "Traversal, BST, paths.", itemCount: 0 },
-      { slug: "graphs", name: "Graphs", description: "DFS, BFS, topo.", itemCount: 0 },
-      { slug: "sliding-window", name: "Sliding Window", description: "Variable & fixed.", itemCount: 0 },
-      { slug: "two-pointer", name: "Two Pointer", description: "In-place transforms.", itemCount: 0 },
-      { slug: "recursion", name: "Recursion", description: "Backtracking, divide & conquer.", itemCount: 0 },
-      { slug: "dp", name: "Dynamic Programming", description: "1D, 2D, knapsack.", itemCount: 0 },
-      { slug: "binary-search", name: "Binary Search", description: "Bounds, on answers.", itemCount: 0 },
-      { slug: "greedy", name: "Greedy", description: "Intervals, scheduling.", itemCount: 0 },
     ],
   },
 ];

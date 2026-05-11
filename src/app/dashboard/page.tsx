@@ -17,7 +17,8 @@ export default async function DashboardPage() {
     listDsaQuestions(),
   ]);
   const grind75Count = dsa.filter((q) => q.inGrind75).length;
-  stats.byCategory["dsa-algorithms"] = grind75Count;
+  stats.byCategory["dsa-algorithms-75"] = grind75Count;
+  stats.byCategory["dsa-algorithms-169"] = dsa.length;
   stats.total += grind75Count;
   return (
     <div className="container-page py-12">
@@ -31,12 +32,7 @@ export default async function DashboardPage() {
           browser data wipes it.
         </p>
       </header>
-      <DashboardClient
-        pool={all}
-        stats={stats}
-        categories={CATEGORY_LIST}
-        dsaPool={dsa}
-      />
+      <DashboardClient pool={all} stats={stats} categories={CATEGORY_LIST} dsaPool={dsa} />
     </div>
   );
 }

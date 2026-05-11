@@ -31,19 +31,18 @@ function formatTopic(topic: string): string {
     .join(" ");
 }
 
-export function DsaGrindList({ questions }: { questions: GrindQuestion[] }) {
+export function DsaGrindList({ questions, showAll = false }: { questions: GrindQuestion[]; showAll?: boolean }) {
   const { user } = useAuth();
   const hydrated = useUserStore((s) => s.hydrated);
   const completed = useUserStore((s) => s.completed);
 
-  const [showAll169, setShowAll169] = useState(false);
   const [difficulty, setDifficulty] = useState<DifficultyFilter>("all");
   const [topic, setTopic] = useState<string>("all");
   const [query, setQuery] = useState("");
 
   const activeList = useMemo(
-    () => (showAll169 ? questions : questions.filter((q) => q.inGrind75)),
-    [showAll169, questions],
+    () => (showAll ? questions : questions.filter((q) => q.inGrind75)),
+    [showAll, questions],
   );
 
   const completedSet = useMemo(() => new Set(completed), [completed]);
@@ -132,25 +131,6 @@ export function DsaGrindList({ questions }: { questions: GrindQuestion[] }) {
             ))}
           </SelectContent>
         </Select>
-        <label
-          className={cn(
-            "inline-flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors",
-            showAll169
-              ? "border-foreground bg-foreground text-background"
-              : "border-border bg-card text-muted-foreground hover:text-foreground",
-          )}
-        >
-          <input
-            type="checkbox"
-            className="h-3.5 w-3.5 accent-current"
-            checked={showAll169}
-            onChange={(e) => {
-              setShowAll169(e.target.checked);
-              setTopic("all");
-            }}
-          />
-          Grind 169 problems
-        </label>
         <span className="ml-auto text-xs text-muted-foreground">
           {filtered.length} of {activeList.length}
         </span>

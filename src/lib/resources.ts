@@ -18,7 +18,14 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-export type ResourceKind = "course" | "docs" | "questions" | "article" | "video" | "practice" | "cheatsheet";
+export type ResourceKind =
+  | "course"
+  | "docs"
+  | "questions"
+  | "article"
+  | "video"
+  | "practice"
+  | "cheatsheet";
 
 export type Resource = {
   title: string;
@@ -48,11 +55,11 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
     accent: "from-violet-500/15 to-fuchsia-500/10",
     resources: [
       {
-        title: "DSA for Frontend — our curated roadmap",
-        url: "/roadmaps/dsa-frontend",
+        title: "DSA for Frontend — Grind 75 questions",
+        url: "/categories/dsa-algorithms-75",
         kind: "practice",
         description:
-          "Blind/Grind 75 reimagined for frontend interviews, with an in-browser editor and pattern grouping.",
+          "75 hand-picked, priority-ranked problems covering arrays, graphs, trees, DP, and more — tuned for frontend interviews.",
         free: true,
         recommended: true,
       },
@@ -70,7 +77,8 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         title: "javascript.info",
         url: "https://javascript.info/",
         kind: "course",
-        description: "The deepest free JS course — Promises, classes, DOM events, cookies, storage.",
+        description:
+          "The deepest free JS course — Promises, classes, DOM events, cookies, storage.",
         free: true,
         recommended: true,
       },
@@ -109,6 +117,13 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         description: "High-signal subset curated by frontend interviewers.",
         free: true,
         recommended: true,
+      },
+      {
+        title: "JS interview Q&A — ChatGPT thread",
+        url: "https://chatgpt.com/share/68bd6255-1500-800f-9b94-e349d942388e",
+        kind: "questions",
+        description: "Curated ChatGPT walkthrough of common JavaScript interview questions.",
+        free: true,
       },
     ],
   },
@@ -164,8 +179,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
   {
     slug: "nextjs",
     name: "Next.js",
-    blurb:
-      "App Router, server components, caching, route handlers, and rendering strategies.",
+    blurb: "App Router, server components, caching, route handlers, and rendering strategies.",
     icon: Rocket,
     accent: "from-zinc-500/15 to-slate-500/10",
     resources: [
@@ -192,6 +206,14 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         url: "https://www.finalroundai.com/blog/redux-interview-questions",
         kind: "questions",
         description: "Common Redux questions with answer outlines.",
+        free: true,
+      },
+      {
+        title: "Redux Q&A — ChatGPT thread",
+        url: "https://chatgpt.com/share/687f8554-4fd0-800f-87ee-96a616994936",
+        kind: "questions",
+        description:
+          "Curated ChatGPT walkthrough of Redux concepts and common interview questions.",
         free: true,
       },
     ],
@@ -290,17 +312,72 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
     icon: Puzzle,
     accent: "from-orange-500/15 to-red-500/10",
     resources: [
-      { title: "Autocomplete / Typeahead", url: "https://www.greatfrontend.com/questions/system-design/autocomplete", kind: "practice", description: "Debounced fetch, race conditions, keyboard nav, a11y." },
-      { title: "Folder tree", url: "https://www.greatfrontend.com/questions/user-interface/file-explorer", kind: "practice", description: "Recursive rendering, lazy expansion, state lifting." },
-      { title: "Accordion component", url: "https://www.greatfrontend.com/questions/user-interface/accordion", kind: "practice", description: "Controlled/uncontrolled, multi-open vs single-open, a11y." },
-      { title: "Progress bar", url: "https://www.greatfrontend.com/questions/user-interface/progress-bar", kind: "practice", description: "Animated transitions, indeterminate state, ARIA." },
-      { title: "Infinite scroll", url: "https://www.greatfrontend.com/questions/user-interface/infinite-scroll", kind: "practice", description: "IntersectionObserver, cursor pagination, virtualization." },
-      { title: "Event emitter / pub-sub", url: "https://www.greatfrontend.com/questions/javascript/event-emitter", kind: "practice", description: "Subscribe/unsubscribe semantics and memory leaks." },
-      { title: "Trello / Kanban board", url: "https://www.greatfrontend.com/questions/user-interface/kanban-board", kind: "practice", description: "Drag-and-drop, optimistic updates, normalized state." },
-      { title: "Virtualized list", url: "https://www.greatfrontend.com/questions/user-interface/virtualized-list", kind: "practice", description: "Windowing math, variable-height rows, scroll restoration." },
-      { title: "Custom hooks (useInterval, usePrevious, useLocalStorage, useAsync)", url: "https://usehooks.com/", kind: "practice", description: "Build them yourself before peeking at the reference." },
-      { title: "Calendar / date picker", url: "https://www.greatfrontend.com/questions/user-interface/date-picker", kind: "practice", description: "Date math, keyboard nav, locale handling." },
-      { title: "Stopwatch", url: "https://www.greatfrontend.com/questions/user-interface/stopwatch", kind: "practice", description: "requestAnimationFrame, drift correction, pause/resume." },
+      {
+        title: "Autocomplete / Typeahead",
+        url: "https://www.greatfrontend.com/questions/system-design/autocomplete",
+        kind: "practice",
+        description: "Debounced fetch, race conditions, keyboard nav, a11y.",
+      },
+      {
+        title: "Folder tree",
+        url: "https://www.greatfrontend.com/questions/user-interface/file-explorer",
+        kind: "practice",
+        description: "Recursive rendering, lazy expansion, state lifting.",
+      },
+      {
+        title: "Accordion component",
+        url: "https://www.greatfrontend.com/questions/user-interface/accordion",
+        kind: "practice",
+        description: "Controlled/uncontrolled, multi-open vs single-open, a11y.",
+      },
+      {
+        title: "Progress bar",
+        url: "https://www.greatfrontend.com/questions/user-interface/progress-bar",
+        kind: "practice",
+        description: "Animated transitions, indeterminate state, ARIA.",
+      },
+      {
+        title: "Infinite scroll",
+        url: "https://www.greatfrontend.com/questions/user-interface/infinite-scroll",
+        kind: "practice",
+        description: "IntersectionObserver, cursor pagination, virtualization.",
+      },
+      {
+        title: "Event emitter / pub-sub",
+        url: "https://www.greatfrontend.com/questions/javascript/event-emitter",
+        kind: "practice",
+        description: "Subscribe/unsubscribe semantics and memory leaks.",
+      },
+      {
+        title: "Trello / Kanban board",
+        url: "https://www.greatfrontend.com/questions/user-interface/kanban-board",
+        kind: "practice",
+        description: "Drag-and-drop, optimistic updates, normalized state.",
+      },
+      {
+        title: "Virtualized list",
+        url: "https://www.greatfrontend.com/questions/user-interface/virtualized-list",
+        kind: "practice",
+        description: "Windowing math, variable-height rows, scroll restoration.",
+      },
+      {
+        title: "Custom hooks (useInterval, usePrevious, useLocalStorage, useAsync)",
+        url: "https://usehooks.com/",
+        kind: "practice",
+        description: "Build them yourself before peeking at the reference.",
+      },
+      {
+        title: "Calendar / date picker",
+        url: "https://www.greatfrontend.com/questions/user-interface/date-picker",
+        kind: "practice",
+        description: "Date math, keyboard nav, locale handling.",
+      },
+      {
+        title: "Stopwatch",
+        url: "https://www.greatfrontend.com/questions/user-interface/stopwatch",
+        kind: "practice",
+        description: "requestAnimationFrame, drift correction, pause/resume.",
+      },
     ],
   },
   {
@@ -331,8 +408,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
   {
     slug: "platforms",
     name: "Mock & Practice Platforms",
-    blurb:
-      "End-to-end interview playbooks, mock interviews, and curated 75-question lists.",
+    blurb: "End-to-end interview playbooks, mock interviews, and curated 75-question lists.",
     icon: Sparkles,
     accent: "from-yellow-500/15 to-amber-500/10",
     resources: [
@@ -377,13 +453,12 @@ export const KIND_LABEL: Record<ResourceKind, string> = {
 
 export const STUDY_TRACK = [
   { week: "Week 1", focus: "JavaScript foundations + DOM/events", sections: ["javascript"] },
-  { week: "Week 2", focus: "DSA patterns (Grind 75 / NeetCode)", sections: ["dsa"] },
-  { week: "Week 3", focus: "React deep-dive + TypeScript", sections: ["react", "typescript"] },
-  { week: "Week 4", focus: "Performance + design patterns", sections: ["performance", "patterns"] },
-  { week: "Week 5", focus: "Live coding components", sections: ["live-coding"] },
-  { week: "Week 6", focus: "Frontend system design", sections: ["system-design"] },
-  { week: "Week 7", focus: "Next.js + Redux/state", sections: ["nextjs", "redux"] },
-  { week: "Week 8", focus: "Behavioral stories + mocks", sections: ["behavioral", "platforms"] },
+  { week: "Weeks 2–4", focus: "DSA & Algorithms", sections: ["dsa"] },
+  { week: "Week 5", focus: "Performance + design patterns", sections: ["performance", "patterns"] },
+  { week: "Week 6", focus: "Live coding components", sections: ["live-coding"] },
+  { week: "Week 7", focus: "Frontend system design", sections: ["system-design"] },
+  { week: "Week 8", focus: "Next.js + Redux/state", sections: ["nextjs", "redux"] },
+  { week: "Extra", focus: "Behavioral stories + mocks", sections: ["behavioral", "platforms"] },
 ] as const;
 
 export const RESOURCE_ICONS = {

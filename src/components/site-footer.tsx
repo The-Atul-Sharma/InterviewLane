@@ -20,7 +20,6 @@ const COLUMNS = [
       { label: "All roadmaps", href: "/roadmaps" },
       { label: "Frontend foundations", href: "/roadmaps/frontend-foundations" },
       { label: "Senior frontend", href: "/roadmaps/senior-frontend" },
-      { label: "DSA for frontend", href: "/roadmaps/dsa-frontend" },
     ],
   },
   {
