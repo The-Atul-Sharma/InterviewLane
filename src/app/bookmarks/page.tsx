@@ -3,7 +3,7 @@ import { repository } from "@/lib/repository";
 import { listDsaQuestions } from "@/lib/dsa-repository";
 import { BookmarksClient } from "./client";
 
-export const dynamic = "force-static";
+export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Bookmarks",
   description: "Your saved interview questions for revision.",

@@ -23,12 +23,7 @@ import { BookmarkAndCompleteButtons } from "@/components/bookmark-button";
 import { ReadingProgress } from "@/components/reading-progress";
 import { QuestionCard } from "@/components/question-card";
 
-export const dynamic = "force-static";
-
-export async function generateStaticParams() {
-  const all = await repository.listAll();
-  return all.map((q) => ({ slug: q.slug }));
-}
+export const revalidate = 86400;
 
 export async function generateMetadata({
   params,

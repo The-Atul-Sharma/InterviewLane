@@ -8,7 +8,7 @@ import { CATEGORY_LIST } from "@/lib/categories";
 import { listDsaQuestions } from "@/lib/dsa-repository";
 import { formatNumber } from "@/lib/utils";
 
-export const dynamic = "force-static";
+export const revalidate = 86400;
 
 const DIFFICULTY_RANK = { easy: 0, medium: 1, hard: 2 } as const;
 

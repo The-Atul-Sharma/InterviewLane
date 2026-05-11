@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SearchClient } from "./client";
 
-export const dynamic = "force-static";
+export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Search",
   description: "Full-text search across all interview questions and categories.",

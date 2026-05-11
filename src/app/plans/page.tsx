@@ -5,7 +5,7 @@ import { PREP_PLANS } from "@/lib/roadmaps";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-export const dynamic = "force-static";
+export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Preparation Plans",
   description:

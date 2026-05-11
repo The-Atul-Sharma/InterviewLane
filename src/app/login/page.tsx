@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { LoginForm } from "./form";
 
-export const dynamic = "force-static";
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Sign in",

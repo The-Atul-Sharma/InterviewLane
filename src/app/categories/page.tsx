@@ -4,7 +4,7 @@ import { CategoryCard } from "@/components/category-card";
 import { listDsaQuestions } from "@/lib/dsa-repository";
 import { repository } from "@/lib/repository";
 
-export const dynamic = "force-static";
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Categories",

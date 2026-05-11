@@ -12,7 +12,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-export const dynamic = "force-static";
+export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Resources",
   description:

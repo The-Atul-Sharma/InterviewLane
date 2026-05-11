@@ -8,11 +8,7 @@ import { listDsaQuestions } from "@/lib/dsa-repository";
 import { Badge } from "@/components/ui/badge";
 import { RoadmapClient } from "./client";
 
-export const dynamic = "force-static";
-
-export function generateStaticParams() {
-  return ROADMAPS.map((r) => ({ slug: r.slug }));
-}
+export const revalidate = 86400;
 
 export async function generateMetadata({
   params,

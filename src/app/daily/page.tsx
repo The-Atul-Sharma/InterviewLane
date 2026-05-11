@@ -5,7 +5,7 @@ import { repository } from "@/lib/repository";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 
-export const dynamic = "force-static";
+export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Daily Challenge",
   description: "One frontend interview question, fresh every day. Build a streak.",

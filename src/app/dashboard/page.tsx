@@ -4,7 +4,7 @@ import { listDsaQuestions } from "@/lib/dsa-repository";
 import { CATEGORY_LIST } from "@/lib/categories";
 import { DashboardClient } from "./client";
 
-export const dynamic = "force-static";
+export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Your interview prep progress, streak, bookmarks, and recent activity.",

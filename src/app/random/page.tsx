@@ -4,7 +4,7 @@ import { repository } from "@/lib/repository";
 import { Badge } from "@/components/ui/badge";
 import { RandomInterviewClient } from "./client";
 
-export const dynamic = "force-static";
+export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Random Interview Mode",
   description: "Five random questions across categories — simulate a frontend interview round.",

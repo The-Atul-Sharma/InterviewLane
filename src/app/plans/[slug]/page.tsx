@@ -7,11 +7,7 @@ import { repository } from "@/lib/repository";
 import { Badge } from "@/components/ui/badge";
 import { PlanDayList } from "./plan-day-list";
 
-export const dynamic = "force-static";
-
-export function generateStaticParams() {
-  return PREP_PLANS.map((p) => ({ slug: p.slug }));
-}
+export const revalidate = 86400;
 
 export async function generateMetadata({
   params,

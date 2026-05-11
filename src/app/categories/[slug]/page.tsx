@@ -10,11 +10,7 @@ import { listDsaQuestions } from "@/lib/dsa-repository";
 import { repository } from "@/lib/repository";
 import { siteUrl } from "@/lib/utils";
 
-export const dynamic = "force-static";
-
-export async function generateStaticParams() {
-  return CATEGORIES.map((slug) => ({ slug }));
-}
+export const revalidate = 86400;
 
 export async function generateMetadata({
   params,
