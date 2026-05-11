@@ -69,25 +69,12 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
     .filter((h) => h.level <= 3)
     .map((h) => ({ id: h.id, text: h.text, level: h.level }));
 
-  const related = (
-    await Promise.all(
-      q.relatedSlugs.slice(0, 6).map((s) => repository.getBySlug(s).catch(() => null)),
-    )
-  )
-    .filter((x): x is NonNullable<typeof x> => !!x)
-    .map((x) => ({
-      id: x.id,
-      slug: x.slug,
-      title: x.title,
-      category: x.category,
-      tags: x.tags,
-      difficulty: x.difficulty,
-      frequency: x.frequency,
-      seniority: x.seniority,
-      shortDescription: x.shortDescription,
-      estimatedReadingMinutes: x.estimatedReadingMinutes,
-      estimatedSolvingMinutes: x.estimatedSolvingMinutes,
-    }));
+  const allMetas = await repository.listAll();
+  const metaBySlug = new Map(allMetas.map((m) => [m.slug, m]));
+  const related = q.relatedSlugs
+    .slice(0, 6)
+    .map((s) => metaBySlug.get(s))
+    .filter((x): x is NonNullable<typeof x> => !!x);
 
   const jsonLd = {
     "@context": "https://schema.org",

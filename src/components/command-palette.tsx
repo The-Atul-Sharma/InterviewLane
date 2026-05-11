@@ -69,8 +69,10 @@ export function CommandPalette() {
       return items.filter((it) => it.title.toLowerCase().includes(q)).slice(0, 15);
     }
     const arr = [...items];
+    let seed = randomSeed;
     for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+      seed = (seed * 9301 + 49297) % 233280;
+      const j = Math.floor((seed / 233280) * (i + 1));
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
     return arr.slice(0, 5);
