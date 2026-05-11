@@ -2,7 +2,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Github, Bookmark, LayoutGrid, Map, BarChart3 } from "lucide-react";
+import { Search, Github, Bookmark, LayoutGrid, Map, BarChart3, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -14,7 +14,7 @@ const NAV = [
   { href: "/categories", label: "Categories", icon: LayoutGrid },
   { href: "/roadmaps", label: "Roadmaps", icon: Map },
   { href: "/plans", label: "Plans", icon: BarChart3 },
-  { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
+  { href: "/resources", label: "Resources", icon: BookOpen },
 ];
 
 export function SiteHeader() {

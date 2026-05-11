@@ -9,7 +9,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { siteUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://FrontendAce.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://frontend-ace-iota.vercel.app/"),
   title: {
     default: "FrontendAce — Ace your frontend interview",
     template: "%s · FrontendAce",
