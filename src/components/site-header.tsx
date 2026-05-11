@@ -61,7 +61,7 @@ export function SiteHeader() {
               </kbd>
             </Button>
             <Link
-              href="https://github.com"
+              href="https://github.com/The-Atul-Sharma/frontendAce"
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
@@ -76,7 +76,10 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <nav className="container-page flex gap-1 overflow-x-auto py-1.5 text-sm md:hidden" aria-label="Mobile">
+        <nav
+          className="container-page flex gap-1 overflow-x-auto py-1.5 text-sm md:hidden"
+          aria-label="Mobile"
+        >
           {NAV.map((item) => {
             const active = pathname === item.href || pathname.startsWith(item.href + "/");
             return (

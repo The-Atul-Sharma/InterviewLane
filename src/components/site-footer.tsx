@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Twitter } from "lucide-react";
+import { Github } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { useAuth } from "@/components/providers/auth-provider";
 
@@ -50,22 +50,13 @@ export function SiteFooter() {
           </p>
           <div className="mt-4 flex gap-3 text-muted-foreground">
             <Link
-              href="https://github.com"
+              href="https://github.com/The-Atul-Sharma/frontendAce"
               aria-label="GitHub"
               target="_blank"
               rel="noreferrer"
               className="hover:text-foreground"
             >
               <Github className="h-4 w-4" />
-            </Link>
-            <Link
-              href="https://twitter.com"
-              aria-label="Twitter"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-foreground"
-            >
-              <Twitter className="h-4 w-4" />
             </Link>
           </div>
         </div>
@@ -88,9 +79,7 @@ export function SiteFooter() {
         <span className="font-mono text-muted-foreground">
           © {new Date().getFullYear()} FrontendAce
         </span>
-        <span className="font-mono text-muted-foreground">
-          Built for senior frontend engineers
-        </span>
+        <span className="font-mono text-muted-foreground">Built for senior frontend engineers</span>
       </div>
     </footer>
   );
