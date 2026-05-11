@@ -59,7 +59,7 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
   if (!q) notFound();
 
   const cat = CATEGORY_META[q.category];
-  const { html, headings } = renderMarkdown(q.answer);
+  const { html, headings } = await renderMarkdown(q.answer);
   const toc = headings
     .filter((h) => h.level <= 3)
     .map((h) => ({ id: h.id, text: h.text, level: h.level }));

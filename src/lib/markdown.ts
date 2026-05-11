@@ -1,14 +1,4 @@
-/**
- * Tiny, dependency-light markdown → safe HTML.
- *
- * We intentionally support only the markdown subset our authored answers
- * use (paragraphs, headings, bold, italic, inline code, links, lists,
- * blockquotes, horizontal rules, tables). No raw HTML pass-through —
- * everything is escaped first, then markdown markers are converted.
- *
- * Why not `marked` / `remark`?  ~100KB on the server bundle to render
- * what we already control end-to-end.
- */
+import { highlightCode } from "@/lib/highlight";
 const HTML_ESCAPE: Record<string, string> = {
   "&": "&amp;",
   "<": "&lt;",
@@ -55,7 +45,7 @@ export interface RenderResult {
   headings: Heading[];
 }
 
-export function renderMarkdown(src: string): RenderResult {
+export async function renderMarkdown(src: string): Promise<RenderResult> {
   const lines = src.replace(/\r\n/g, "\n").split("\n");
   const out: string[] = [];
   const headings: Heading[] = [];
@@ -66,6 +56,28 @@ export function renderMarkdown(src: string): RenderResult {
 
     if (!line.trim()) {
       i++;
+      continue;
+    }
+
+    // fenced code block
+    const fence = line.match(/^```(\w*)$/);
+    if (fence) {
+      const lang = fence[1] || "ts";
+      const codeLines: string[] = [];
+      i++;
+      while (i < lines.length && !lines[i].startsWith("```")) {
+        codeLines.push(lines[i]);
+        i++;
+      }
+      i++;
+      const code = codeLines.join("\n");
+      const shikiHtml = await highlightCode(code, lang);
+      out.push(
+        `<figure class="my-5 overflow-hidden rounded-lg border bg-card">` +
+          `<div class="border-b bg-muted/40 px-3 py-1.5 text-xs font-mono uppercase text-muted-foreground">${escape(lang)}</div>` +
+          `<div class="shiki-wrapper overflow-x-auto text-[13px] leading-6 [&_pre]:!my-0 [&_pre]:px-4 [&_pre]:py-3">${shikiHtml}</div>` +
+          `</figure>`,
+      );
       continue;
     }
 
@@ -145,7 +157,7 @@ export function renderMarkdown(src: string): RenderResult {
     while (
       i < lines.length &&
       lines[i].trim() &&
-      !/^(#{1,6}\s|>\s?|\s*[-*]\s+|\s*\d+\.\s+|\s*\|.+\|\s*$)/.test(lines[i])
+      !/^(#{1,6}\s|>\s?|\s*[-*]\s+|\s*\d+\.\s+|\s*\|.+\|\s*$|```)/.test(lines[i])
     ) {
       buf.push(lines[i]);
       i++;
