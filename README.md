@@ -2,7 +2,7 @@
 
 **Ace your frontend interview. Without the grind.**
 
-A curated interview prep platform built by engineers, for engineers. Practice structured questions, follow opinionated roadmaps, and walk into your next frontend interview confident.
+A curated interview prep platform for engineers. Practice structured questions, follow opinionated roadmaps, and walk into your next frontend interview confident.
 
 **Live site → [frontend-ace-iota.vercel.app](https://frontend-ace-iota.vercel.app/)**
 
@@ -50,19 +50,19 @@ A curated interview prep platform built by engineers, for engineers. Practice st
 
 ## Tech Stack
 
-| Layer | Tech |
-|---|---|
-| Framework | Next.js 15 (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| UI Primitives | Radix UI |
-| Animations | Framer Motion |
-| Database | Supabase (Postgres) |
-| Auth | Supabase Auth |
-| Search | Fuse.js |
-| Syntax highlighting | Shiki |
-| State | Zustand |
-| Deployment | Vercel |
+| Layer               | Tech                    |
+| ------------------- | ----------------------- |
+| Framework           | Next.js 15 (App Router) |
+| Language            | TypeScript              |
+| Styling             | Tailwind CSS            |
+| UI Primitives       | Radix UI                |
+| Animations          | Framer Motion           |
+| Database            | Supabase (Postgres)     |
+| Auth                | Supabase Auth           |
+| Search              | Fuse.js                 |
+| Syntax highlighting | Shiki                   |
+| State               | Zustand                 |
+| Deployment          | Vercel                  |
 
 ---
 
