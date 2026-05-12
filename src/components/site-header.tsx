@@ -26,7 +26,7 @@ export function SiteHeader() {
       <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container-page flex h-14 items-center gap-4">
           <Link href="/" aria-label="Home">
-            <Logo size={22} />
+            <Logo size={22} className="py-2" />
           </Link>
 
           <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
