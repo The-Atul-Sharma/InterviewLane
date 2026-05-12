@@ -14,6 +14,7 @@ interface AuthCtx {
   user: User | null;
   session: Session | null;
   loading: boolean;
+  isAdmin: boolean;
   signOut: () => Promise<void>;
   configured: boolean;
 }
@@ -25,6 +26,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = React.useState<Session | null>(null);
   const [user, setUser] = React.useState<User | null>(null);
   const [loading, setLoading] = React.useState(true);
+  const [isAdmin, setIsAdmin] = React.useState(false);
 
   const hydrate = useUserStore((s) => s.hydrate);
   const reset = useUserStore((s) => s.reset);
@@ -37,21 +39,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const supabase = createClient();
 
     let cancelled = false;
-    supabase.auth.getSession().then(({ data }) => {
+
+    const fetchIsAdmin = async () => {
+      try {
+        const res = await fetch("/api/admin/me", { cache: "no-store" });
+        if (!res.ok) return false;
+        const data = (await res.json()) as { isAdmin?: boolean };
+        return !!data.isAdmin;
+      } catch {
+        return false;
+      }
+    };
+
+    supabase.auth.getSession().then(async ({ data }) => {
       if (cancelled) return;
       setSession(data.session);
       setUser(data.session?.user ?? null);
       setLoading(false);
-      if (data.session?.user) hydrate();
+      if (data.session?.user) {
+        hydrate();
+        const admin = await fetchIsAdmin();
+        if (!cancelled) setIsAdmin(admin);
+      }
     });
 
-    const { data: sub } = supabase.auth.onAuthStateChange((event, sess) => {
+    const { data: sub } = supabase.auth.onAuthStateChange(async (event, sess) => {
       setSession(sess);
       setUser(sess?.user ?? null);
       if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
-        if (sess?.user) hydrate();
+        if (sess?.user) {
+          hydrate();
+          const admin = await fetchIsAdmin();
+          if (!cancelled) setIsAdmin(admin);
+        }
       } else if (event === "SIGNED_OUT") {
         reset();
+        setIsAdmin(false);
       }
     });
 
@@ -67,8 +90,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [configured]);
 
   const value = React.useMemo<AuthCtx>(
-    () => ({ user, session, loading, signOut, configured }),
-    [user, session, loading, signOut, configured],
+    () => ({ user, session, loading, isAdmin, signOut, configured }),
+    [user, session, loading, isAdmin, signOut, configured],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

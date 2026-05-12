@@ -15,6 +15,6 @@ export function readingTime(text: string) {
 }
 
 export function siteUrl(path = "") {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://frontend-ace-iota.vercel.app/";
+  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "";
   return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }

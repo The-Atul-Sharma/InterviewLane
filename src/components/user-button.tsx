@@ -3,12 +3,20 @@ import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { LogIn, LogOut, LayoutDashboard, Bookmark, User as UserIcon } from "lucide-react";
+import {
+  LogIn,
+  LogOut,
+  LayoutDashboard,
+  Bookmark,
+  User as UserIcon,
+  PlusCircle,
+  PenSquare,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/providers/auth-provider";
 
 export function UserButton() {
-  const { user, loading, signOut, configured } = useAuth();
+  const { user, loading, signOut, configured, isAdmin } = useAuth();
   const router = useRouter();
 
   if (!configured) {
@@ -64,6 +72,20 @@ export function UserButton() {
           <Item icon={UserIcon} onSelect={() => router.push("/dashboard")}>
             Profile
           </Item>
+          {isAdmin && (
+            <>
+              <DropdownMenu.Separator className="my-1 h-px bg-border" />
+              <div className="px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                Admin
+              </div>
+              <Item icon={PlusCircle} onSelect={() => router.push("/admin/questions/new")}>
+                Add question
+              </Item>
+              <Item icon={PenSquare} onSelect={() => router.push("/admin/answers")}>
+                Add answer
+              </Item>
+            </>
+          )}
           <DropdownMenu.Separator className="my-1 h-px bg-border" />
           <Item
             icon={LogOut}

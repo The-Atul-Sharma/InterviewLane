@@ -9,7 +9,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { siteUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://frontend-ace-iota.vercel.app/"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? ""),
   title: {
     default: "FrontendAce — Ace your frontend interview",
     template: "%s · FrontendAce",
@@ -39,8 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "FrontendAce",
-    description:
-      "Curated questions and structured roadmaps for frontend interviews.",
+    description: "Curated questions and structured roadmaps for frontend interviews.",
   },
   robots: { index: true, follow: true },
 };

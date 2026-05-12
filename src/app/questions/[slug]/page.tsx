@@ -12,6 +12,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { repository } from "@/lib/repository";
+import { resolveQuestionForPage } from "@/lib/resolve-question-page";
 import { CATEGORY_META } from "@/lib/categories";
 import { renderMarkdown } from "@/lib/markdown";
 import { siteUrl } from "@/lib/utils";
@@ -20,6 +21,8 @@ import { Separator } from "@/components/ui/separator";
 import { CodeBlock } from "@/components/code-block";
 import { TableOfContents } from "@/components/toc";
 import { BookmarkAndCompleteButtons } from "@/components/bookmark-button";
+import { AdminAnswerEditor } from "@/components/admin/admin-answer-editor";
+import { AdminRestoreQuestion } from "@/components/admin/admin-restore-question";
 import { ReadingProgress } from "@/components/reading-progress";
 import { QuestionCard } from "@/components/question-card";
 
@@ -31,12 +34,14 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const q = await repository.getBySlug(slug);
-  if (!q) return {};
+  const resolved = await resolveQuestionForPage(slug);
+  if (!resolved) return {};
+  const { question: q, isDeleted } = resolved;
   return {
-    title: q.title,
+    title: isDeleted ? `${q.title} (removed)` : q.title,
     description: q.shortDescription,
     alternates: { canonical: siteUrl(`/questions/${q.slug}`) },
+    robots: isDeleted ? { index: false, follow: false } : undefined,
     openGraph: {
       type: "article",
       title: q.title,
@@ -55,8 +60,9 @@ const DIFFICULTY_VARIANT = { easy: "success", medium: "warning", hard: "danger" 
 
 export default async function QuestionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const q = await repository.getBySlug(slug);
-  if (!q) notFound();
+  const resolved = await resolveQuestionForPage(slug);
+  if (!resolved) notFound();
+  const { question: q, isDeleted } = resolved;
 
   const cat = CATEGORY_META[q.category];
   const { html, headings } = await renderMarkdown(q.answer);
@@ -66,34 +72,39 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
 
   const allMetas = await repository.listAll();
   const metaBySlug = new Map(allMetas.map((m) => [m.slug, m]));
-  const related = q.relatedSlugs
+  const related =
+    isDeleted ? [] : q.relatedSlugs
     .slice(0, 6)
     .map((s) => metaBySlug.get(s))
     .filter((x): x is NonNullable<typeof x> => !!x);
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "QAPage",
-    mainEntity: {
-      "@type": "Question",
-      name: q.title,
-      text: q.shortDescription,
-      answerCount: 1,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: q.shortDescription,
-        url: siteUrl(`/questions/${q.slug}`),
-      },
-    },
-  };
+  const jsonLd = !isDeleted
+    ? {
+        "@context": "https://schema.org",
+        "@type": "QAPage",
+        mainEntity: {
+          "@type": "Question",
+          name: q.title,
+          text: q.shortDescription,
+          answerCount: 1,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: q.shortDescription,
+            url: siteUrl(`/questions/${q.slug}`),
+          },
+        },
+      }
+    : null;
 
   return (
     <>
       <ReadingProgress />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
 
       <div className="container-page py-8 lg:grid lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-12">
         <article className="min-w-0">
@@ -118,6 +129,12 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back to {cat?.name}
           </Link>
+
+          {isDeleted && (
+            <div className="mb-4">
+              <AdminRestoreQuestion slug={q.slug} />
+            </div>
+          )}
 
           {/* Header */}
           <header className="space-y-4">
@@ -156,7 +173,10 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
                 </>
               )}
             </div>
-            <BookmarkAndCompleteButtons slug={q.slug} />
+            <div className="flex flex-wrap items-center gap-2">
+              {!isDeleted && <BookmarkAndCompleteButtons slug={q.slug} />}
+              <AdminAnswerEditor question={q} isDeleted={isDeleted} />
+            </div>
           </header>
 
           <Separator className="my-8" />
