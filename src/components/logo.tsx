@@ -17,7 +17,7 @@ export function Logo({
   return (
     <span
       className={cn("inline-flex items-center gap-2 leading-none", className)}
-      aria-label="FrontendAce"
+      aria-label="InterviewLane"
     >
       <svg width={size} height={size} viewBox="0 0 28 28" className="block">
         <defs>
@@ -47,12 +47,9 @@ export function Logo({
         <circle cx="22" cy="6" r="1.6" fill="hsl(var(--brand))" />
       </svg>
       {withWord && (
-        <span
-          className="font-semibold tracking-tight"
-          style={{ fontSize: size * 0.72 }}
-        >
-          Frontend
-          <span className="font-medium text-muted-foreground">Ace</span>
+        <span className="font-semibold tracking-tight" style={{ fontSize: size * 0.72 }}>
+          Interview
+          <span className="font-medium text-muted-foreground">Lane</span>
         </span>
       )}
     </span>

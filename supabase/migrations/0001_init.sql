@@ -1,5 +1,5 @@
 -- =============================================================================
--- FrontendAce — initial schema
+-- InterviewLane — initial schema
 -- Run this in the Supabase SQL editor (or `supabase db push` with the CLI).
 -- =============================================================================
 

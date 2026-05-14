@@ -198,7 +198,7 @@ function ResourceLink({ resource }: { resource: Resource }) {
         <Badge variant="outline">{KIND_LABEL[resource.kind]}</Badge>
         {resource.free ? <span>· Free</span> : null}
         <span className="ml-auto truncate font-mono text-[10px]">
-          {isExternal ? hostnameOf(resource.url) : "frontendAce"}
+          {isExternal ? hostnameOf(resource.url) : "InterviewLane"}
         </span>
       </div>
     </a>

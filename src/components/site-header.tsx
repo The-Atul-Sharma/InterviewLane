@@ -61,7 +61,7 @@ export function SiteHeader() {
               </kbd>
             </Button>
             <Link
-              href="https://github.com/The-Atul-Sharma/frontendAce"
+              href="https://github.com/The-Atul-Sharma/InterviewLane"
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"

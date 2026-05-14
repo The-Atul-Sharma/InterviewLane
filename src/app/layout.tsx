@@ -11,8 +11,8 @@ import { siteUrl } from "@/lib/utils";
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? ""),
   title: {
-    default: "FrontendAce — Ace your frontend interview",
-    template: "%s · FrontendAce",
+    default: "InterviewLane — Ace your frontend interview",
+    template: "%s · InterviewLane",
   },
   description:
     "Curated questions, structured roadmaps, and a clear path from refresher to interview-ready. Practice. Reason. Ship.",
@@ -27,18 +27,18 @@ export const metadata: Metadata = {
     "blind 75",
     "web performance",
   ],
-  authors: [{ name: "FrontendAce" }],
+  authors: [{ name: "InterviewLane" }],
   openGraph: {
     type: "website",
     url: siteUrl(),
-    siteName: "FrontendAce",
-    title: "FrontendAce — Ace your frontend interview",
+    siteName: "InterviewLane",
+    title: "InterviewLane — Ace your frontend interview",
     description:
       "Curated questions, structured roadmaps, and a clear path from refresher to interview-ready.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "FrontendAce",
+    title: "InterviewLane",
     description: "Curated questions and structured roadmaps for frontend interviews.",
   },
   robots: { index: true, follow: true },

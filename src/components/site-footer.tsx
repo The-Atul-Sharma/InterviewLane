@@ -50,7 +50,7 @@ export function SiteFooter() {
           </p>
           <div className="mt-4 flex gap-3 text-muted-foreground">
             <Link
-              href="https://github.com/The-Atul-Sharma/frontendAce"
+              href="https://github.com/The-Atul-Sharma/InterviewLane"
               aria-label="GitHub"
               target="_blank"
               rel="noreferrer"
@@ -77,7 +77,7 @@ export function SiteFooter() {
       </div>
       <div className="container-page flex flex-col items-start justify-between gap-2 border-t py-5 text-[11.5px] sm:flex-row sm:items-center">
         <span className="font-mono text-muted-foreground">
-          © {new Date().getFullYear()} FrontendAce
+          © {new Date().getFullYear()} InterviewLane
         </span>
         <span className="font-mono text-muted-foreground">Built for senior frontend engineers</span>
       </div>

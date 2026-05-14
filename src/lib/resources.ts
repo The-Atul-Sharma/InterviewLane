@@ -55,7 +55,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
     accent: "from-violet-500/15 to-fuchsia-500/10",
     resources: [
       {
-        title: "DSA for Frontend — Grind 75 questions",
+        title: "DSA for Frontend — 75 questions",
         url: "/categories/dsa-algorithms-75",
         kind: "practice",
         description:

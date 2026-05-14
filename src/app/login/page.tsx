@@ -5,7 +5,7 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Sign in",
-  description: "Sign in to FrontendAce with email + one-time code.",
+  description: "Sign in to InterviewLane with email + one-time code.",
 };
 
 export default function LoginPage() {

@@ -1,10 +1,10 @@
-# FrontendAce
+# InterviewLane
 
 **Ace your frontend interview. Without the grind.**
 
 A curated interview prep platform for engineers. Practice structured questions, follow opinionated roadmaps, and walk into your next frontend interview confident.
 
-**Live site → [frontend-ace-iota.vercel.app](https://frontend-ace-iota.vercel.app/)**
+**Live site → [interview-lane.vercel.app](https://interview-lane.vercel.app/)**
 
 ---
 

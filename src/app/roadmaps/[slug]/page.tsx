@@ -48,7 +48,7 @@ export default async function RoadmapPage({ params }: { params: Promise<{ slug: 
     : (topicSections ?? []).reduce((acc, s) => acc + s.questions.length, 0);
 
   return (
-    <div className="container-page py-10 space-y-8">
+    <div className="container-page space-y-8 py-10">
       <Link
         href="/roadmaps"
         className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
@@ -66,18 +66,14 @@ export default async function RoadmapPage({ params }: { params: Promise<{ slug: 
           </span>
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
             <BookOpen className="h-3.5 w-3.5" />
-            {isDsa ? `${totalQuestions} problems (Grind 75)` : `${totalQuestions} questions`}
+            {isDsa ? `${totalQuestions} problems` : `${totalQuestions} questions`}
           </span>
         </div>
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{roadmap.name}</h1>
         <p className="max-w-2xl text-muted-foreground">{roadmap.description}</p>
       </header>
 
-      <RoadmapClient
-        isDsa={isDsa}
-        topicSections={topicSections}
-        dsaQuestions={dsaQuestions}
-      />
+      <RoadmapClient isDsa={isDsa} topicSections={topicSections} dsaQuestions={dsaQuestions} />
     </div>
   );
 }
