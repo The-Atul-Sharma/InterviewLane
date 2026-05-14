@@ -1,4 +1,5 @@
 import "server-only";
+import { asStringArray } from "@/lib/utils";
 import { repository } from "@/lib/repository";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -48,13 +49,13 @@ function rowToQuestion(r: DbRow): Question {
     shortDescription: r.short_description,
     answer: r.answer ?? "",
     codeSnippets: r.code_snippets ?? [],
-    followUps: r.follow_ups ?? [],
-    commonMistakes: r.common_mistakes ?? [],
-    performanceConsiderations: r.performance_considerations ?? [],
-    edgeCases: r.edge_cases ?? [],
-    realWorldExamples: r.real_world_examples ?? [],
+    followUps: asStringArray(r.follow_ups),
+    commonMistakes: asStringArray(r.common_mistakes),
+    performanceConsiderations: asStringArray(r.performance_considerations),
+    edgeCases: asStringArray(r.edge_cases),
+    realWorldExamples: asStringArray(r.real_world_examples),
     seniorDiscussion: r.senior_discussion ?? undefined,
-    relatedSlugs: r.related_slugs ?? [],
+    relatedSlugs: asStringArray(r.related_slugs),
     companyTags: [],
     estimatedReadingMinutes: r.estimated_reading_minutes,
     estimatedSolvingMinutes: r.estimated_solving_minutes,

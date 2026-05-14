@@ -11,6 +11,7 @@ import {
   SENIORITY,
   CodeSnippetSchema,
 } from "@/lib/schema/question";
+import { asStringArray } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -54,13 +55,13 @@ function toApi(r: Row) {
     shortDescription: r.short_description,
     answer,
     codeSnippets: r.code_snippets ?? [],
-    followUps: r.follow_ups ?? [],
-    commonMistakes: r.common_mistakes ?? [],
-    performanceConsiderations: r.performance_considerations ?? [],
-    edgeCases: r.edge_cases ?? [],
-    realWorldExamples: r.real_world_examples ?? [],
+    followUps: asStringArray(r.follow_ups),
+    commonMistakes: asStringArray(r.common_mistakes),
+    performanceConsiderations: asStringArray(r.performance_considerations),
+    edgeCases: asStringArray(r.edge_cases),
+    realWorldExamples: asStringArray(r.real_world_examples),
     seniorDiscussion: r.senior_discussion ?? "",
-    relatedSlugs: r.related_slugs ?? [],
+    relatedSlugs: asStringArray(r.related_slugs),
     estimatedReadingMinutes: r.estimated_reading_minutes,
     estimatedSolvingMinutes: r.estimated_solving_minutes,
     answered:
