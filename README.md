@@ -4,7 +4,7 @@
 
 A curated interview prep platform for engineers. Practice structured questions, follow opinionated roadmaps, and walk into your next frontend interview confident.
 
-**Live site → [interview-lane.vercel.app](https://interview-lane.vercel.app/)**
+**Live site → [interviewlane.com](https://interviewlane.com/)**
 
 ---
 
@@ -14,8 +14,8 @@ A curated interview prep platform for engineers. Practice structured questions, 
 
 ## Features
 
-- **779 curated questions** across 18 categories — JavaScript, React, CSS, System Design, Performance, Browser Internals, and more
-- **DSA & Algorithms** — Blind 75 hand-picked LeetCode problems with topics and estimated solve times
+- **700+ curated questions** across 18 categories — JavaScript, React, CSS, System Design, Performance, Browser Internals, and more
+- **DSA & Algorithms** — 75 hand-picked LeetCode problems with topics and estimated solve times
 - **Structured roadmaps** — Frontend foundations, Senior frontend, and DSA for frontend with phased progression
 - **Study plans** — 7-day refresher, 30-day deep prep, and 90-day mastery tracks
 - **Daily challenge** — A new problem every day, resets at 00:00 UTC
@@ -76,8 +76,8 @@ A curated interview prep platform for engineers. Practice structured questions, 
 ### Install
 
 ```bash
-git clone https://github.com/your-username/frontendprep.git
-cd frontendprep
+git clone https://github.com/The-Atul-Sharma/InterviewLane.git
+cd InterviewLane
 npm install
 ```
 
@@ -87,7 +87,8 @@ Create a `.env.local` file at the root:
 
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=your_supabase_publishable_default_key
+SUPABASE_SECRET_KEY=your_supabase_secret_key
 ```
 
 ### Run locally
