@@ -89,6 +89,8 @@ Create a `.env.local` file at the root:
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=your_supabase_publishable_default_key
 SUPABASE_SECRET_KEY=your_supabase_secret_key
+NEXT_PUBLIC_GA_ID=your_google_analytics_id
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your_google_site_verification_key
 ```
 
 ### Run locally
