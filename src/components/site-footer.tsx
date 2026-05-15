@@ -79,7 +79,15 @@ export function SiteFooter() {
         <span className="font-mono text-muted-foreground">
           © {new Date().getFullYear()} InterviewLane
         </span>
-        <span className="font-mono text-muted-foreground">Built for senior frontend engineers</span>
+        <div className="flex items-center gap-4">
+          <Link href="/terms" className="font-mono text-muted-foreground hover:text-foreground">
+            Terms
+          </Link>
+          <Link href="/privacy" className="font-mono text-muted-foreground hover:text-foreground">
+            Privacy
+          </Link>
+          <span className="font-mono text-muted-foreground">Built for senior frontend engineers</span>
+        </div>
       </div>
     </footer>
   );
