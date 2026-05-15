@@ -78,7 +78,7 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
     .map((s) => metaBySlug.get(s))
     .filter((x): x is NonNullable<typeof x> => !!x);
 
-  const jsonLd = !isDeleted
+  const qaJsonLd = !isDeleted
     ? {
         "@context": "https://schema.org",
         "@type": "QAPage",
@@ -96,13 +96,48 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
       }
     : null;
 
+  const breadcrumbJsonLd = !isDeleted
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl(),
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Categories",
+            item: siteUrl("/categories"),
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: cat?.name ?? q.category,
+            item: siteUrl(`/categories/${q.category}`),
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: q.title,
+            item: siteUrl(`/questions/${q.slug}`),
+          },
+        ],
+      }
+    : null;
+
+  const jsonLds = [qaJsonLd, breadcrumbJsonLd].filter(Boolean);
+
   return (
     <>
       <ReadingProgress />
-      {jsonLd && (
+      {jsonLds.length > 0 && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLds) }}
         />
       )}
 

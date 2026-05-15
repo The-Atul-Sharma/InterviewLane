@@ -43,9 +43,6 @@ export const metadata: Metadata = {
     description: "Curated questions and structured roadmaps for frontend interviews.",
   },
   robots: { index: true, follow: true },
-  verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-  },
 };
 
 export const viewport: Viewport = {
