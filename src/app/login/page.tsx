@@ -5,7 +5,7 @@ export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Sign in",
-  description: "Sign in to InterviewLane with email + one-time code.",
+  description: "Sign in to InterviewLane with your Google account.",
 };
 
 export default function LoginPage() {
@@ -15,7 +15,7 @@ export default function LoginPage() {
         <div className="space-y-1.5 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">Sign in</h1>
           <p className="text-sm text-muted-foreground">
-            We'll email you a 6-digit code. No password needed.
+            Use your Google account to continue. No password needed.
           </p>
         </div>
         <LoginForm />
