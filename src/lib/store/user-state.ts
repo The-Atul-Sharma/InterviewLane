@@ -137,13 +137,38 @@ export const useUserStore = create<UserState>((set, get) => ({
     if (!isSupabaseConfigured()) return;
     const prev = get().completed;
     const has = prev.includes(slug);
-    set({ completed: has ? prev.filter((x) => x !== slug) : [slug, ...prev] });
+    
+    // Optimistic streak update
+    let optimisticStreak: UserStreak | undefined;
+    const prevStreak = get().streak;
+
+    if (!has) {
+      const todayStr = new Date().toISOString().split("T")[0];
+      if (prevStreak.lastDate !== todayStr) {
+        let newDays = 1;
+        if (prevStreak.lastDate) {
+          const lastDate = new Date(prevStreak.lastDate);
+          const today = new Date(todayStr);
+          const diffTime = Math.abs(today.getTime() - lastDate.getTime());
+          const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+          if (diffDays === 1) {
+            newDays = prevStreak.days + 1;
+          }
+        }
+        optimisticStreak = { days: newDays, lastDate: todayStr };
+      }
+    }
+
+    set({ 
+      completed: has ? prev.filter((x) => x !== slug) : [slug, ...prev],
+      ...(optimisticStreak && { streak: optimisticStreak }),
+    });
 
     const supabase = createClient();
     const { data: userRes } = await supabase.auth.getUser();
     const uid = userRes.user?.id;
     if (!uid) {
-      set({ completed: prev });
+      set({ completed: prev, streak: prevStreak });
       return;
     }
     const { error } = has
@@ -152,7 +177,7 @@ export const useUserStore = create<UserState>((set, get) => ({
           .from("completed")
           .upsert({ user_id: uid, slug }, { onConflict: "user_id,slug", ignoreDuplicates: true });
     if (error) {
-      set({ completed: prev, error: error.message });
+      set({ completed: prev, streak: prevStreak, error: error.message });
       return;
     }
     if (!has) {
@@ -179,12 +204,17 @@ export const useUserStore = create<UserState>((set, get) => ({
     if (!uid) return;
 
     const { data, error } = await supabase.rpc("record_study_day");
-    if (!error && data) {
+    if (error) {
+      // Don't revert the optimistic update if the server call fails (e.g. missing RPC)
+      return;
+    }
+
+    if (data) {
       const row = Array.isArray(data) ? data[0] : (data as Record<string, unknown>);
       if (row && typeof row === "object") {
-        const days = (row as { streak_days?: number }).streak_days;
-        const lastDate = (row as { streak_last_date?: string | null }).streak_last_date;
-        if (typeof days === "number") {
+        const days = Number((row as any).streak_days);
+        const lastDate = (row as any).streak_last_date;
+        if (!isNaN(days)) {
           set({ streak: { days, lastDate: lastDate ?? null } });
           return;
         }
@@ -196,13 +226,19 @@ export const useUserStore = create<UserState>((set, get) => ({
       .select("streak_days, streak_last_date")
       .eq("user_id", uid)
       .single();
+      
     if (prof) {
-      set({
-        streak: {
-          days: (prof.streak_days as number | null) ?? 0,
-          lastDate: (prof.streak_last_date as string | null) ?? null,
-        },
-      });
+      const dbDays = Number(prof.streak_days);
+      // Only fallback to DB state if it's > 0, to prevent resetting the optimistic update
+      // just because the DB profile hasn't been updated properly by a broken RPC.
+      if (!isNaN(dbDays) && dbDays > 0) {
+        set({
+          streak: {
+            days: dbDays,
+            lastDate: (prof.streak_last_date as string | null) ?? null,
+          },
+        });
+      }
     }
   },
 }));

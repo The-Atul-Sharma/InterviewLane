@@ -8,7 +8,7 @@ import { CATEGORY_LIST } from "@/lib/categories";
 import { listDsaQuestions } from "@/lib/dsa-repository";
 import { formatNumber } from "@/lib/utils";
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 const DIFFICULTY_RANK = { easy: 0, medium: 1, hard: 2 } as const;
 
@@ -22,7 +22,10 @@ export default async function HomePage() {
   stats.byCategory["dsa-algorithms-169"] = dsaQuestions.length;
 
   const trending = all.filter((q) => q.frequency === "very-high").slice(0, 5);
-  const dailyPick = all[0];
+  const today = new Date();
+  const utcKey = `${today.getUTCFullYear()}-${today.getUTCMonth()}-${today.getUTCDate()}`;
+  const seed = [...utcKey].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 0);
+  const dailyPick = all[seed % all.length];
   const featuredCategories = CATEGORY_LIST.filter((c) =>
     [
       "frontend",

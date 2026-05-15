@@ -8,7 +8,6 @@ import {
   LogOut,
   LayoutDashboard,
   Bookmark,
-  User as UserIcon,
   PlusCircle,
   PenSquare,
 } from "lucide-react";
@@ -69,9 +68,7 @@ export function UserButton() {
           <Item icon={Bookmark} onSelect={() => router.push("/bookmarks")}>
             Bookmarks
           </Item>
-          <Item icon={UserIcon} onSelect={() => router.push("/dashboard")}>
-            Profile
-          </Item>
+
           {isAdmin && (
             <>
               <DropdownMenu.Separator className="my-1 h-px bg-border" />

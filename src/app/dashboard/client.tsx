@@ -107,7 +107,7 @@ function Inner({
           sub={`${overall}% of ${totalPool}`}
         />
         <Metric icon={Bookmark} label="Bookmarks" value={bookmarks.length} />
-        <Metric icon={Flame} label="Day streak" value={streak.days} sub={streak.lastDate ?? "—"} />
+        <Metric icon={Flame} label="Day streak" value={streak.days} sub={streak.lastDate || undefined} />
         <Metric icon={Eye} label="Recently viewed" value={recentItems.length} />
       </div>
 
