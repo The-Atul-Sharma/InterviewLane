@@ -1,13 +1,6 @@
 import type { CategoryMeta } from "./schema/question";
 
 export const CATEGORY_META: Record<string, CategoryMeta> = {
-  frontend: {
-    slug: "frontend",
-    name: "Frontend",
-    description: "Cross-cutting frontend questions covering modern best practices.",
-    icon: "Layout",
-    accent: "from-sky-500 to-indigo-500",
-  },
   react: {
     slug: "react",
     name: "React",
@@ -21,6 +14,13 @@ export const CATEGORY_META: Record<string, CategoryMeta> = {
     description: "Closures, async, prototypes, modules, and language internals.",
     icon: "Braces",
     accent: "from-yellow-400 to-orange-500",
+  },
+  nextjs: {
+    slug: "nextjs",
+    name: "Next.js",
+    description: "App Router, server components, SSR/SSG/ISR, hydration, and data fetching.",
+    icon: "Triangle",
+    accent: "from-zinc-700 to-black",
   },
   typescript: {
     slug: "typescript",
@@ -99,19 +99,20 @@ export const CATEGORY_META: Record<string, CategoryMeta> = {
     icon: "Wifi",
     accent: "from-blue-400 to-sky-600",
   },
-  architecture: {
-    slug: "architecture",
-    name: "Architecture",
-    description: "Scalable apps, monorepos, design systems, state strategy.",
-    icon: "Boxes",
-    accent: "from-slate-500 to-zinc-700",
-  },
   behavioral: {
     slug: "behavioral",
     name: "Behavioral",
     description: "Project deep dives, leadership, collaboration, trade-offs.",
     icon: "MessageSquare",
     accent: "from-rose-400 to-pink-600",
+  },
+  "dsa-algorithms": {
+    slug: "dsa-algorithms",
+    name: "DSA & Algorithms",
+    description:
+      "Curated frontend friendly DSA: BFS/DFS, sliding window, binary search, trees, and patterns.",
+    icon: "Binary",
+    accent: "from-orange-500 to-red-600",
   },
   "dsa-algorithms-75": {
     slug: "dsa-algorithms-75",

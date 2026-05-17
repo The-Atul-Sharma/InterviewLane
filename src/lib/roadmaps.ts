@@ -88,8 +88,8 @@ export const ROADMAPS: Roadmap[] = [
         itemCount: 16,
       },
       {
-        slug: "architecture",
-        name: "Architecture",
+        slug: "system-design",
+        name: "System Design",
         description: "Design systems, monorepos, state strategy.",
         itemCount: 18,
       },

@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const CATEGORIES = [
-  "frontend",
   "react",
   "javascript",
+  "nextjs",
   "typescript",
   "css",
   "html",
@@ -15,8 +15,8 @@ export const CATEGORIES = [
   "testing",
   "security",
   "networking",
-  "architecture",
   "behavioral",
+  "dsa-algorithms",
   "dsa-algorithms-75",
   "dsa-algorithms-169",
 ] as const;

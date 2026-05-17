@@ -28,9 +28,9 @@ export default async function HomePage() {
   const dailyPick = all[seed % all.length];
   const featuredCategories = CATEGORY_LIST.filter((c) =>
     [
-      "frontend",
       "react",
       "javascript",
+      "nextjs",
       "dsa-algorithms-75",
       "performance",
       "system-design",

@@ -5,9 +5,9 @@ import type { CategoryMeta } from "@/lib/schema/question";
 
 /** Map category slug → oklch hue for the gradient icon badge. */
 const HUE: Record<string, number> = {
-  frontend: 220,
   react: 220,
   javascript: 50,
+  nextjs: 0,
   typescript: 215,
   css: 320,
   html: 25,
@@ -15,13 +15,13 @@ const HUE: Record<string, number> = {
   performance: 30,
   accessibility: 175,
   "system-design": 270,
+  "dsa-algorithms": 15,
   "dsa-algorithms-75": 0,
   "dsa-algorithms-169": 10,
   "machine-coding": 40,
   testing: 130,
   security: 5,
   networking: 200,
-  architecture: 250,
   behavioral: 340,
 };
 
