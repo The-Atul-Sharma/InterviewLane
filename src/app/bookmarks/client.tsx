@@ -23,7 +23,7 @@ export function BookmarksClient({
   return (
     <AuthGate
       title="Sign in to view bookmarks"
-      description="Bookmarks sync across all your devices once you sign in with email."
+      description="Bookmarks sync across all your devices once you sign in with Google."
     >
       <BookmarksList pool={pool} dsaPool={dsaPool} />
     </AuthGate>

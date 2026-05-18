@@ -14,7 +14,7 @@ import { useAuth } from "@/components/providers/auth-provider";
 export function AuthGate({
   children,
   title = "Sign in to continue",
-  description = "Sign in to sync your bookmarks, progress, and streak across devices.",
+  description = "Sign in with Google to sync your bookmarks, progress, and streak across devices.",
 }: {
   children: React.ReactNode;
   title?: string;
@@ -54,7 +54,7 @@ export function AuthGate({
           <p className="max-w-sm text-sm text-muted-foreground">{description}</p>
         </div>
         <Button asChild>
-          <Link href={`/login?next=${encodeURIComponent(pathname)}`}>Sign in with email</Link>
+          <Link href={`/login?next=${encodeURIComponent(pathname)}`}>Continue with Google</Link>
         </Button>
       </Card>
     );

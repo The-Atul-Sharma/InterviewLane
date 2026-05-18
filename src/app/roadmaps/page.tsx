@@ -1,108 +1,145 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Layers, Zap, Construction, BrainCircuit, Clock, BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen, BrainCircuit, CheckCircle2, Clock, Layers, Zap, Trophy, Rocket } from "lucide-react";
+import { getStagesWithTopics } from "@/lib/repository/roadmap-repository";
 import { ROADMAPS } from "@/lib/roadmaps";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { StageProgressBar } from "./stage-progress";
 
 export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Roadmaps",
   description:
-    "Structured paths to interview-ready: frontend foundations, senior engineering, and DSA & algorithms for frontend engineers.",
+    "Frontend interview roadmap from Foundations through Staff Level. Structured stages, topic-level progression, and curated questions from the bank.",
 };
 
-const ROADMAP_META: Record<string, { icon: React.ElementType; accent: string }> = {
-  "frontend-foundations": { icon: Layers, accent: "bg-blue-500/10 text-blue-600 dark:text-blue-400" },
-  "senior-frontend": { icon: Zap, accent: "bg-amber-500/10 text-amber-600 dark:text-amber-400" },
-  "dsa-for-frontend": { icon: BrainCircuit, accent: "bg-violet-500/10 text-violet-600 dark:text-violet-400" },
+const STAGE_ICON: Record<string, React.ElementType> = {
+  foundations: Layers,
+  intermediate: BookOpen,
+  advanced: Zap,
+  senior: Rocket,
+  staff: Trophy,
 };
 
-export default function RoadmapsPage() {
+const STAGE_ACCENT: Record<string, string> = {
+  foundations: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
+  intermediate: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+  advanced: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+  senior: "bg-violet-500/10 text-violet-600 dark:text-violet-400",
+  staff: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
+};
+
+export default async function RoadmapsPage() {
+  const stages = await getStagesWithTopics();
+  const dsa = ROADMAPS.find((r) => r.slug === "dsa-for-frontend");
+
   return (
-    <div className="container-page py-12 space-y-10">
+    <div className="container-page py-12 space-y-12">
       <header className="space-y-2">
         <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-          Roadmaps
+          Roadmap
         </p>
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          Pick a path. Track progress.
+          Foundations to Staff Level
         </h1>
         <p className="max-w-2xl text-muted-foreground">
-          Three structured roadmaps covering every surface of a frontend interview — from core
-          JavaScript to system design to DSA. Mark topics complete as you go.
+          Five stages, seventeen topics, every question in the bank mapped to where it fits.
+          Pick the stage that matches where you are — earlier stages unlock the later ones.
         </p>
       </header>
 
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {ROADMAPS.map((r) => {
-          const meta = ROADMAP_META[r.slug] ?? { icon: Layers, accent: "bg-foreground/5" };
-          const Icon = meta.icon;
+      <section className="space-y-3">
+        {stages.map((s, i) => {
+          const Icon = STAGE_ICON[s.slug] ?? Layers;
+          const accent = STAGE_ACCENT[s.slug] ?? "bg-foreground/5";
           return (
-            <Card key={r.slug} className="group flex flex-col p-6 transition-shadow hover:shadow-md">
-              <div className="mb-5 flex items-start justify-between">
-                <div className={`grid h-10 w-10 place-items-center rounded-lg ${meta.accent}`}>
-                  <Icon className="h-5 w-5" />
+            <Card key={s.slug} className="group relative overflow-hidden p-6 transition-shadow hover:shadow-md">
+              <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-6">
+                <div className="flex items-start gap-4 md:w-72 md:shrink-0">
+                  <div className={`grid h-11 w-11 shrink-0 place-items-center rounded-lg ${accent}`}>
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Stage {i + 1}
+                    </p>
+                    <h2 className="text-lg font-semibold tracking-tight">{s.name}</h2>
+                    <p className="mt-0.5 text-xs text-muted-foreground">{s.readinessLevel}</p>
+                  </div>
                 </div>
-                {r.status === "coming-soon" ? (
-                  <Badge variant="warning" className="gap-1">
-                    <Construction className="h-3 w-3" /> coming soon
-                  </Badge>
-                ) : (
-                  <Badge variant="success">active</Badge>
-                )}
-              </div>
 
-              <h2 className="text-lg font-semibold tracking-tight">{r.name}</h2>
-              <p className="mt-1.5 line-clamp-3 text-sm text-muted-foreground leading-relaxed">
-                {r.description}
-              </p>
+                <div className="flex-1 space-y-3">
+                  <p className="text-sm text-muted-foreground leading-relaxed">{s.description}</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {s.topics.map((t) => (
+                      <span
+                        key={t.slug}
+                        className="rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground"
+                      >
+                        {t.name}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                    <span className="flex items-center gap-1">
+                      <Clock className="h-3.5 w-3.5" /> {s.estHours}h
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <BookOpen className="h-3.5 w-3.5" /> {s.topics.length} topics · {s.questionCount} questions
+                    </span>
+                    <Badge variant="muted">{s.difficultyBand}</Badge>
+                  </div>
+                  <StageProgressBar topicSlugs={s.topics.map((t) => t.slug)} />
+                </div>
 
-              <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  <Clock className="h-3.5 w-3.5" />
-                  {r.estimatedHours}h estimated
-                </span>
-                <span className="flex items-center gap-1">
-                  <BookOpen className="h-3.5 w-3.5" />
-                  {r.topics.length} topics
-                </span>
-              </div>
-
-              <ul className="mt-3 flex flex-wrap gap-1.5">
-                {r.topics.slice(0, 6).map((t) => (
-                  <span
-                    key={t.slug}
-                    className="rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground"
-                  >
-                    {t.name}
-                  </span>
-                ))}
-                {r.topics.length > 6 && (
-                  <span className="rounded-md bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">
-                    +{r.topics.length - 6} more
-                  </span>
-                )}
-              </ul>
-
-              <div className="mt-auto pt-6">
-                {r.status === "coming-soon" ? (
-                  <span className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground cursor-not-allowed">
-                    Coming soon <ArrowRight className="h-3.5 w-3.5" />
-                  </span>
-                ) : (
+                <div className="md:self-center">
                   <Link
-                    href={`/roadmaps/${r.slug}`}
+                    href={`/roadmaps/${s.slug}`}
                     className="inline-flex items-center gap-1 text-sm font-medium hover:underline group-hover:gap-1.5 transition-all"
                   >
-                    View roadmap <ArrowRight className="h-3.5 w-3.5" />
+                    Open stage <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
-                )}
+                </div>
               </div>
             </Card>
           );
         })}
-      </div>
+      </section>
+
+      {dsa && (
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold tracking-tight">Side track</h2>
+          <Card className="group flex items-start gap-4 p-6 transition-shadow hover:shadow-md md:items-center">
+            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-orange-500/10 text-orange-600 dark:text-orange-400">
+              <BrainCircuit className="h-5 w-5" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2">
+                <h3 className="text-base font-semibold tracking-tight">{dsa.name}</h3>
+                <Badge variant="success">active</Badge>
+              </div>
+              <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{dsa.description}</p>
+            </div>
+            <Link
+              href={`/roadmaps/${dsa.slug}`}
+              className="inline-flex shrink-0 items-center gap-1 text-sm font-medium hover:underline"
+            >
+              Open <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </Card>
+        </section>
+      )}
+
+      <section className="rounded-lg border bg-muted/30 p-5">
+        <div className="flex items-start gap-3">
+          <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
+          <div className="text-sm text-muted-foreground">
+            Mark topics complete as you go. Locked topics show their prerequisites — they remain
+            clickable so you can skip ahead, but the unlock hint stays until you check the prereq.
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

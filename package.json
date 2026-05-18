@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "db:add": "tsx scripts/db-add.ts",
+    "roadmap:build": "tsx scripts/roadmap/build.ts",
+    "roadmap:seed": "tsx scripts/roadmap/seed.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

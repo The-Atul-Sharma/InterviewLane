@@ -23,12 +23,19 @@ export interface UserStreak {
   days: number;
 }
 
+export interface PlanDayKey {
+  planSlug: string;
+  dayNum: number;
+}
+
 export interface UserState {
   // Data
   bookmarks: Slug[];
   completed: Slug[];
   recentlyViewed: Slug[];
   streak: UserStreak;
+  topicProgress: string[]; // topic slugs marked complete
+  planProgress: PlanDayKey[]; // (plan, day) pairs marked complete
 
   // Lifecycle
   hydrated: boolean;
@@ -40,6 +47,8 @@ export interface UserState {
   // Mutations (optimistic)
   toggleBookmark: (slug: Slug) => Promise<void>;
   toggleCompleted: (slug: Slug) => Promise<void>;
+  toggleTopicProgress: (topicSlug: string) => Promise<void>;
+  togglePlanDay: (planSlug: string, dayNum: number) => Promise<void>;
   trackView: (slug: Slug) => Promise<void>;
   recordStudyDay: () => Promise<void>;
 }
@@ -51,6 +60,8 @@ export const useUserStore = create<UserState>((set, get) => ({
   completed: [],
   recentlyViewed: [],
   streak: EMPTY_STREAK,
+  topicProgress: [],
+  planProgress: [],
   hydrated: false,
   loading: false,
   error: null,
@@ -61,6 +72,8 @@ export const useUserStore = create<UserState>((set, get) => ({
       completed: [],
       recentlyViewed: [],
       streak: EMPTY_STREAK,
+      topicProgress: [],
+      planProgress: [],
       hydrated: false,
       loading: false,
       error: null,
@@ -81,11 +94,13 @@ export const useUserStore = create<UserState>((set, get) => ({
       return;
     }
 
-    const [b, c, r, p] = await Promise.all([
+    const [b, c, r, p, tp, pp] = await Promise.all([
       supabase.from("bookmarks").select("slug, created_at").order("created_at", { ascending: false }),
       supabase.from("completed").select("slug, completed_at").order("completed_at", { ascending: false }),
       supabase.from("recently_viewed").select("slug, viewed_at").order("viewed_at", { ascending: false }),
       supabase.from("profiles").select("streak_days, streak_last_date").maybeSingle(),
+      supabase.from("user_topic_progress").select("topic_slug").order("completed_at", { ascending: false }),
+      supabase.from("user_plan_progress").select("plan_slug, day_num").order("completed_at", { ascending: false }),
     ]);
 
     // If `profiles` row is missing (auth trigger didn't fire), create it now
@@ -96,12 +111,31 @@ export const useUserStore = create<UserState>((set, get) => ({
         .upsert({ user_id: userRes.user.id }, { onConflict: "user_id", ignoreDuplicates: true });
     }
 
+    // Self-heal streak from the derived RPC. Fire-and-forget; UI shows the
+    // freshly-recomputed value via the regular streak state path below as soon
+    // as it resolves. Errors are intentionally swallowed (offline / expired
+    // session shouldn't block the rest of hydration).
+    supabase.rpc("record_study_day").then(({ data }) => {
+      if (!data) return;
+      const row = Array.isArray(data) ? data[0] : (data as Record<string, unknown>);
+      const days = Number((row as { streak_days?: unknown })?.streak_days);
+      const last = (row as { streak_last_date?: string | null })?.streak_last_date ?? null;
+      if (!isNaN(days)) set({ streak: { days, lastDate: last } });
+    });
+
     // Hydrate every successful table independently — a single failing query
     // (e.g. RLS edge case) must NOT throw away the bookmarks/completed data.
     set({
       bookmarks: b.error ? [] : (b.data ?? []).map((x) => x.slug as string),
       completed: c.error ? [] : (c.data ?? []).map((x) => x.slug as string),
       recentlyViewed: r.error ? [] : (r.data ?? []).map((x) => x.slug as string),
+      topicProgress: tp.error ? [] : (tp.data ?? []).map((x) => x.topic_slug as string),
+      planProgress: pp.error
+        ? []
+        : (pp.data ?? []).map((x) => ({
+            planSlug: x.plan_slug as string,
+            dayNum: x.day_num as number,
+          })),
       streak: {
         lastDate: (p.data?.streak_last_date as string | null) ?? null,
         days: (p.data?.streak_days as number | null) ?? 0,
@@ -183,6 +217,67 @@ export const useUserStore = create<UserState>((set, get) => ({
     if (!has) {
       get().recordStudyDay().catch(() => {});
     }
+  },
+
+  async toggleTopicProgress(topicSlug) {
+    if (!isSupabaseConfigured()) return;
+    const prev = get().topicProgress;
+    const has = prev.includes(topicSlug);
+    set({ topicProgress: has ? prev.filter((x) => x !== topicSlug) : [topicSlug, ...prev] });
+
+    const supabase = createClient();
+    const { data: userRes } = await supabase.auth.getUser();
+    const uid = userRes.user?.id;
+    if (!uid) {
+      set({ topicProgress: prev });
+      return;
+    }
+    const { error } = has
+      ? await supabase
+          .from("user_topic_progress")
+          .delete()
+          .eq("user_id", uid)
+          .eq("topic_slug", topicSlug)
+      : await supabase
+          .from("user_topic_progress")
+          .upsert(
+            { user_id: uid, topic_slug: topicSlug, status: "completed" },
+            { onConflict: "user_id,topic_slug", ignoreDuplicates: false },
+          );
+    if (error) set({ topicProgress: prev, error: error.message });
+  },
+
+  async togglePlanDay(planSlug, dayNum) {
+    if (!isSupabaseConfigured()) return;
+    const prev = get().planProgress;
+    const has = prev.some((p) => p.planSlug === planSlug && p.dayNum === dayNum);
+    set({
+      planProgress: has
+        ? prev.filter((p) => !(p.planSlug === planSlug && p.dayNum === dayNum))
+        : [{ planSlug, dayNum }, ...prev],
+    });
+
+    const supabase = createClient();
+    const { data: userRes } = await supabase.auth.getUser();
+    const uid = userRes.user?.id;
+    if (!uid) {
+      set({ planProgress: prev });
+      return;
+    }
+    const { error } = has
+      ? await supabase
+          .from("user_plan_progress")
+          .delete()
+          .eq("user_id", uid)
+          .eq("plan_slug", planSlug)
+          .eq("day_num", dayNum)
+      : await supabase
+          .from("user_plan_progress")
+          .upsert(
+            { user_id: uid, plan_slug: planSlug, day_num: dayNum },
+            { onConflict: "user_id,plan_slug,day_num", ignoreDuplicates: false },
+          );
+    if (error) set({ planProgress: prev, error: error.message });
   },
 
   async trackView(slug) {

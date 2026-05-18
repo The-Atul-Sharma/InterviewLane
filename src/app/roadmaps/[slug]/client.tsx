@@ -2,42 +2,25 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Bookmark, Check, Clock } from "lucide-react";
+import { ArrowUpRight, Bookmark, Check, CheckCircle2, ChevronDown, Clock, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { DifficultyBadge } from "@/components/ui/badge";
-import { DsaGrindList } from "@/components/dsa-grind-list";
+import { DifficultyBadge, Badge } from "@/components/ui/badge";
 import { useAuth } from "@/components/providers/auth-provider";
-import { useUserStore } from "@/lib/store/user-state";
-import type { QuestionMeta } from "@/lib/schema/question";
-import type { GrindQuestion } from "@/lib/dsa-types";
-import type { RoadmapTopic } from "@/lib/roadmaps";
+import { useUserStore, useHydratedUserState } from "@/lib/store/user-state";
+import type { RoadmapTopicWithQuestions } from "@/lib/repository/roadmap-repository";
 
-interface TopicSection {
-  topic: RoadmapTopic;
-  questions: QuestionMeta[];
-}
-
-interface Props {
-  isDsa: boolean;
-  topicSections?: TopicSection[];
-  dsaQuestions?: GrindQuestion[];
-}
-
-export function RoadmapClient({ isDsa, topicSections, dsaQuestions }: Props) {
-  const [activeSlug, setActiveSlug] = useState<string | null>(
-    topicSections?.[0]?.topic.slug ?? null,
-  );
+export function StageClient({ topics }: { topics: RoadmapTopicWithQuestions[] }) {
+  const [activeSlug, setActiveSlug] = useState<string | null>(topics[0]?.slug ?? null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
-    if (isDsa || !topicSections?.length) return;
     const observers: IntersectionObserver[] = [];
-    for (const { topic } of topicSections) {
-      const el = sectionRefs.current[topic.slug];
+    for (const t of topics) {
+      const el = sectionRefs.current[t.slug];
       if (!el) continue;
       const obs = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) setActiveSlug(topic.slug);
+          if (entry.isIntersecting) setActiveSlug(t.slug);
         },
         { rootMargin: "-30% 0px -60% 0px" },
       );
@@ -45,7 +28,7 @@ export function RoadmapClient({ isDsa, topicSections, dsaQuestions }: Props) {
       observers.push(obs);
     }
     return () => observers.forEach((o) => o.disconnect());
-  }, [isDsa, topicSections]);
+  }, [topics]);
 
   const scrollTo = (slug: string) => {
     const el = sectionRefs.current[slug];
@@ -56,39 +39,33 @@ export function RoadmapClient({ isDsa, topicSections, dsaQuestions }: Props) {
     setActiveSlug(slug);
   };
 
-  if (isDsa && dsaQuestions) {
-    return <DsaGrindList questions={dsaQuestions} showAll={false} />;
-  }
-
-  const sections = topicSections ?? [];
-
   return (
     <div className="space-y-10">
-      {sections.length > 1 && (
+      {topics.length > 1 && (
         <div className="sticky top-[90px] z-10 -mx-4 overflow-x-auto bg-background/95 px-4 py-2.5 backdrop-blur-sm border-b border-border/50 sm:-mx-6 sm:px-6 md:top-14">
           <div className="flex gap-1.5">
-            {sections.map(({ topic, questions }) => (
+            {topics.map((t) => (
               <button
-                key={topic.slug}
+                key={t.slug}
                 type="button"
-                onClick={() => scrollTo(topic.slug)}
+                onClick={() => scrollTo(t.slug)}
                 className={cn(
                   "flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1 text-xs font-medium transition-colors",
-                  activeSlug === topic.slug
+                  activeSlug === t.slug
                     ? "bg-foreground text-background"
                     : "bg-muted text-muted-foreground hover:bg-muted/60 hover:text-foreground",
                 )}
               >
-                {topic.name}
+                {t.name}
                 <span
                   className={cn(
                     "rounded-full px-1.5 py-0.5 text-[10px] font-semibold tabular-nums",
-                    activeSlug === topic.slug
+                    activeSlug === t.slug
                       ? "bg-background/20 text-background"
                       : "bg-background text-muted-foreground",
                   )}
                 >
-                  {questions.length}
+                  {t.questions.length}
                 </span>
               </button>
             ))}
@@ -96,40 +73,181 @@ export function RoadmapClient({ isDsa, topicSections, dsaQuestions }: Props) {
         </div>
       )}
 
-      {sections.map(({ topic, questions }) => (
+      {topics.map((t) => (
         <section
-          key={topic.slug}
+          key={t.slug}
           ref={(el) => {
-            sectionRefs.current[topic.slug] = el;
+            sectionRefs.current[t.slug] = el;
           }}
         >
-          <div className="mb-4 flex items-start justify-between gap-4">
-            <div>
-              <h2 className="text-xl font-semibold tracking-tight">{topic.name}</h2>
-              <p className="mt-0.5 text-sm text-muted-foreground">{topic.description}</p>
-            </div>
-            <span className="shrink-0 text-xs text-muted-foreground">
-              {questions.length} {questions.length === 1 ? "question" : "questions"}
-            </span>
-          </div>
-          {questions.length > 0 ? (
-            <div className="divide-y divide-border rounded-lg border bg-card">
-              {questions.map((q) => (
-                <QuestionRow key={q.slug} q={q} />
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-lg border bg-card px-4 py-10 text-center text-sm text-muted-foreground">
-              Questions coming soon.
-            </div>
-          )}
+          <TopicCard topic={t} />
         </section>
       ))}
     </div>
   );
 }
 
-function QuestionRow({ q }: { q: QuestionMeta }) {
+const FREQ_LABEL: Record<string, string> = {
+  low: "low",
+  medium: "medium",
+  high: "high",
+  "very-high": "very high",
+};
+
+function TopicCard({ topic }: { topic: RoadmapTopicWithQuestions }) {
+  const topicProgress = useHydratedUserState((s) => s.topicProgress, [] as string[]);
+  const completed = useHydratedUserState((s) => s.completed, [] as string[]);
+  const toggleTopic = useUserStore((s) => s.toggleTopicProgress);
+  const { user } = useAuth();
+  const [expanded, setExpanded] = useState(true);
+
+  const isTopicDone = topicProgress.includes(topic.slug);
+  const missingPrereqs = topic.prereqTopicSlugs.filter((p) => !topicProgress.includes(p));
+  const locked = missingPrereqs.length > 0;
+  const doneQuestions = topic.questions.reduce(
+    (n, q) => n + (completed.includes(q.slug) ? 1 : 0),
+    0,
+  );
+
+  return (
+    <div className={cn("rounded-lg border bg-card", locked && "opacity-90")}>
+      <div className="border-b border-border/60 p-5">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="space-y-1.5">
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="text-xl font-semibold tracking-tight">{topic.name}</h2>
+              {locked && (
+                <Badge variant="warning" className="gap-1">
+                  <Lock className="h-3 w-3" /> prereq
+                </Badge>
+              )}
+              {isTopicDone && (
+                <Badge variant="success" className="gap-1">
+                  <CheckCircle2 className="h-3 w-3" /> mastered
+                </Badge>
+              )}
+            </div>
+            <p className="text-sm text-muted-foreground leading-relaxed">{topic.description}</p>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 pt-1 text-[11px] text-muted-foreground">
+              <DifficultyBadge level={topic.difficulty} />
+              <span>frequency: {FREQ_LABEL[topic.frequency] ?? topic.frequency}</span>
+              <span className="flex items-center gap-1">
+                <Clock className="h-3 w-3" /> ~{Math.round(topic.masteryMinutes / 60)}h to mastery
+              </span>
+              <span>
+                {doneQuestions}/{topic.questions.length} questions done
+              </span>
+            </div>
+            {locked && (
+              <p className="pt-1 text-xs text-muted-foreground">
+                Recommended prerequisites:{" "}
+                {missingPrereqs.map((p, i) => (
+                  <span key={p}>
+                    <span className="font-medium text-foreground">{p}</span>
+                    {i < missingPrereqs.length - 1 ? ", " : ""}
+                  </span>
+                ))}
+              </p>
+            )}
+          </div>
+
+          {user && (
+            <button
+              type="button"
+              onClick={() => void toggleTopic(topic.slug)}
+              className={cn(
+                "shrink-0 rounded-md border border-border px-3 py-1.5 text-xs font-medium transition-colors",
+                isTopicDone
+                  ? "bg-[hsl(var(--success)/0.12)] text-[hsl(var(--success))]"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {isTopicDone ? "✓ Mastered" : "Mark mastered"}
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="grid gap-4 border-b border-border/60 p-5 sm:grid-cols-2">
+        <Info title="Why interviewers ask">{topic.whyAsked}</Info>
+        <Info title="Real-world relevance">{topic.realWorld}</Info>
+        <BulletList title="Common interview patterns" items={topic.commonPatterns} />
+        <BulletList title="Common mistakes" items={topic.commonMistakes} />
+        <BulletList title="Follow-up questions" items={topic.followUps} className="sm:col-span-2" />
+      </div>
+
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        className="flex w-full items-center justify-between px-5 py-3 text-sm font-medium text-muted-foreground hover:bg-muted/40"
+      >
+        <span>
+          {topic.questions.length} {topic.questions.length === 1 ? "question" : "questions"}
+        </span>
+        <ChevronDown
+          className={cn("h-4 w-4 transition-transform", expanded && "rotate-180")}
+        />
+      </button>
+
+      {expanded &&
+        (topic.questions.length > 0 ? (
+          <div className="divide-y divide-border">
+            {topic.questions.map((q) => (
+              <QuestionRow key={q.slug} q={q} />
+            ))}
+          </div>
+        ) : (
+          <div className="px-5 py-10 text-center text-sm text-muted-foreground">
+            Questions coming soon.
+          </div>
+        ))}
+    </div>
+  );
+}
+
+function Info({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="space-y-1">
+      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+        {title}
+      </p>
+      <p className="text-sm text-foreground/90 leading-relaxed">{children}</p>
+    </div>
+  );
+}
+
+function BulletList({
+  title,
+  items,
+  className,
+}: {
+  title: string;
+  items: string[];
+  className?: string;
+}) {
+  if (items.length === 0) return null;
+  return (
+    <div className={cn("space-y-1.5", className)}>
+      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+        {title}
+      </p>
+      <ul className="space-y-1 text-sm text-foreground/90">
+        {items.map((it, i) => (
+          <li key={i} className="flex gap-2 leading-relaxed">
+            <span className="mt-2 inline-block h-1 w-1 shrink-0 rounded-full bg-foreground/40" />
+            <span>{it}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function QuestionRow({
+  q,
+}: {
+  q: { slug: string; title: string; difficulty: "easy" | "medium" | "hard"; estimatedReadingMinutes: number };
+}) {
   const { user } = useAuth();
   const hydrated = useUserStore((s) => s.hydrated);
   const completed = useUserStore((s) => s.completed);

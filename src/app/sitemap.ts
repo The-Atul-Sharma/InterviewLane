@@ -1,11 +1,16 @@
 import type { MetadataRoute } from "next";
 import { repository } from "@/lib/repository";
 import { CATEGORIES } from "@/lib/schema/question";
-import { ROADMAPS, PREP_PLANS } from "@/lib/roadmaps";
+import { ROADMAPS } from "@/lib/roadmaps";
+import { getStages, getPlans } from "@/lib/repository/roadmap-repository";
 import { siteUrl } from "@/lib/utils";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const questions = await repository.listAll();
+  const [questions, stages, plans] = await Promise.all([
+    repository.listAll(),
+    getStages().catch(() => []),
+    getPlans().catch(() => []),
+  ]);
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -27,13 +32,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.6,
     })),
-    ...ROADMAPS.map((r) => ({
+    ...stages.map((s) => ({
+      url: siteUrl(`/roadmaps/${s.slug}`),
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+    ...ROADMAPS.filter((r) => r.slug === "dsa-for-frontend").map((r) => ({
       url: siteUrl(`/roadmaps/${r.slug}`),
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
-    ...PREP_PLANS.map((p) => ({
+    ...plans.map((p) => ({
       url: siteUrl(`/plans/${p.slug}`),
       lastModified: now,
       changeFrequency: "monthly" as const,
