@@ -5,50 +5,52 @@ import { Github } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { useAuth } from "@/components/providers/authProvider";
 
-const COLUMNS = [
-  {
-    h: "Practice",
-    items: [
-      { label: "Categories", href: "/categories" },
-      { label: "Random round", href: "/random" },
-      { label: "Daily challenge", href: "/daily" },
-    ],
-  },
-  {
-    h: "Roadmaps",
-    items: [
-      { label: "All roadmaps", href: "/roadmaps" },
-      { label: "Frontend foundations", href: "/roadmaps/frontend-foundations" },
-      { label: "Senior frontend", href: "/roadmaps/senior-frontend" },
-    ],
-  },
-  {
-    h: "Plans",
-    items: [
-      { label: "7-day refresher", href: "/plans/7-day" },
-      { label: "30-day deep prep", href: "/plans/30-day" },
-      { label: "90-day mastery", href: "/plans/90-day" },
-    ],
-  },
+const CATEGORIES = [
+  { label: "React", href: "/categories/react" },
+  { label: "JavaScript", href: "/categories/javascript" },
+  { label: "System Design", href: "/categories/system-design" },
+  { label: "Performance", href: "/categories/performance" },
+  { label: "DSA · Blind 75", href: "/categories/dsa-algorithms-75" },
+];
+
+const PRACTICE = [
+  { label: "Roadmaps", href: "/roadmaps" },
+  { label: "Plans", href: "/plans" },
+  { label: "Resources", href: "/resources" },
+  { label: "Daily challenge", href: "/daily" },
+];
+
+const LEGAL = [
+  { label: "Terms", href: "/terms" },
+  { label: "Privacy", href: "/privacy" },
 ];
 
 export function SiteFooter() {
   const { user } = useAuth();
-  const accountItems = [
+  const account = [
     { label: "Dashboard", href: "/dashboard" },
     { label: "Bookmarks", href: "/bookmarks" },
     ...(user ? [] : [{ label: "Sign in", href: "/login" }]),
   ];
-  const columns = [...COLUMNS, { h: "Account", items: accountItems }];
+
+  const columns = [
+    { h: "Categories", items: CATEGORIES },
+    { h: "Practice", items: PRACTICE },
+    { h: "Account", items: account },
+    { h: "Legal", items: LEGAL },
+  ];
+
   return (
     <footer className="mt-24 border-t bg-card">
-      <div className="container-page grid grid-cols-2 gap-8 py-12 md:grid-cols-[2fr_repeat(4,1fr)]">
+      <div className="container-page grid grid-cols-2 gap-10 py-14 md:grid-cols-[1.6fr_repeat(4,1fr)]">
         <div>
           <Logo size={20} />
-          <p className="mt-3 max-w-[260px] text-[12.5px] leading-6 text-muted-foreground">
-            The frontend interview prep platform built by engineers, for engineers.
+          <p className="mt-4 max-w-[34ch] text-[13px] leading-6 text-muted-foreground">
+            Curated frontend interview prep. Practice React, JavaScript, system design,
+            performance, and DSA with structured roadmaps and day-by-day plans. Free for
+            senior engineers.
           </p>
-          <div className="mt-4 flex gap-3 text-muted-foreground">
+          <div className="mt-5 flex gap-3 text-muted-foreground">
             <Link
               href="https://github.com/The-Atul-Sharma/InterviewLane"
               aria-label="GitHub"
@@ -61,33 +63,28 @@ export function SiteFooter() {
           </div>
         </div>
         {columns.map((c) => (
-          <div key={c.h} className="flex flex-col gap-2.5">
-            <span className="eyebrow">{c.h}</span>
-            {c.items.map((i) => (
-              <Link
-                key={i.href}
-                href={i.href}
-                className="text-[13px] text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {i.label}
-              </Link>
-            ))}
+          <div key={c.h} className="flex flex-col gap-3">
+            <h5 className="font-mono text-[11px] font-medium uppercase tracking-[0.10em] text-muted-foreground">
+              {c.h}
+            </h5>
+            <ul className="flex flex-col gap-2">
+              {c.items.map((i) => (
+                <li key={i.href}>
+                  <Link
+                    href={i.href}
+                    className="text-[13.5px] text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {i.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         ))}
       </div>
-      <div className="container-page flex flex-col items-start justify-between gap-2 border-t py-5 text-[11.5px] sm:flex-row sm:items-center">
-        <span className="font-mono text-muted-foreground">
-          © {new Date().getFullYear()} InterviewLane
-        </span>
-        <div className="flex items-center gap-4">
-          <Link href="/terms" className="font-mono text-muted-foreground hover:text-foreground">
-            Terms
-          </Link>
-          <Link href="/privacy" className="font-mono text-muted-foreground hover:text-foreground">
-            Privacy
-          </Link>
-          <span className="font-mono text-muted-foreground">Built for senior frontend engineers</span>
-        </div>
+      <div className="container-page flex flex-col items-start justify-between gap-2 border-t py-5 font-mono text-[11px] text-muted-foreground sm:flex-row sm:items-center">
+        <span>© {new Date().getFullYear()} InterviewLane · All rights reserved</span>
+        <span>Built for senior frontend engineers</span>
       </div>
     </footer>
   );

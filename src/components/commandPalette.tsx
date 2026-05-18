@@ -114,7 +114,10 @@ export function CommandPalette() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="overflow-hidden p-0" hideClose>
+      <DialogContent
+        className="overflow-hidden p-0 max-sm:inset-0 max-sm:left-0 max-sm:top-0 max-sm:h-full max-sm:max-h-full max-sm:w-full max-sm:max-w-full max-sm:translate-x-0 max-sm:translate-y-0 max-sm:rounded-none max-sm:border-0"
+        hideClose
+      >
         <DialogTitle className="sr-only">Command palette</DialogTitle>
         <Command
           label="Command palette"
@@ -135,7 +138,7 @@ export function CommandPalette() {
             </kbd>
           </div>
 
-          <Command.List className="max-h-[420px] overflow-y-auto p-2 scrollbar-thin">
+          <Command.List className="max-h-[420px] overflow-y-auto p-2 scrollbar-thin max-sm:max-h-[calc(100vh-120px)]">
             <Command.Empty className="py-8 text-center text-sm text-muted-foreground">
               No results.
             </Command.Empty>

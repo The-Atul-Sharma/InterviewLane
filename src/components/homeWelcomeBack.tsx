@@ -89,7 +89,7 @@ export function HomeWelcomeBack({ totalPool }: { totalPool: number }) {
                   : total === 0
                   ? "Pick your first question and get on the board."
                   : recent.length > 0
-                  ? `You last opened ${recent.length} ${recent.length === 1 ? "question" : "questions"} recently — jump back in.`
+                  ? `You last opened ${recent.length} ${recent.length === 1 ? "question" : "questions"} recently. Jump back in.`
                   : `${total} questions down. Keep the streak alive.`}
               </p>
             </div>
