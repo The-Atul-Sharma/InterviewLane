@@ -49,7 +49,7 @@ export default function PrivacyPolicyPage() {
 
           <h2 className="text-xl font-semibold text-foreground mt-8 mb-4">4. Disclosure of Data</h2>
           <p>
-            Your information, including Personal Data, may be transferred to — and maintained on — computers located outside of your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from your jurisdiction.
+            Your information, including Personal Data, may be transferred to, and maintained on, computers located outside of your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from your jurisdiction.
           </p>
           <p>We may disclose your Personal Data in the good faith belief that such action is necessary to:</p>
           <ul className="list-disc pl-6 space-y-2">

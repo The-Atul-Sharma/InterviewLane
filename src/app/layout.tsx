@@ -12,7 +12,7 @@ import { siteUrl } from "@/lib/utils";
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? ""),
   title: {
-    default: "InterviewLane — Ace your frontend interview",
+    default: "InterviewLane: Ace your frontend interview",
     template: "%s · InterviewLane",
   },
   description:
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl(),
     siteName: "InterviewLane",
-    title: "InterviewLane — Ace your frontend interview",
+    title: "InterviewLane: Ace your frontend interview",
     description:
       "Curated questions, structured roadmaps, and a clear path from refresher to interview-ready.",
   },

@@ -21,7 +21,7 @@ export async function createServerSupabase(): Promise<SupabaseClient> {
         try {
           toSet.forEach(({ name, value, options }) => store.set(name, value, options));
         } catch {
-          // server components can't set cookies — middleware already refreshes them
+          // server components can't set cookies - middleware already refreshes them
         }
       },
     },

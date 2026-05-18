@@ -18,7 +18,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Resources",
   description:
-    "A curated, opinionated reading list for frontend interviews — organized by topic with a 10-week study track.",
+    "A curated, opinionated reading list for frontend interviews. Organized by topic with a 10-week study track.",
 };
 
 const totalCount = RESOURCE_SECTIONS.reduce((n, s) => n + s.resources.length, 0);

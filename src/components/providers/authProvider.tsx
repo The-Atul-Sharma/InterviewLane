@@ -3,7 +3,7 @@
  * Auth context. Subscribes to Supabase `onAuthStateChange` and exposes the
  * current user + loading state to descendants.
  *
- * Does NOT auto-hydrate the userState store or fetch admin status on mount —
+ * Does NOT auto-hydrate the userState store or fetch admin status on mount -
  * pages that need user data render <UserStateBoot/>, and admin status is
  * fetched lazily by <UserButton/> when the menu opens. This keeps the
  * homepage (and other marketing pages) network-quiet.
@@ -19,7 +19,7 @@ interface AuthCtx {
   session: Session | null;
   loading: boolean;
   isAdmin: boolean;
-  /** Lazy admin check — fires `/api/admin/me` on first call, then caches. */
+  /** Lazy admin check - fires `/api/admin/me` on first call, then caches. */
   ensureAdminChecked: () => Promise<boolean>;
   signOut: () => Promise<void>;
   configured: boolean;

@@ -111,19 +111,19 @@ const browserRendering: AuthoredTopic = {
   stageSlug: "foundations" as StageSlug,
   name: "Browser and Rendering",
   description:
-    "How the browser turns HTML, CSS, and JS into pixels — the critical rendering path, layout vs paint vs composite, and where work blocks the main thread.",
+    "How the browser turns HTML, CSS, and JS into pixels - the critical rendering path, layout vs paint vs composite, and where work blocks the main thread.",
   whyAsked:
     "Performance answers that don't ground in the rendering pipeline are guesses. Senior interviewers test whether you can explain *why* a fix works, not just *that* it does.",
   realWorld:
     "Debugging jank, slow LCP, or layout shifts always traces back to the pipeline. Knowing which stage a CSS property triggers is the difference between shipping a 60fps animation and a stuttery one.",
   commonPatterns: [
     "Walk through the Critical Rendering Path from HTML to pixels",
-    "Distinguish reflow, repaint, and composite — and what triggers each",
+    "Distinguish reflow, repaint, and composite - and what triggers each",
     "Identify render-blocking resources and how to unblock them",
     "Explain how layout, paint, and composite map to DevTools' Performance panel",
   ],
   commonMistakes: [
-    "Conflating reflow with repaint — only layout-affecting changes reflow",
+    "Conflating reflow with repaint - only layout-affecting changes reflow",
     "Assuming `transform` and `opacity` always stay on the compositor (they can promote layers and bloat GPU memory)",
     "Forgetting that JS parsing blocks rendering unless `defer` or `async` is used",
     "Skipping the CSSOM step when explaining why CSS is render-blocking",
@@ -184,7 +184,7 @@ const dom: AuthoredTopic = {
   realWorld:
     "Event delegation keeps long lists cheap. Service workers unlock offline. The wrong storage choice leaks auth tokens. These are decisions made weekly on real codebases.",
   commonPatterns: [
-    "Explain capture, target, bubble — and why event delegation works",
+    "Explain capture, target, bubble - and why event delegation works",
     "Pick the right storage: cookie vs localStorage vs sessionStorage vs IndexedDB",
     "Describe the service worker lifecycle and what makes a PWA installable",
     "Trace what happens between a click and a network request",
@@ -240,7 +240,7 @@ const asyncJavascript: AuthoredTopic = {
   stageSlug: "intermediate" as StageSlug,
   name: "Async JavaScript",
   description:
-    "Promises, async/await, the event loop, microtasks vs macrotasks, and the timing patterns — debounce, throttle, abort — that every real app uses.",
+    "Promises, async/await, the event loop, microtasks vs macrotasks, and the timing patterns - debounce, throttle, abort - that every real app uses.",
   whyAsked:
     "Async bugs are the most common production bugs. Interviewers want to know if you can reason about ordering, cancellation, and error propagation without hand-waving.",
   realWorld:
@@ -252,7 +252,7 @@ const asyncJavascript: AuthoredTopic = {
     "Compose `Promise.all`, `allSettled`, `race`, and `any` correctly",
   ],
   commonMistakes: [
-    "Confusing microtask and macrotask ordering — Promises drain before setTimeout",
+    "Confusing microtask and macrotask ordering - Promises drain before setTimeout",
     "`await`-ing inside a loop when `Promise.all` would parallelize",
     "Forgetting unhandled rejections still fire even after a `.catch` is attached later",
     "Treating async/await as a magic sync conversion instead of syntactic sugar over Promises",
@@ -302,7 +302,7 @@ const reactBasics: AuthoredTopic = {
   commonPatterns: [
     "Pick the right hook: state vs ref vs reducer vs effect",
     "Use stable keys to keep list reconciliation O(n)",
-    "Lift state up — or colocate down — based on who reads it",
+    "Lift state up - or colocate down - based on who reads it",
     "Build controlled forms with validation and field-level errors",
   ],
   commonMistakes: [
@@ -394,7 +394,7 @@ const networking: AuthoredTopic = {
     "Pick WebSocket, SSE, or long polling based on directionality and reconnection cost",
   ],
   commonMistakes: [
-    "Ignoring CORS until it breaks in prod — credentialed requests have stricter rules",
+    "Ignoring CORS until it breaks in prod - credentialed requests have stricter rules",
     "Not setting `SameSite` on auth cookies",
     "Polling for data that an SSE stream could push for free",
     "Treating fetch as a drop-in for Axios without porting interceptors and retry logic",
@@ -458,7 +458,7 @@ const stateManagement: AuthoredTopic = {
   stageSlug: "intermediate" as StageSlug,
   name: "State Management",
   description:
-    "Local state, lifted state, context, and external stores — Redux, Zustand, Recoil, MobX — with the tradeoffs that actually come up in code review.",
+    "Local state, lifted state, context, and external stores - Redux, Zustand, Recoil, MobX - with the tradeoffs that actually come up in code review.",
   whyAsked:
     "Picking the wrong state tool is one of the most expensive architectural mistakes a team makes. Interviewers test whether you can justify the choice, not just name the libraries.",
   realWorld:
@@ -472,7 +472,7 @@ const stateManagement: AuthoredTopic = {
   commonMistakes: [
     "Putting server response data in Redux when React Query would deduplicate it for free",
     "Subscribing to the whole store and re-rendering every consumer on any change",
-    "Treating context as a state library — every consumer re-renders on any value change",
+    "Treating context as a state library - every consumer re-renders on any value change",
     "Building reducer logic for a value that one component owns",
   ],
   followUps: [
@@ -572,15 +572,15 @@ const reactPerformance: AuthoredTopic = {
   whyAsked:
     "Misapplied memo is the most common 'optimization' that hurts perf. Interviewers want to see you measure first, then fix with intent.",
   realWorld:
-    "A 10k-row table, a slow type-ahead, a route transition that drops frames — these are weekly problems. Knowing the right tool (windowing, memo, key stability) avoids weeks of regressions.",
+    "A 10k-row table, a slow type-ahead, a route transition that drops frames - these are weekly problems. Knowing the right tool (windowing, memo, key stability) avoids weeks of regressions.",
   commonPatterns: [
     "Virtualize long lists with `react-window` or a custom windower",
-    "Stabilize callback identity with `useCallback` — only when the consumer is memoized",
+    "Stabilize callback identity with `useCallback` - only when the consumer is memoized",
     "Profile with the React Profiler to confirm a render is the bottleneck",
     "Split context to avoid full-tree re-renders on every change",
   ],
   commonMistakes: [
-    "Wrapping every component in `React.memo` without measuring — adds overhead without payoff",
+    "Wrapping every component in `React.memo` without measuring - adds overhead without payoff",
     "Memoizing with deps that change every render (new object/array literal)",
     "Virtualizing a list of 50 items where a key fix would have been enough",
     "Putting frequently-changing values in a context that many consumers subscribe to",
@@ -626,7 +626,7 @@ const testing: AuthoredTopic = {
   stageSlug: "advanced" as StageSlug,
   name: "Testing",
   description:
-    "Unit, integration, and end-to-end testing strategy with Jest, React Testing Library, Cypress, and Playwright — and what to test vs what to mock.",
+    "Unit, integration, and end-to-end testing strategy with Jest, React Testing Library, Cypress, and Playwright - and what to test vs what to mock.",
   whyAsked:
     "Tests reveal how a candidate thinks about contracts and regressions. The testing pyramid question separates engineers who write tests from those who write *useful* tests.",
   realWorld:
@@ -635,7 +635,7 @@ const testing: AuthoredTopic = {
     "Test behavior with RTL queries (`getByRole`) instead of implementation details",
     "Mock the network at the boundary with MSW, not at the fetch call",
     "Cover critical user flows in E2E, edge cases in unit",
-    "Snapshot only stable, intentional output — never large trees",
+    "Snapshot only stable, intentional output - never large trees",
   ],
   commonMistakes: [
     "Querying by `data-testid` when an accessible role would do",
@@ -670,7 +670,7 @@ const security: AuthoredTopic = {
   realWorld:
     "A token in localStorage is one XSS away from full account takeover. A missing `SameSite` cookie is one CSRF away from a fraudulent transfer. These choices live in code, not in security review.",
   commonPatterns: [
-    "Store auth tokens in HttpOnly, Secure, SameSite cookies — never localStorage",
+    "Store auth tokens in HttpOnly, Secure, SameSite cookies - never localStorage",
     "Sanitize user input at render, not just at submit; trust no string from the network",
     "Use CSP with nonces to lock down inline scripts",
     "Defend against CSRF with same-site cookies + a CSRF token on state-changing requests",
@@ -809,7 +809,7 @@ const buildTools: AuthoredTopic = {
   description:
     "Webpack vs Vite vs Turbopack, tree shaking, code splitting, source maps, module formats, and the publishing story for shared packages.",
   whyAsked:
-    "Senior engineers own the build. Slow CI, broken source maps, and accidental bundle bloat are owned by whoever understands the toolchain — usually the person who can explain it in interviews.",
+    "Senior engineers own the build. Slow CI, broken source maps, and accidental bundle bloat are owned by whoever understands the toolchain - usually the person who can explain it in interviews.",
   realWorld:
     "A 30-second slower build × every engineer × every push = real money. Shipping ESM/CJS dual exports correctly is the difference between a usable package and a support ticket queue.",
   commonPatterns: [
@@ -934,9 +934,9 @@ const frontendSystemDesign: AuthoredTopic = {
   stageSlug: "staff" as StageSlug,
   name: "Frontend System Design",
   description:
-    "End-to-end design of large frontend systems — feeds, editors, dashboards, real-time collaboration — covering data model, state, rendering, networking, and rollout.",
+    "End-to-end design of large frontend systems - feeds, editors, dashboards, real-time collaboration - covering data model, state, rendering, networking, and rollout.",
   whyAsked:
-    "Staff loops use system design as the highest-signal interview. They want to see scoping, tradeoffs, and how you handle ambiguity — not a memorized answer.",
+    "Staff loops use system design as the highest-signal interview. They want to see scoping, tradeoffs, and how you handle ambiguity - not a memorized answer.",
   realWorld:
     "Every staff engineer eventually owns a system that crosses team and surface boundaries. The patterns you reach for here are the same ones you defend in real design reviews.",
   commonPatterns: [
@@ -949,7 +949,7 @@ const frontendSystemDesign: AuthoredTopic = {
     "Jumping to a tech stack before defining the read/write/freshness model",
     "Ignoring offline, retries, and conflict resolution in collaborative designs",
     "Designing for the happy path without naming the failure modes (network, auth, partial)",
-    "Missing observability — how would you even know if the rollout broke?",
+    "Missing observability - how would you even know if the rollout broke?",
   ],
   followUps: [
     "How would you design Google Docs–style collaborative editing?",

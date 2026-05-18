@@ -6,7 +6,7 @@
  * `@supabase/ssr` so the same session is visible to server components and
  * route handlers (no token-in-localStorage).
  *
- * Singleton inside the module — calling `createClient()` repeatedly returns
+ * Singleton inside the module - calling `createClient()` repeatedly returns
  * the same instance, avoiding multiple GoTrueClient warnings.
  */
 import { createBrowserClient, type CookieMethodsBrowser } from "@supabase/ssr";
@@ -17,7 +17,7 @@ let cached: SupabaseClient | null = null;
 
 export function createClient(): SupabaseClient {
   if (!isSupabaseConfigured()) {
-    throw new Error("Supabase env not set — see .env.example");
+    throw new Error("Supabase env not set - see .env.example");
   }
   if (cached) return cached;
   cached = createBrowserClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {

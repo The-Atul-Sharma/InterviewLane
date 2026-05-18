@@ -31,7 +31,7 @@ export function HomeDashboardCard() {
           <ArrowRight className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
         </div>
         <p className="mt-1 truncate text-[12.5px] text-muted-foreground">
-          Streak, bookmarks, and recent activity — <span className="capitalize">{displayName}</span>&apos;s dashboard.
+          Streak, bookmarks, and recent activity for <span className="capitalize">{displayName}</span>.
         </p>
       </div>
     </Link>

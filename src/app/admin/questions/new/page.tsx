@@ -135,7 +135,7 @@ function NewQuestionForm() {
         <Field
           label="Slug"
           required
-          hint="Lowercase, kebab-case. Auto-generated from title — edit if needed."
+          hint="Lowercase, kebab-case. Auto-generated from title; edit if needed."
         >
           <div className="flex gap-2">
             <input
@@ -272,7 +272,7 @@ function NewQuestionForm() {
 
         <Field
           label="Answer (optional)"
-          hint="Leave blank to seed a placeholder — you can author it later from the question page."
+          hint="Leave blank to seed a placeholder; you can author it later from the question page."
         >
           <textarea
             value={answer}

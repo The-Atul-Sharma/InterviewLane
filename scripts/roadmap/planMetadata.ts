@@ -26,15 +26,15 @@ const sevenDay: AuthoredPlan = {
   name: "7-Day Crash Plan",
   tagline: "Interview next week. Lock in the essentials.",
   description:
-    "Seven days, four questions a day, across the highest-frequency interview surfaces — JavaScript, async, React, performance, system design. Built for engineers with a hard deadline who need maximum signal in minimum time.",
+    "Seven days, four questions a day, across the highest-frequency interview surfaces - JavaScript, async, React, performance, system design. Built for engineers with a hard deadline who need maximum signal in minimum time.",
   days: 7,
   questionsPerDay: 4,
   revisionStrategy:
     "Re-skim yesterday's answers each morning before starting new questions. End each day by writing a one-sentence summary of each answer from memory.",
   milestoneCadence: [
-    { day: 3, label: "Halfway check — confidence on JS + async" },
-    { day: 6, label: "Mock interview — pick two unseen questions and time yourself" },
-    { day: 7, label: "Final sweep — revisit anything still shaky" },
+    { day: 3, label: "Halfway check - confidence on JS + async" },
+    { day: 6, label: "Mock interview - pick two unseen questions and time yourself" },
+    { day: 7, label: "Final sweep - revisit anything still shaky" },
   ],
   focus: ["JavaScript", "React", "Performance", "System Design"],
   difficulty: "intermediate",
@@ -69,7 +69,7 @@ function thirtyDayTemplate(): DayTemplate[] {
   t.push({ topics: ["networking", "networking", "networking", "networking", "typescript"], focus: "Networking", goals: ["Cancellation + caching"] });
   t.push({ topics: ["react-basics", "react-internals", "react-performance", "state-management", "networking"], focus: "Week 2 mock", goals: ["React deep-dive mock"], isMock: true });
   t.push({ topics: ["react-basics", "react-internals", "react-performance", "state-management", "networking"], focus: "Week 2 revision", goals: ["Identify weak topics"], isRevision: true });
-  // Week 3: depth — perf, security, testing, a11y, build
+  // Week 3: depth - perf, security, testing, a11y, build
   t.push({ topics: ["performance-optimization", "performance-optimization", "performance-optimization", "performance-optimization", "performance-optimization"], focus: "Performance engineering", goals: ["CWV + bundle work"] });
   t.push({ topics: ["security", "security", "security", "security", "security"], focus: "Security", goals: ["XSS, CSRF, cookies"] });
   t.push({ topics: ["accessibility", "accessibility", "accessibility", "testing", "testing"], focus: "A11y + testing", goals: ["WCAG essentials"] });
@@ -94,7 +94,7 @@ const thirtyDay: AuthoredPlan = {
   name: "30-Day Preparation Plan",
   tagline: "One structured month to senior-ready.",
   description:
-    "Thirty days of theory and applied practice, organized into weekly themes — foundations, React, depth, architecture — with weekly mock interviews and revision days built in.",
+    "Thirty days of theory and applied practice, organized into weekly themes - foundations, React, depth, architecture - with weekly mock interviews and revision days built in.",
   days: 30,
   questionsPerDay: 5,
   revisionStrategy:
@@ -122,7 +122,7 @@ function sixtyDayTemplate(): DayTemplate[] {
     out.push(d);
     out.push({
       topics: d.topics,
-      focus: `${d.focus} — depth day`,
+      focus: `${d.focus} - depth day`,
       goals: ["Practice from memory", "Write code, don't just read"],
     });
   }

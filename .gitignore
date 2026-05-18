@@ -11,7 +11,7 @@ next-env.d.ts
 content/
 tsconfig.tsbuildinfo
 
-# Drafts for db:add — Supabase is the source of truth.
+# Drafts for db:add - Supabase is the source of truth.
 scripts/draft.question.ts
 scripts/drafts/
 .claude/

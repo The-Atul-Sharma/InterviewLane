@@ -1,5 +1,5 @@
 -- =============================================================================
--- InterviewLane — roadmap, topics, plans, and per-user progress
+-- InterviewLane - roadmap, topics, plans, and per-user progress
 -- Idempotent: safe to re-run. Adds the structured-learning layer on top of
 -- the existing question bank from 0002_questions.sql.
 --

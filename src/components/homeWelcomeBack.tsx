@@ -119,7 +119,7 @@ export function HomeWelcomeBack({ totalPool }: { totalPool: number }) {
                   {label}
                 </div>
                 <span className="text-2xl font-semibold tabular-nums tracking-tight">
-                  {hydrated ? value : "—"}
+                  {hydrated ? value : "-"}
                 </span>
               </div>
             ))}
@@ -143,7 +143,7 @@ function SignedOutSyncPromo() {
               Sync your streak, bookmarks, and progress across devices.
             </p>
             <p className="mt-0.5 text-[12.5px] text-muted-foreground">
-              Free forever. Sign in once — pick up where you left off anywhere.
+              Free forever. Sign in once, pick up where you left off anywhere.
             </p>
           </div>
           <Button asChild size="sm" className="shrink-0 gap-1.5">

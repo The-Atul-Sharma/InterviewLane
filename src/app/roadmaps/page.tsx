@@ -71,7 +71,7 @@ export default async function RoadmapsPage() {
         sub="Five stages, every question in the bank mapped to where it fits. Pick the stage that matches where you are. Earlier stages unlock the later ones."
       />
 
-      {/* Stage strip — quick visual overview matching the home design */}
+      {/* Stage strip - quick visual overview matching the home design */}
       <section className="container-page pt-10">
         <HomeRoadmapStrip stages={stripStages} />
       </section>

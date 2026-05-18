@@ -3,7 +3,7 @@
  * User-state store, Supabase-backed.
  *
  * Same hook surface as the previous localStorage version so existing
- * components don't change. Each mutation is **optimistic** — store updates
+ * components don't change. Each mutation is **optimistic** - store updates
  * first, then writes to Supabase in the background. On failure the local
  * state is reverted.
  *
@@ -91,7 +91,7 @@ export const useUserStore = create<UserState>((set, get) => ({
     set({ loading: true, error: null });
     const supabase = createClient();
 
-    // We rely on RLS — no need to round-trip `auth.getUser()` here. If the
+    // We rely on RLS - no need to round-trip `auth.getUser()` here. If the
     // session is absent, each select returns 0 rows and we still mark
     // hydrated. This also drops `record_study_day` from the hydrate path:
     // the streak self-heal lives in `toggleCompleted` where it's actually
@@ -105,7 +105,7 @@ export const useUserStore = create<UserState>((set, get) => ({
       supabase.from("user_plan_progress").select("plan_slug, day_num").order("completed_at", { ascending: false }),
     ]);
 
-    // Hydrate every successful table independently — a single failing query
+    // Hydrate every successful table independently - a single failing query
     // (e.g. RLS edge case) must NOT throw away the bookmarks/completed data.
     set({
       bookmarks: b.error ? [] : (b.data ?? []).map((x) => x.slug as string),
@@ -269,7 +269,7 @@ export const useUserStore = create<UserState>((set, get) => ({
 
     const supabase = createClient();
     const { data: userRes } = await supabase.auth.getUser();
-    if (!userRes.user) return; // anonymous — no remote write
+    if (!userRes.user) return; // anonymous - no remote write
     await supabase.rpc("track_view", { p_slug: slug });
   },
 
@@ -321,7 +321,7 @@ export const useUserStore = create<UserState>((set, get) => ({
 }));
 
 /**
- * SSR-safe selector — returns `fallback` until the store has hydrated from
+ * SSR-safe selector - returns `fallback` until the store has hydrated from
  * Supabase. Prevents flash of "wrong" state on first paint.
  */
 export function useHydratedUserState<T>(selector: (s: UserState) => T, fallback: T): T {

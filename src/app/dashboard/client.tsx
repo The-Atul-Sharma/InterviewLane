@@ -66,7 +66,7 @@ function Inner({
   const planProgress = useUserStore((s) => s.planProgress);
   const hydrated = useUserStore((s) => s.hydrated);
   const loading = useUserStore((s) => s.loading);
-  // Defer the activity query until the store has hydrated — otherwise we'd
+  // Defer the activity query until the store has hydrated - otherwise we'd
   // race the AuthProvider's hydrate() with our own select on the same tables.
   const activity = useDashboardActivity(hydrated && !loading);
 
@@ -137,7 +137,7 @@ function Inner({
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
             {thisWk === 0 ? (
-              <>No sessions this week yet — start one to get on the board.</>
+              <>No sessions this week yet. Start one to get on the board.</>
             ) : goalLeft > 0 ? (
               <>
                 You&apos;ve practiced{" "}
@@ -183,7 +183,7 @@ function Inner({
           label="Completed"
           value={totalCompleted}
           sub={
-            activity.loading ? "—" : deltaLabel(thisWk - prevWk, "this wk vs last")
+            activity.loading ? "-" : deltaLabel(thisWk - prevWk, "this wk vs last")
           }
         />
         <Kpi
@@ -192,7 +192,7 @@ function Inner({
           value={bookmarks.length}
           sub={
             activity.loading
-              ? "—"
+              ? "-"
               : activity.bookmarksThisWeek > 0
               ? `+${activity.bookmarksThisWeek} this wk`
               : "Saved for later"
@@ -290,7 +290,7 @@ function Inner({
           </div>
           {bookmarkItems.length === 0 ? (
             <EmptyHint>
-              Bookmark questions you want to come back to — they&apos;ll surface here.
+              Bookmark questions you want to come back to. They&apos;ll surface here.
             </EmptyHint>
           ) : (
             <ul className="space-y-1">

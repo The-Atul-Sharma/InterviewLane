@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Geometric monogram — borrowed from the design canvas.
+ * Geometric monogram - borrowed from the design canvas.
  * Stroke gradient (brand → teal) with a single dot accent.
  */
 export function Logo({

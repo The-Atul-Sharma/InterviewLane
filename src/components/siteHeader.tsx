@@ -111,7 +111,7 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Mobile sub-menu — nav links shown as a row below the header.
+        {/* Mobile sub-menu - nav links shown as a row below the header.
             Hides on scroll-down and reappears on scroll-up. */}
         <nav
           className={cn(

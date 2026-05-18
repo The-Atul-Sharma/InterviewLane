@@ -1,6 +1,6 @@
 import "server-only";
 /**
- * Service-role Supabase client. Bypasses RLS — server-only.
+ * Service-role Supabase client. Bypasses RLS - server-only.
  * Use this for admin writes after authenticating the caller via
  * the cookie-bound client and `isAdminEmail()`.
  */

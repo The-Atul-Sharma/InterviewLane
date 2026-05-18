@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 /**
- * Pill — small status chip. Tones map to the InterviewPerp palette.
+ * Pill - small status chip. Tones map to the InterviewPerp palette.
  * Hairline border by default; tonal fill for status colors.
  */
 const badgeVariants = cva(
@@ -45,7 +45,7 @@ export function Badge({ className, variant, size, ...props }: BadgeProps) {
   return <div className={cn(badgeVariants({ variant, size }), className)} {...props} />;
 }
 
-/** Difficulty pill — maps easy/medium/hard to the right tonal color. */
+/** Difficulty pill - maps easy/medium/hard to the right tonal color. */
 export function DifficultyBadge({
   level,
   size,

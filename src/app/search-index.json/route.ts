@@ -3,7 +3,7 @@
  *
  * Replaces the build-time `public/search-index.json` so the client search /
  * command palette read live data, not stale baked-at-build content. Cached
- * for 60s at the edge — re-pushes to Supabase show up shortly after.
+ * for 60s at the edge - re-pushes to Supabase show up shortly after.
  */
 import { NextResponse } from "next/server";
 import { repository } from "@/lib/repository";

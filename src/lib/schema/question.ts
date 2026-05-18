@@ -36,7 +36,7 @@ export const CodeSnippetSchema = z.object({
   caption: z.string().optional(),
 });
 
-/** Full question — only loaded on detail pages. */
+/** Full question - only loaded on detail pages. */
 export const QuestionSchema = z.object({
   id: z.string(),
   slug: z.string(),
@@ -67,7 +67,7 @@ export const QuestionSchema = z.object({
 
 export type Question = z.infer<typeof QuestionSchema>;
 
-/** Lean meta — what list pages, search, and dashboards consume. */
+/** Lean meta - what list pages, search, and dashboards consume. */
 export interface QuestionMeta {
   id: string;
   slug: string;

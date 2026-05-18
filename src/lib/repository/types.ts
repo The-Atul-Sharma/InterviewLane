@@ -22,14 +22,14 @@ export interface RepoStats {
 }
 
 /**
- * Repository contract — every page goes through this.
+ * Repository contract - every page goes through this.
  * Implementations are interchangeable (filesystem, SQLite, Postgres, REST).
  */
 export interface QuestionRepository {
-  /** Lean meta for *all* questions — list pages, search, dashboards. */
+  /** Lean meta for *all* questions - list pages, search, dashboards. */
   listAll(): Promise<QuestionMeta[]>;
 
-  /** Full question for a single slug — only loaded by the detail page. */
+  /** Full question for a single slug - only loaded by the detail page. */
   getBySlug(slug: string): Promise<Question | null>;
 
   /** Lean meta filtered to a category. */

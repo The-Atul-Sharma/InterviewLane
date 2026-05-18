@@ -2,7 +2,7 @@
  * Fetch the DSA & Algorithms list from Supabase (`public.dsa_questions`).
  *
  * Single source of truth. If the table is unreachable or empty, the
- * category page renders an empty state — there is no static fallback.
+ * category page renders an empty state - there is no static fallback.
  */
 import "server-only";
 import { cache } from "react";

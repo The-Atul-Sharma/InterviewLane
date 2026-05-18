@@ -8,7 +8,7 @@ import { useAuth } from "@/components/providers/authProvider";
 
 /**
  * Wraps content that requires a signed-in user. Renders an inline
- * sign-in prompt when there's no session — no redirect, so the user
+ * sign-in prompt when there's no session - no redirect, so the user
  * keeps their place on the page.
  */
 export function AuthGate({

@@ -69,7 +69,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       ) : questions.length === 0 ? (
         <div className="rounded-lg border bg-card p-10 text-center text-muted-foreground">
           <p>No questions in this category yet.</p>
-          <p className="mt-1 text-sm">Check back soon — new questions are added regularly.</p>
+          <p className="mt-1 text-sm">Check back soon. New questions are added regularly.</p>
         </div>
       ) : (
         <CategoryQuestions questions={questions} />

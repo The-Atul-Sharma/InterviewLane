@@ -105,7 +105,7 @@ export const ROADMAPS: Roadmap[] = [
     slug: "dsa-for-frontend",
     name: "DSA & Algorithms",
     description:
-      "Data structures and algorithms tailored for frontend engineers — arrays, trees, graphs, dynamic programming, and the patterns that show up most in FAANG-style coding rounds.",
+      "Data structures and algorithms tailored for frontend engineers: arrays, trees, graphs, dynamic programming, and the patterns that show up most in FAANG-style coding rounds.",
     estimatedHours: 50,
     status: "active",
     topics: [

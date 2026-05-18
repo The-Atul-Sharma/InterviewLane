@@ -85,7 +85,7 @@ type State =
   | { kind: "error"; error: Error };
 \`\`\`
 
-Each transition produces a **valid** state. You can't be in "success" without data. The TS narrowing means \`state.data\` only exists in the success branch — impossible states become unrepresentable.
+Each transition produces a **valid** state. You can't be in "success" without data. The TS narrowing means \`state.data\` only exists in the success branch - impossible states become unrepresentable.
 
 # Testing
 
@@ -101,10 +101,10 @@ Pure function, no React. Easier to unit-test than scattered \`setState\`s.
 
 # When neither is the right answer
 
-- **State that belongs in a server cache** — use TanStack Query.
-- **Cross-component state** — use context, Zustand, or Redux Toolkit.
-- **Form state** — use react-hook-form.
-- **Routing state** — keep in URL params, not local state.
+- **State that belongs in a server cache** - use TanStack Query.
+- **Cross-component state** - use context, Zustand, or Redux Toolkit.
+- **Form state** - use react-hook-form.
+- **Routing state** - keep in URL params, not local state.
 
 # A common misuse: too much in one reducer
 
@@ -152,7 +152,7 @@ The "useReducer is for complex state" answer is shallow. The state-machine + imp
     "Big reducers can be moved out of components for clarity, no perf cost.",
   ],
   edgeCases: [
-    "Strict mode runs reducers twice in dev — they must be pure.",
+    "Strict mode runs reducers twice in dev - they must be pure.",
     "Actions that contain DOM references / functions cause issues with time-travel debugging.",
     "Reducers throwing inside transitions surface as render errors.",
   ],

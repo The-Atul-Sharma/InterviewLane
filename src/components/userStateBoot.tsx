@@ -1,7 +1,7 @@
 "use client";
 /**
  * Triggers userState hydration on mount. Render once per page that consumes
- * the user store (dashboard, bookmarks, question detail, etc.) — pages that
+ * the user store (dashboard, bookmarks, question detail, etc.) - pages that
  * don't read user data (home, marketing) should NOT include this so they stay
  * network-quiet for signed-in visitors.
  *

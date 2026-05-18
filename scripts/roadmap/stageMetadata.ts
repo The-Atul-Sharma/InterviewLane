@@ -16,7 +16,7 @@ export const STAGES: RoadmapStage[] = [
     slug: "intermediate",
     name: "Intermediate",
     description:
-      "Async JavaScript, React fundamentals, and the daily UI surfaces — forms, lists, networking. The bar for mid-level coding rounds at most product companies.",
+      "Async JavaScript, React fundamentals, and the daily UI surfaces - forms, lists, networking. The bar for mid-level coding rounds at most product companies.",
     position: 2,
     skills: ["Async JS & promises", "React basics", "State patterns", "Networking", "TypeScript"],
     estHours: 50,
@@ -54,7 +54,7 @@ export const STAGES: RoadmapStage[] = [
     slug: "staff",
     name: "Staff Level",
     description:
-      "Multi-team frontend system design, platform thinking, and the cross-cutting concerns — observability, rollout safety, design systems at scale — that staff loops drill into.",
+      "Multi-team frontend system design, platform thinking, and the cross-cutting concerns - observability, rollout safety, design systems at scale - that staff loops drill into.",
     position: 5,
     skills: ["Frontend system design", "Design systems at scale", "Platform & DX", "Rollout & observability"],
     estHours: 70,

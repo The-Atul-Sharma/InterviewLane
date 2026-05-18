@@ -53,7 +53,7 @@ export function CategoryCard({
       <div className="flex flex-col gap-1">
         <span className="text-[14px] font-semibold tracking-tight">{cat.name}</span>
         <span className="font-mono text-[11px] text-muted-foreground">
-          {typeof count === "number" ? `${count} questions` : "—"}
+          {typeof count === "number" ? `${count} questions` : "-"}
         </span>
       </div>
       {!compact && (

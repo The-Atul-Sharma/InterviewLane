@@ -5,10 +5,10 @@
  *   npm run db:add                       # reads scripts/draftQuestion.ts
  *   npm run db:add path/to/file.ts       # reads a custom path
  *
- * The draft file must `export default` a Question (or partial — defaults are
+ * The draft file must `export default` a Question (or partial - defaults are
  * filled). Slug is the upsert key. Re-running with the same slug updates.
  *
- * Supabase is the source of truth. Drafts are gitignored scratchpads — once
+ * Supabase is the source of truth. Drafts are gitignored scratchpads - once
  * the row is upserted, the draft can be deleted or overwritten with the next.
  */
 import path from "node:path";

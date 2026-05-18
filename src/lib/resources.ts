@@ -46,16 +46,16 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
     slug: "dsa",
     name: "DSA & Algorithms",
     blurb:
-      "Pattern-first problem solving tuned for frontend interviews. Track curated by us — start here.",
+      "Pattern-first problem solving tuned for frontend interviews. Track curated by us - start here.",
     icon: Brain,
     accent: "from-violet-500/15 to-fuchsia-500/10",
     resources: [
       {
-        title: "DSA for Frontend — 75 questions",
+        title: "DSA for Frontend - 75 questions",
         url: "/categories/dsa-algorithms-75",
         kind: "practice",
         description:
-          "75 hand-picked, priority-ranked problems covering arrays, graphs, trees, DP, and more — tuned for frontend interviews.",
+          "75 hand-picked, priority-ranked problems covering arrays, graphs, trees, DP, and more - tuned for frontend interviews.",
         free: true,
         recommended: true,
       },
@@ -74,7 +74,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         url: "https://javascript.info/",
         kind: "course",
         description:
-          "The deepest free JS course — Promises, classes, DOM events, cookies, storage.",
+          "The deepest free JS course - Promises, classes, DOM events, cookies, storage.",
         free: true,
         recommended: true,
       },
@@ -103,7 +103,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         title: "1000+ JS interview questions",
         url: "https://github.com/sudheerj/javascript-interview-questions",
         kind: "questions",
-        description: "Encyclopedic GitHub repo — great for spaced review.",
+        description: "Encyclopedic GitHub repo - great for spaced review.",
         free: true,
       },
       {
@@ -115,7 +115,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         recommended: true,
       },
       {
-        title: "JS interview Q&A — ChatGPT thread",
+        title: "JS interview Q&A - ChatGPT thread",
         url: "https://chatgpt.com/share/68bd6255-1500-800f-9b94-e349d942388e",
         kind: "questions",
         description: "Curated ChatGPT walkthrough of common JavaScript interview questions.",
@@ -127,7 +127,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
     slug: "performance",
     name: "Performance",
     blurb:
-      "Frontend perf is a frequent senior interview surface — Core Web Vitals, rendering pipeline, network, bundle, and runtime.",
+      "Frontend perf is a frequent senior interview surface - Core Web Vitals, rendering pipeline, network, bundle, and runtime.",
     icon: Gauge,
     accent: "from-emerald-500/15 to-teal-500/10",
     resources: [
@@ -140,7 +140,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         recommended: true,
       },
       {
-        title: "3perf — performance training",
+        title: "3perf - performance training",
         url: "https://3perf.com/",
         kind: "course",
         description: "Optional deep-dive courses on rendering, JS, and network performance.",
@@ -205,7 +205,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         free: true,
       },
       {
-        title: "Redux Q&A — ChatGPT thread",
+        title: "Redux Q&A - ChatGPT thread",
         url: "https://chatgpt.com/share/687f8554-4fd0-800f-87ee-96a616994936",
         kind: "questions",
         description:
@@ -223,7 +223,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
     accent: "from-blue-500/15 to-indigo-500/10",
     resources: [
       {
-        title: "Learn TypeScript — beginner's guide",
+        title: "Learn TypeScript - beginner's guide",
         url: "https://www.freecodecamp.org/news/learn-typescript-beginners-guide/",
         kind: "course",
         description: "Fast on-ramp covering the parts that show up in interviews.",
@@ -267,7 +267,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         description: "Pagination, caching, optimistic updates, and feed ranking.",
       },
       {
-        title: "GFE — System Design Playbook",
+        title: "GFE - System Design Playbook",
         url: "https://www.greatfrontend.com/front-end-system-design-playbook/introduction",
         kind: "course",
         description: "Structured playbook with a repeatable interview framework.",
@@ -284,14 +284,14 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
     accent: "from-lime-500/15 to-emerald-500/10",
     resources: [
       {
-        title: "JavaScript design patterns — freeCodeCamp",
+        title: "JavaScript design patterns - freeCodeCamp",
         url: "https://www.freecodecamp.org/news/javascript-design-patterns-explained/",
         kind: "article",
         description: "Plain-English tour of the classic GoF patterns in JS.",
         free: true,
       },
       {
-        title: "patterns.dev — vanilla patterns",
+        title: "patterns.dev - vanilla patterns",
         url: "https://www.patterns.dev/vanilla/",
         kind: "docs",
         description: "Beautiful, illustrated reference for modern web patterns.",
@@ -409,7 +409,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
     accent: "from-yellow-500/15 to-amber-500/10",
     resources: [
       {
-        title: "GreatFrontEnd — Front-End Interview Playbook",
+        title: "GreatFrontEnd - Front-End Interview Playbook",
         url: "https://www.greatfrontend.com/front-end-interview-playbook",
         kind: "course",
         description: "Full playbook spanning JS, React, system design, and behavioral.",
@@ -422,7 +422,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         description: "Curated 75-question track tuned for frontend roles.",
       },
       {
-        title: "GFE — System Design Playbook",
+        title: "GFE - System Design Playbook",
         url: "https://www.greatfrontend.com/front-end-system-design-playbook",
         kind: "course",
         description: "Companion playbook for the design round.",

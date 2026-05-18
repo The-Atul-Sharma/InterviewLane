@@ -619,7 +619,7 @@ export function AdminAnswerEditor({
               <div className="flex min-w-0 flex-1 items-center gap-2">
                 {isDeleted ? (
                   <span className="text-xs text-muted-foreground">
-                    Already deleted — use Restore question on the page.
+                    Already deleted. Use Restore question on the page.
                   </span>
                 ) : confirmDelete ? (
                   <>

@@ -5,8 +5,8 @@
 1. Go to [supabase.com](https://supabase.com) → New project (free tier).
 2. `Project Settings → API Keys` and copy:
    - **Project URL**
-   - **Publishable key** (`sb_publishable_…`) — browser-safe, replaces the legacy anon key.
-   - **Secret key** (`sb_secret_…`) — server-only, replaces the legacy service-role key. Optional for now.
+   - **Publishable key** (`sb_publishable_…`) - browser-safe, replaces the legacy anon key.
+   - **Secret key** (`sb_secret_…`) - server-only, replaces the legacy service-role key. Optional for now.
 3. Paste into `.env.local`:
 
 ```
@@ -20,10 +20,10 @@ SUPABASE_SECRET_KEY=                       # leave blank unless needed
 | Key | Where it's used | Why |
 |---|---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Browser + server | Same project URL everywhere |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Browser + server (via `@supabase/ssr`) | Goes through Row Level Security — safe in JS bundles |
-| `SUPABASE_SECRET_KEY` | **Server only** (`src/lib/supabase/admin.ts`) | Bypasses RLS — must never reach the browser. The `server-only` import in that file enforces it at build time |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Browser + server (via `@supabase/ssr`) | Goes through Row Level Security - safe in JS bundles |
+| `SUPABASE_SECRET_KEY` | **Server only** (`src/lib/supabase/admin.ts`) | Bypasses RLS - must never reach the browser. The `server-only` import in that file enforces it at build time |
 
-You don't need the secret key for the current feature set — RLS handles per-user reads/writes. Add it later if you build admin route handlers, cron jobs, or backfills.
+You don't need the secret key for the current feature set - RLS handles per-user reads/writes. Add it later if you build admin route handlers, cron jobs, or backfills.
 
 ## 2. Run the migration
 
@@ -46,7 +46,7 @@ This creates:
 
 `Authentication → URL Configuration`:
 
-- **Site URL**: `http://localhost:3000` for dev — change to your production URL on deploy.
+- **Site URL**: `http://localhost:3000` for dev - change to your production URL on deploy.
 - **Redirect URLs**: add prod + preview URLs.
 
 `Authentication → Email Templates → Magic Link`:

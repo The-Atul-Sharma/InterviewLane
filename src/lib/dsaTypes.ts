@@ -1,7 +1,7 @@
 /**
  * Types and helpers for the DSA / Grind question list.
  *
- * Shared between client and server — contains *no* runtime data.
+ * Shared between client and server - contains *no* runtime data.
  * The actual list lives in Supabase (`public.dsa_questions`) and is
  * fetched through `dsaRepository.ts`.
  */

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /*
- * Color tokens — InterviewPerp aesthetic.
+ * Color tokens - InterviewPerp aesthetic.
  * Dark = near-black, Light = warm off-white. Hairline borders, restrained.
  */
 @layer base {
@@ -47,7 +47,7 @@
     --danger: 0 73% 50%;             /* #dc2626 */
 
     --grid: 240 9% 11% / 0.05;
-    --radius: 0.875rem;              /* 14px — design uses 14 for cards */
+    --radius: 0.875rem;              /* 14px - design uses 14 for cards */
     --radius-btn: 0.5rem;            /* 8px buttons */
   }
 

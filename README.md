@@ -8,17 +8,17 @@ A curated interview prep platform for engineers. Practice structured questions, 
 
 ## Features
 
-- **700+ curated questions** across 18 categories — JavaScript, React, CSS, System Design, Performance, Browser Internals, and more
-- **DSA & Algorithms** — 75 hand-picked LeetCode problems with topics and estimated solve times
-- **Structured roadmaps** — Frontend foundations, Senior frontend, and DSA for frontend with phased progression
-- **Study plans** — 7-day refresher, 30-day deep prep, and 90-day mastery tracks
-- **Daily challenge** — A new problem every day, resets at 00:00 UTC
-- **Random round** — 5 questions sampled across categories to simulate a 60-minute interview loop
-- **Resources** — Curated reading list organized by topic with a suggested 10-week study track
-- **Bookmarks** — Save questions to revisit
-- **Full-text search** — Fuzzy search across all questions via ⌘K
-- **Authentication** — Sign in to track progress and sync bookmarks across devices
-- **Dark mode** — System-aware theme toggle
+- **700+ curated questions** across 18 categories - JavaScript, React, CSS, System Design, Performance, Browser Internals, and more
+- **DSA & Algorithms** - 75 hand-picked LeetCode problems with topics and estimated solve times
+- **Structured roadmaps** - Frontend foundations, Senior frontend, and DSA for frontend with phased progression
+- **Study plans** - 7-day refresher, 30-day deep prep, and 90-day mastery tracks
+- **Daily challenge** - A new problem every day, resets at 00:00 UTC
+- **Random round** - 5 questions sampled across categories to simulate a 60-minute interview loop
+- **Resources** - Curated reading list organized by topic with a suggested 10-week study track
+- **Bookmarks** - Save questions to revisit
+- **Full-text search** - Fuzzy search across all questions via ⌘K
+- **Authentication** - Sign in to track progress and sync bookmarks across devices
+- **Dark mode** - System-aware theme toggle
 
 ---
 
