@@ -6,10 +6,14 @@ import { useAuth } from "@/components/providers/auth-provider";
 import { Button } from "@/components/ui/button";
 
 export function AdminRestoreQuestion({ slug }: { slug: string }) {
-  const { isAdmin } = useAuth();
+  const { isAdmin, ensureAdminChecked } = useAuth();
   const router = useRouter();
   const [busy, setBusy] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    void ensureAdminChecked();
+  }, [ensureAdminChecked]);
 
   if (!isAdmin) return null;
 

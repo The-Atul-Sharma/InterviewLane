@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import { asStringArray } from "@/lib/utils";
 import { repository } from "@/lib/repository";
 import { createServerSupabase } from "@/lib/supabase/server";
@@ -65,27 +66,32 @@ function rowToQuestion(r: DbRow): Question {
   };
 }
 
-export async function resolveQuestionForPage(
-  slug: string,
-): Promise<{ question: Question; isDeleted: boolean } | null> {
-  const live = await repository.getBySlug(slug);
-  if (live) return { question: live, isDeleted: false };
+// Wrapped in React `cache()` so generateMetadata + the page render share a
+// single Supabase round-trip per request (otherwise we'd hit the DB twice for
+// every question page render).
+export const resolveQuestionForPage = cache(
+  async (
+    slug: string,
+  ): Promise<{ question: Question; isDeleted: boolean } | null> => {
+    const live = await repository.getBySlug(slug);
+    if (live) return { question: live, isDeleted: false };
 
-  const supabase = await createServerSupabase();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!isAdminEmail(user?.email)) return null;
+    const supabase = await createServerSupabase();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!isAdminEmail(user?.email)) return null;
 
-  const admin = createAdminClient();
-  const { data, error } = await admin
-    .from("questions")
-    .select(ROW_SELECT)
-    .eq("slug", slug)
-    .maybeSingle();
+    const admin = createAdminClient();
+    const { data, error } = await admin
+      .from("questions")
+      .select(ROW_SELECT)
+      .eq("slug", slug)
+      .maybeSingle();
 
-  if (error || !data) return null;
-  const row = data as DbRow;
-  if (!row.deleted_at) return null;
-  return { question: rowToQuestion(row), isDeleted: true };
-}
+    if (error || !data) return null;
+    const row = data as DbRow;
+    if (!row.deleted_at) return null;
+    return { question: rowToQuestion(row), isDeleted: true };
+  },
+);

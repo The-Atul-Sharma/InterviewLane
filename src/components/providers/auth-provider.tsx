@@ -1,8 +1,12 @@
 "use client";
 /**
  * Auth context. Subscribes to Supabase `onAuthStateChange` and exposes the
- * current user + loading state to descendants. Triggers user-state hydration
- * on sign-in and reset on sign-out.
+ * current user + loading state to descendants.
+ *
+ * Does NOT auto-hydrate the user-state store or fetch admin status on mount —
+ * pages that need user data render <UserStateBoot/>, and admin status is
+ * fetched lazily by <UserButton/> when the menu opens. This keeps the
+ * homepage (and other marketing pages) network-quiet.
  */
 import * as React from "react";
 import type { Session, User } from "@supabase/supabase-js";
@@ -15,6 +19,8 @@ interface AuthCtx {
   session: Session | null;
   loading: boolean;
   isAdmin: boolean;
+  /** Lazy admin check — fires `/api/admin/me` on first call, then caches. */
+  ensureAdminChecked: () => Promise<boolean>;
   signOut: () => Promise<void>;
   configured: boolean;
 }
@@ -28,8 +34,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = React.useState(true);
   const [isAdmin, setIsAdmin] = React.useState(false);
 
-  const hydrate = useUserStore((s) => s.hydrate);
   const reset = useUserStore((s) => s.reset);
+  const adminChecked = React.useRef<Promise<boolean> | null>(null);
+
+  const ensureAdminChecked = React.useCallback(async (): Promise<boolean> => {
+    if (!user) return false;
+    if (adminChecked.current) return adminChecked.current;
+    adminChecked.current = (async () => {
+      try {
+        const res = await fetch("/api/admin/me", { cache: "no-store" });
+        if (!res.ok) return false;
+        const data = (await res.json()) as { isAdmin?: boolean };
+        const flag = !!data.isAdmin;
+        setIsAdmin(flag);
+        return flag;
+      } catch {
+        return false;
+      }
+    })();
+    return adminChecked.current;
+  }, [user]);
 
   React.useEffect(() => {
     if (!configured) {
@@ -37,44 +61,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
     const supabase = createClient();
-
     let cancelled = false;
 
-    const fetchIsAdmin = async () => {
-      try {
-        const res = await fetch("/api/admin/me", { cache: "no-store" });
-        if (!res.ok) return false;
-        const data = (await res.json()) as { isAdmin?: boolean };
-        return !!data.isAdmin;
-      } catch {
-        return false;
-      }
-    };
-
-    supabase.auth.getSession().then(async ({ data }) => {
+    supabase.auth.getSession().then(({ data }) => {
       if (cancelled) return;
       setSession(data.session);
       setUser(data.session?.user ?? null);
       setLoading(false);
-      if (data.session?.user) {
-        hydrate();
-        const admin = await fetchIsAdmin();
-        if (!cancelled) setIsAdmin(admin);
-      }
     });
 
-    const { data: sub } = supabase.auth.onAuthStateChange(async (event, sess) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((event, sess) => {
       setSession(sess);
       setUser(sess?.user ?? null);
-      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
-        if (sess?.user) {
-          hydrate();
-          const admin = await fetchIsAdmin();
-          if (!cancelled) setIsAdmin(admin);
-        }
-      } else if (event === "SIGNED_OUT") {
+      if (event === "SIGNED_OUT") {
         reset();
         setIsAdmin(false);
+        adminChecked.current = null;
       }
     });
 
@@ -82,7 +84,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       cancelled = true;
       sub.subscription.unsubscribe();
     };
-  }, [configured, hydrate, reset]);
+  }, [configured, reset]);
 
   const signOut = React.useCallback(async () => {
     if (!configured) return;
@@ -90,8 +92,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [configured]);
 
   const value = React.useMemo<AuthCtx>(
-    () => ({ user, session, loading, isAdmin, signOut, configured }),
-    [user, session, loading, isAdmin, signOut, configured],
+    () => ({ user, session, loading, isAdmin, ensureAdminChecked, signOut, configured }),
+    [user, session, loading, isAdmin, ensureAdminChecked, signOut, configured],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

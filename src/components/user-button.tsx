@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/providers/auth-provider";
 
 export function UserButton() {
-  const { user, loading, signOut, configured, isAdmin } = useAuth();
+  const { user, loading, signOut, configured, isAdmin, ensureAdminChecked } = useAuth();
   const router = useRouter();
 
   if (!configured) {
@@ -42,7 +42,11 @@ export function UserButton() {
   const initials = (user.email ?? "U").slice(0, 2).toUpperCase();
 
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root
+      onOpenChange={(open) => {
+        if (open) void ensureAdminChecked();
+      }}
+    >
       <DropdownMenu.Trigger asChild>
         <button
           className="grid h-8 w-8 place-items-center rounded-full bg-foreground text-[11px] font-bold text-background ring-offset-background transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"

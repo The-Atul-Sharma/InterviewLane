@@ -5,6 +5,7 @@ import { ArrowLeft, Calendar, Repeat } from "lucide-react";
 import { getPlanBySlug, getPlans } from "@/lib/repository/roadmap-repository";
 import { repository } from "@/lib/repository";
 import { Badge } from "@/components/ui/badge";
+import { UserStateBoot } from "@/components/user-state-boot";
 import { PlanDayList } from "./plan-day-list";
 
 export const revalidate = 86400;
@@ -49,6 +50,7 @@ export default async function PlanPage({ params }: { params: Promise<{ slug: str
 
   return (
     <div className="container-page py-10 space-y-8">
+      <UserStateBoot />
       <Link
         href="/plans"
         className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"

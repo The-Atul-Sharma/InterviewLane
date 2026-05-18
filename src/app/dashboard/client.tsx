@@ -225,7 +225,11 @@ function Inner({
               </p>
             </div>
           </div>
-          <Heatmap matrix={activity.heatmap} loading={activity.loading} />
+          <Heatmap
+            matrix={activity.heatmap}
+            startWeek={activity.heatmapStart}
+            loading={activity.loading}
+          />
         </Card>
 
         <DailyChallengeCard streakDays={streak.days} />
@@ -448,10 +452,30 @@ function Kpi({
   );
 }
 
-function Heatmap({ matrix, loading }: { matrix: number[][]; loading: boolean }) {
-  // Normalise to 4 levels by max
-  const flat = matrix.flat();
-  const max = flat.reduce((a, b) => (b > a ? b : a), 0);
+const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const MONTH_ABBR = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+
+function Heatmap({
+  matrix,
+  startWeek,
+  loading,
+}: {
+  matrix: number[][];
+  startWeek: Date;
+  loading: boolean;
+}) {
+  const weeks = matrix[0]?.length ?? 0;
+  const today = React.useMemo(() => {
+    const d = new Date();
+    d.setHours(23, 59, 59, 999);
+    return d;
+  }, []);
+
+  // Normalise to 4 buckets by max count in the window.
+  const max = matrix.reduce((a, row) => Math.max(a, ...row), 0);
   const level = (n: number) => {
     if (n === 0) return 0;
     if (max <= 1) return 4;
@@ -461,43 +485,106 @@ function Heatmap({ matrix, loading }: { matrix: number[][]; loading: boolean }) 
     if (r > 0.25) return 2;
     return 1;
   };
+  const fillFor = (l: number) =>
+    l === 0 ? undefined : `hsl(var(--brand) / ${[0.22, 0.42, 0.7, 1][l - 1]})`;
+
+  // Build month labels: one label at the first column where a new month appears.
+  const monthLabels: { col: number; label: string }[] = [];
+  let lastMonth = -1;
+  for (let c = 0; c < weeks; c += 1) {
+    const dayInCol = new Date(startWeek);
+    dayInCol.setDate(dayInCol.getDate() + c * 7);
+    const m = dayInCol.getMonth();
+    if (m !== lastMonth) {
+      monthLabels.push({ col: c, label: MONTH_ABBR[m] });
+      lastMonth = m;
+    }
+  }
+
+  // Date for a given cell.
+  const cellDate = (row: number, col: number) => {
+    const d = new Date(startWeek);
+    d.setDate(d.getDate() + col * 7 + row);
+    return d;
+  };
+
+  const fmt = (d: Date) =>
+    d.toLocaleDateString("en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+
   return (
-    <div className={cn("space-y-1", loading && "opacity-60")}>
-      <div className="flex flex-col gap-1">
-        {matrix.map((row, r) => (
-          <div key={r} className="flex gap-1">
-            {row.map((count, c) => {
+    <div className={cn(loading && "opacity-60")}>
+      <div
+        className="grid gap-[3px]"
+        style={{
+          gridTemplateColumns: `28px repeat(${weeks}, minmax(0, 1fr))`,
+          gridTemplateRows: "14px repeat(7, minmax(0, 1fr))",
+        }}
+      >
+        {/* top-left empty corner */}
+        <div />
+        {/* month header row */}
+        {Array.from({ length: weeks }).map((_, c) => {
+          const m = monthLabels.find((x) => x.col === c);
+          return (
+            <div
+              key={`m-${c}`}
+              className="h-[14px] text-[10px] leading-none text-muted-foreground"
+            >
+              {m?.label ?? ""}
+            </div>
+          );
+        })}
+
+        {/* day rows: label cell + 7×N grid cells */}
+        {DAY_LABELS.map((day, row) => (
+          <React.Fragment key={day}>
+            <div className="pr-1.5 text-right text-[10px] leading-none text-muted-foreground">
+              {row % 2 === 1 ? day : ""}
+            </div>
+            {Array.from({ length: weeks }).map((_, col) => {
+              const count = matrix[row][col];
+              const d = cellDate(row, col);
+              const future = d > today;
               const l = level(count);
-              const opacity = l === 0 ? 0 : [0.22, 0.42, 0.7, 1][l - 1];
               return (
                 <div
-                  key={c}
-                  title={`${count} session${count === 1 ? "" : "s"}`}
-                  className={cn(
-                    "aspect-square flex-1 rounded-[3px]",
-                    l === 0 && "bg-muted",
-                  )}
-                  style={
-                    l === 0
-                      ? undefined
-                      : { backgroundColor: `hsl(var(--brand) / ${opacity})` }
+                  key={`${row}-${col}`}
+                  title={
+                    future
+                      ? ""
+                      : `${count} ${count === 1 ? "session" : "sessions"} on ${fmt(d)}`
                   }
+                  className={cn(
+                    "aspect-square rounded-[3px]",
+                    future
+                      ? "bg-transparent"
+                      : l === 0
+                      ? "bg-muted/70"
+                      : "",
+                  )}
+                  style={future ? undefined : { backgroundColor: fillFor(l) }}
                 />
               );
             })}
-          </div>
+          </React.Fragment>
         ))}
       </div>
+
       <div className="mt-3 flex items-center justify-between text-[10.5px] text-muted-foreground">
-        <span>26 weeks ago</span>
+        <span>{fmt(startWeek)}</span>
         <div className="flex items-center gap-1.5">
           <span>Less</span>
-          <div className="h-2.5 w-2.5 rounded-[2px] bg-muted" />
-          {[0.22, 0.42, 0.7, 1].map((o) => (
+          <div className="h-2.5 w-2.5 rounded-[2px] bg-muted/70" />
+          {[1, 2, 3, 4].map((l) => (
             <div
-              key={o}
+              key={l}
               className="h-2.5 w-2.5 rounded-[2px]"
-              style={{ backgroundColor: `hsl(var(--brand) / ${o})` }}
+              style={{ backgroundColor: fillFor(l) }}
             />
           ))}
           <span>More</span>

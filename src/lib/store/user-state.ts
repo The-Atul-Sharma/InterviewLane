@@ -81,6 +81,9 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
 
   async hydrate() {
+    // Idempotent: if already hydrated or in-flight, no-op.
+    // Callers (multiple consumer hooks across the tree) can fire freely.
+    if (get().hydrated || get().loading) return;
     if (!isSupabaseConfigured()) {
       set({ hydrated: true });
       return;
@@ -88,12 +91,11 @@ export const useUserStore = create<UserState>((set, get) => ({
     set({ loading: true, error: null });
     const supabase = createClient();
 
-    const { data: userRes } = await supabase.auth.getUser();
-    if (!userRes.user) {
-      set({ loading: false, hydrated: true });
-      return;
-    }
-
+    // We rely on RLS — no need to round-trip `auth.getUser()` here. If the
+    // session is absent, each select returns 0 rows and we still mark
+    // hydrated. This also drops `record_study_day` from the hydrate path:
+    // the streak self-heal lives in `toggleCompleted` where it's actually
+    // earned, so we no longer ping it on every page load.
     const [b, c, r, p, tp, pp] = await Promise.all([
       supabase.from("bookmarks").select("slug, created_at").order("created_at", { ascending: false }),
       supabase.from("completed").select("slug, completed_at").order("completed_at", { ascending: false }),
@@ -102,26 +104,6 @@ export const useUserStore = create<UserState>((set, get) => ({
       supabase.from("user_topic_progress").select("topic_slug").order("completed_at", { ascending: false }),
       supabase.from("user_plan_progress").select("plan_slug, day_num").order("completed_at", { ascending: false }),
     ]);
-
-    // If `profiles` row is missing (auth trigger didn't fire), create it now
-    // so streak math works. Don't let it fail the whole hydration.
-    if (!p.error && !p.data) {
-      await supabase
-        .from("profiles")
-        .upsert({ user_id: userRes.user.id }, { onConflict: "user_id", ignoreDuplicates: true });
-    }
-
-    // Self-heal streak from the derived RPC. Fire-and-forget; UI shows the
-    // freshly-recomputed value via the regular streak state path below as soon
-    // as it resolves. Errors are intentionally swallowed (offline / expired
-    // session shouldn't block the rest of hydration).
-    supabase.rpc("record_study_day").then(({ data }) => {
-      if (!data) return;
-      const row = Array.isArray(data) ? data[0] : (data as Record<string, unknown>);
-      const days = Number((row as { streak_days?: unknown })?.streak_days);
-      const last = (row as { streak_last_date?: string | null })?.streak_last_date ?? null;
-      if (!isNaN(days)) set({ streak: { days, lastDate: last } });
-    });
 
     // Hydrate every successful table independently — a single failing query
     // (e.g. RLS edge case) must NOT throw away the bookmarks/completed data.

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { repository } from "@/lib/repository";
 import { listDsaQuestions } from "@/lib/dsa-repository";
+import { UserStateBoot } from "@/components/user-state-boot";
 import { BookmarksClient } from "./client";
 
 export const revalidate = 86400;
@@ -13,6 +14,7 @@ export default async function BookmarksPage() {
   const [all, dsa] = await Promise.all([repository.listAll(), listDsaQuestions()]);
   return (
     <div className="container-page py-12 space-y-6">
+      <UserStateBoot />
       <header>
         <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           Bookmarks

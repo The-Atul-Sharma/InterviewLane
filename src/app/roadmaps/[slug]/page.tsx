@@ -7,6 +7,7 @@ import { listDsaQuestions } from "@/lib/dsa-repository";
 import { getStageBySlug } from "@/lib/repository/roadmap-repository";
 import { Badge } from "@/components/ui/badge";
 import { DsaGrindList } from "@/components/dsa-grind-list";
+import { UserStateBoot } from "@/components/user-state-boot";
 import { StageClient } from "./client";
 
 export const revalidate = 86400;
@@ -35,6 +36,7 @@ export default async function StagePage({ params }: { params: Promise<{ slug: st
     const total = questions.filter((q) => q.inGrind75).length;
     return (
       <div className="container-page space-y-8 py-10">
+        <UserStateBoot />
         <Link
           href="/roadmaps"
           className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
@@ -65,6 +67,7 @@ export default async function StagePage({ params }: { params: Promise<{ slug: st
 
   return (
     <div className="container-page space-y-8 py-10">
+      <UserStateBoot />
       <Link
         href="/roadmaps"
         className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"

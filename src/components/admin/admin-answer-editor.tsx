@@ -89,8 +89,11 @@ export function AdminAnswerEditor({
   question: Question;
   isDeleted?: boolean;
 }) {
-  const { isAdmin } = useAuth();
+  const { isAdmin, ensureAdminChecked } = useAuth();
   const router = useRouter();
+  React.useEffect(() => {
+    void ensureAdminChecked();
+  }, [ensureAdminChecked]);
   const [open, setOpen] = React.useState(false);
   const [form, setForm] = React.useState<FormState>(() => fromQuestion(question));
   const [saving, setSaving] = React.useState(false);

@@ -6,6 +6,7 @@ import { CATEGORIES, type Category } from "@/lib/schema/question";
 import { CATEGORY_META } from "@/lib/categories";
 import { CategoryQuestions } from "@/components/category-questions";
 import { DsaGrindList } from "@/components/dsa-grind-list";
+import { UserStateBoot } from "@/components/user-state-boot";
 import { listDsaQuestions } from "@/lib/dsa-repository";
 import { repository } from "@/lib/repository";
 import { siteUrl } from "@/lib/utils";
@@ -43,6 +44,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="container-page py-10">
+      <UserStateBoot />
       <Link
         href="/categories"
         className="mb-6 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"

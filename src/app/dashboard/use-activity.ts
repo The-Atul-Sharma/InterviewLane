@@ -11,8 +11,10 @@ export interface ActivityEvent {
 
 export interface DashboardActivity {
   loading: boolean;
-  /** [oldest-week .. current-week][weekday 0=Sun..6=Sat] count of completions */
+  /** matrix[weekday 0=Sun..6=Sat][weekCol 0=oldest..WEEKS-1=current] */
   heatmap: number[][];
+  /** Date of column 0 / row 0 (the oldest Sunday rendered). */
+  heatmapStart: Date;
   completionsThisWeek: number;
   completionsPrevWeek: number;
   bookmarksThisWeek: number;
@@ -29,12 +31,15 @@ function startOfWeek(d: Date): Date {
   return out;
 }
 
-function buildHeatmap(dates: string[]): { matrix: number[][]; total: number } {
+function buildHeatmap(dates: string[]): {
+  matrix: number[][];
+  total: number;
+  startWeek: Date;
+} {
   const today = new Date();
   const anchor = startOfWeek(today);
   const startWeek = new Date(anchor);
   startWeek.setDate(startWeek.getDate() - 7 * (WEEKS - 1));
-  // matrix[weekday][weekCol]
   const matrix: number[][] = Array.from({ length: 7 }, () => Array(WEEKS).fill(0));
   let total = 0;
   for (const iso of dates) {
@@ -48,7 +53,7 @@ function buildHeatmap(dates: string[]): { matrix: number[][]; total: number } {
     matrix[row][col] += 1;
     total += 1;
   }
-  return { matrix, total };
+  return { matrix, total, startWeek };
 }
 
 function countSince(dates: string[], sinceMs: number, untilMs: number): number {
@@ -59,14 +64,20 @@ function countSince(dates: string[], sinceMs: number, untilMs: number): number {
 }
 
 export function useDashboardActivity(enabled: boolean = true): DashboardActivity {
-  const [state, setState] = React.useState<DashboardActivity>({
-    loading: true,
-    heatmap: Array.from({ length: 7 }, () => Array(WEEKS).fill(0)),
-    completionsThisWeek: 0,
-    completionsPrevWeek: 0,
-    bookmarksThisWeek: 0,
-    recent: [],
-    totalSessions: 0,
+  const [state, setState] = React.useState<DashboardActivity>(() => {
+    const anchor = startOfWeek(new Date());
+    const start = new Date(anchor);
+    start.setDate(start.getDate() - 7 * (WEEKS - 1));
+    return {
+      loading: true,
+      heatmap: Array.from({ length: 7 }, () => Array(WEEKS).fill(0)),
+      heatmapStart: start,
+      completionsThisWeek: 0,
+      completionsPrevWeek: 0,
+      bookmarksThisWeek: 0,
+      recent: [],
+      totalSessions: 0,
+    };
   });
 
   React.useEffect(() => {
@@ -109,7 +120,7 @@ export function useDashboardActivity(enabled: boolean = true): DashboardActivity
         (recentRes.data as { slug: string; viewed_at: string }[] | null) ?? [];
 
       const completedDates = completedRows.map((r) => r.completed_at);
-      const { matrix, total } = buildHeatmap(completedDates);
+      const { matrix, total, startWeek } = buildHeatmap(completedDates);
 
       const now = Date.now();
       const weekStart = startOfWeek(new Date()).getTime();
@@ -147,6 +158,7 @@ export function useDashboardActivity(enabled: boolean = true): DashboardActivity
       setState({
         loading: false,
         heatmap: matrix,
+        heatmapStart: startWeek,
         completionsThisWeek,
         completionsPrevWeek,
         bookmarksThisWeek,

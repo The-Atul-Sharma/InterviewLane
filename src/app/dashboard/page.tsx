@@ -3,6 +3,7 @@ import { repository } from "@/lib/repository";
 import { listDsaQuestions } from "@/lib/dsa-repository";
 import { CATEGORY_LIST } from "@/lib/categories";
 import { getPlans } from "@/lib/repository/roadmap-repository";
+import { UserStateBoot } from "@/components/user-state-boot";
 import { DashboardClient } from "./client";
 
 export const revalidate = 86400;
@@ -24,6 +25,7 @@ export default async function DashboardPage() {
   stats.total += grind75Count;
   return (
     <div className="container-page py-10">
+      <UserStateBoot />
       <DashboardClient
         pool={all}
         stats={stats}

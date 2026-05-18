@@ -21,6 +21,7 @@ import { Separator } from "@/components/ui/separator";
 import { CodeBlock } from "@/components/code-block";
 import { TableOfContents } from "@/components/toc";
 import { BookmarkAndCompleteButtons } from "@/components/bookmark-button";
+import { UserStateBoot } from "@/components/user-state-boot";
 import { AdminAnswerEditor } from "@/components/admin/admin-answer-editor";
 import { AdminRestoreQuestion } from "@/components/admin/admin-restore-question";
 import { ReadingProgress } from "@/components/reading-progress";
@@ -133,6 +134,7 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
 
   return (
     <>
+      <UserStateBoot />
       <ReadingProgress />
       {jsonLds.length > 0 && (
         <script

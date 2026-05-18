@@ -5,6 +5,7 @@ import { getStagesWithTopics } from "@/lib/repository/roadmap-repository";
 import { ROADMAPS } from "@/lib/roadmaps";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { UserStateBoot } from "@/components/user-state-boot";
 import { StageProgressBar } from "./stage-progress";
 
 export const revalidate = 86400;
@@ -36,6 +37,7 @@ export default async function RoadmapsPage() {
 
   return (
     <div className="container-page py-12 space-y-12">
+      <UserStateBoot />
       <header className="space-y-2">
         <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           Roadmap
