@@ -3,6 +3,7 @@ import { ArrowRight, Bolt, Calendar, Check, Flame, Play, Shuffle, TrendingUp } f
 import { Button } from "@/components/ui/button";
 import { Badge, DifficultyBadge } from "@/components/ui/badge";
 import { CategoryCard } from "@/components/category-card";
+import { HomeDashboardCard } from "@/components/home-dashboard-card";
 import { repository } from "@/lib/repository";
 import { CATEGORY_LIST } from "@/lib/categories";
 import { listDsaQuestions } from "@/lib/dsa-repository";
@@ -290,6 +291,7 @@ export default async function HomePage() {
             {/* Shortcuts column */}
             <div className="flex flex-col gap-3.5">
               <span className="eyebrow">Shortcuts</span>
+              <HomeDashboardCard />
               <ShortcutCard
                 href="/random"
                 icon={Shuffle}
