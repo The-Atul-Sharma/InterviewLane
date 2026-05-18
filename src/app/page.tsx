@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge, DifficultyBadge } from "@/components/ui/badge";
 import { CategoryCard } from "@/components/category-card";
 import { HomeDashboardCard } from "@/components/home-dashboard-card";
+import { HomeWelcomeBack } from "@/components/home-welcome-back";
 import { repository } from "@/lib/repository";
 import { CATEGORY_LIST } from "@/lib/categories";
 import { listDsaQuestions } from "@/lib/dsa-repository";
@@ -129,6 +130,9 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ─── Welcome back (signed-in only) ─────────────────── */}
+      <HomeWelcomeBack totalPool={stats.total} />
 
       {/* ─── Stats strip ───────────────────────────────────── */}
       <section className="border-b border-t">
