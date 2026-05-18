@@ -137,7 +137,8 @@ export const supabaseRepository: QuestionRepository = {
       .select(META_COLUMNS)
       .eq("category", category)
       .is("deleted_at", null)
-      .order("title");
+      .order("position", { ascending: true })
+      .order("title", { ascending: true });
     if (error) throw new Error(`questions.listByCategory: ${error.message}`);
     return (data as unknown as MetaRow[]).map(metaFromRow);
   },
