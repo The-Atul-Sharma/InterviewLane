@@ -115,7 +115,7 @@ export function CommandPalette() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
-        className="overflow-hidden p-0 max-sm:inset-0 max-sm:left-0 max-sm:top-0 max-sm:h-full max-sm:max-h-full max-sm:w-full max-sm:max-w-full max-sm:translate-x-0 max-sm:translate-y-0 max-sm:rounded-none max-sm:border-0"
+        className="flex max-h-[70vh] flex-col overflow-hidden p-0 sm:top-auto sm:bottom-8 sm:translate-y-0 sm:data-[state=open]:slide-in-from-bottom-8 sm:data-[state=closed]:slide-out-to-bottom-8 max-sm:inset-x-0 max-sm:bottom-0 max-sm:top-auto max-sm:left-0 max-sm:h-[85vh] max-sm:max-h-[85vh] max-sm:w-full max-sm:max-w-full max-sm:translate-x-0 max-sm:translate-y-0 max-sm:rounded-t-xl max-sm:rounded-b-none max-sm:border-x-0 max-sm:border-b-0 max-sm:data-[state=open]:slide-in-from-bottom max-sm:data-[state=closed]:slide-out-to-bottom"
         hideClose
       >
         <DialogTitle className="sr-only">Command palette</DialogTitle>
@@ -123,7 +123,7 @@ export function CommandPalette() {
           label="Command palette"
           loop
           shouldFilter={false}
-          className="rounded-lg [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-2 [&_[cmdk-input-wrapper]_svg]:h-4 [&_[cmdk-input-wrapper]_svg]:w-4 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-2 [&_[cmdk-item]_svg]:h-4 [&_[cmdk-item]_svg]:w-4"
+          className="flex min-h-0 flex-1 flex-col rounded-lg [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-2 [&_[cmdk-input-wrapper]_svg]:h-4 [&_[cmdk-input-wrapper]_svg]:w-4 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-2 [&_[cmdk-item]_svg]:h-4 [&_[cmdk-item]_svg]:w-4"
         >
           <div className="flex items-center border-b px-3">
             <SearchIcon className="mr-2 h-4 w-4 shrink-0 opacity-50" />
@@ -138,7 +138,7 @@ export function CommandPalette() {
             </kbd>
           </div>
 
-          <Command.List className="max-h-[420px] overflow-y-auto p-2 scrollbar-thin max-sm:max-h-[calc(100vh-120px)]">
+          <Command.List className="min-h-0 flex-1 overflow-y-auto p-2 scrollbar-thin">
             <Command.Empty className="py-8 text-center text-sm text-muted-foreground">
               No results.
             </Command.Empty>

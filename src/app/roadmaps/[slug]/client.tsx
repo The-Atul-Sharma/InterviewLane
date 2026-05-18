@@ -33,7 +33,7 @@ export function StageClient({ topics }: { topics: RoadmapTopicWithQuestions[] })
   const scrollTo = (slug: string) => {
     const el = sectionRefs.current[slug];
     if (!el) return;
-    const headerHeight = window.innerWidth >= 768 ? 56 : 90;
+    const headerHeight = 56;
     const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 12;
     window.scrollTo({ top, behavior: "smooth" });
     setActiveSlug(slug);
@@ -42,7 +42,7 @@ export function StageClient({ topics }: { topics: RoadmapTopicWithQuestions[] })
   return (
     <div className="space-y-10">
       {topics.length > 1 && (
-        <div className="sticky top-[90px] z-10 -mx-4 overflow-x-auto bg-background/95 px-4 py-2.5 backdrop-blur-sm border-b border-border/50 sm:-mx-6 sm:px-6 md:top-14">
+        <div className="sticky top-14 z-10 -mx-4 overflow-x-auto bg-background/95 px-4 py-2.5 backdrop-blur-sm border-b border-border/50 sm:-mx-6 sm:px-6">
           <div className="flex gap-1.5">
             {topics.map((t) => (
               <button
