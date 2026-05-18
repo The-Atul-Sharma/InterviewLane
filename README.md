@@ -6,12 +6,6 @@ A curated interview prep platform for engineers. Practice structured questions, 
 
 **Live site → [interviewlane.com](https://interviewlane.com/)**
 
----
-
-![Hero](public/screenshots/hero.png)
-
----
-
 ## Features
 
 - **700+ curated questions** across 18 categories — JavaScript, React, CSS, System Design, Performance, Browser Internals, and more
@@ -27,8 +21,6 @@ A curated interview prep platform for engineers. Practice structured questions, 
 - **Dark mode** — System-aware theme toggle
 
 ---
-
-## Screenshots
 
 ### Home
 
