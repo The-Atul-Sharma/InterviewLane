@@ -18,7 +18,7 @@ import { UserStateBoot } from "@/components/userStateBoot";
 import { HomeRoadmapStrip, type HomeRoadmapStage } from "@/components/homeRoadmapStrip";
 import { StageProgressBar } from "./stageProgress";
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Roadmaps",
   description:

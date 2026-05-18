@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { UserStateBoot } from "@/components/userStateBoot";
 import { PlanDayList } from "./planDayList";
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 export async function generateMetadata({
   params,

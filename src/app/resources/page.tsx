@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/pageHero";
 import { cn } from "@/lib/utils";
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Resources",
   description:

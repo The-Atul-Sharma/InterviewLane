@@ -27,7 +27,7 @@ import { AdminRestoreQuestion } from "@/components/admin/adminRestoreQuestion";
 import { ReadingProgress } from "@/components/readingProgress";
 import { QuestionCard } from "@/components/questionCard";
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 export async function generateMetadata({
   params,
@@ -71,13 +71,9 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
     .filter((h) => h.level <= 3)
     .map((h) => ({ id: h.id, text: h.text, level: h.level }));
 
-  const allMetas = await repository.listAll();
-  const metaBySlug = new Map(allMetas.map((m) => [m.slug, m]));
-  const related =
-    isDeleted ? [] : q.relatedSlugs
-    .slice(0, 6)
-    .map((s) => metaBySlug.get(s))
-    .filter((x): x is NonNullable<typeof x> => !!x);
+  const related = isDeleted
+    ? []
+    : await repository.listBySlugs(q.relatedSlugs.slice(0, 6));
 
   const qaJsonLd = !isDeleted
     ? {
@@ -90,7 +86,7 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
           answerCount: 1,
           acceptedAnswer: {
             "@type": "Answer",
-            text: q.shortDescription,
+            text: answerSnippetForSeo(q.answer, q.shortDescription),
             url: siteUrl(`/questions/${q.slug}`),
           },
         },
@@ -323,6 +319,19 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
       </div>
     </>
   );
+}
+
+function answerSnippetForSeo(answer: string, fallback: string): string {
+  const stripped = answer
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`]*`/g, " ")
+    .replace(/!?\[([^\]]*)\]\([^)]+\)/g, "$1")
+    .replace(/[#>*_~\-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (stripped.length < 40) return fallback;
+  if (stripped.length <= 300) return stripped;
+  return stripped.slice(0, 297).replace(/\s+\S*$/, "") + "…";
 }
 
 function SectionList({

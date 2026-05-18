@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { getPlans } from "@/lib/repository/roadmapRepository";
 import { PageHero } from "@/components/pageHero";
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Preparation Plans",
   description:

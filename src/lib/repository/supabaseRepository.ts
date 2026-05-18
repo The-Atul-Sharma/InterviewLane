@@ -130,6 +130,21 @@ export const supabaseRepository: QuestionRepository = {
     return questionFromRow(data as unknown as FullRow);
   },
 
+  async listBySlugs(slugs: string[]) {
+    if (slugs.length === 0) return [];
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("questions")
+      .select(META_COLUMNS)
+      .in("slug", slugs)
+      .is("deleted_at", null);
+    if (error) throw new Error(`questions.listBySlugs: ${error.message}`);
+    const bySlug = new Map(
+      (data as unknown as MetaRow[]).map((r) => [r.slug, metaFromRow(r)]),
+    );
+    return slugs.map((s) => bySlug.get(s)).filter((m): m is QuestionMeta => !!m);
+  },
+
   async listByCategory(category: Category) {
     const supabase = await createClient();
     const { data, error } = await supabase

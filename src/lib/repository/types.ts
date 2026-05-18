@@ -35,6 +35,9 @@ export interface QuestionRepository {
   /** Lean meta filtered to a category. */
   listByCategory(category: Category): Promise<QuestionMeta[]>;
 
+  /** Lean meta for a specific set of slugs (order preserved by input). */
+  listBySlugs(slugs: string[]): Promise<QuestionMeta[]>;
+
   /** Repo-wide aggregates. */
   getStats(): Promise<RepoStats>;
 

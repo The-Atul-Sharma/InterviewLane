@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { SearchClient } from "./client";
 
@@ -17,7 +18,9 @@ export default function SearchPage() {
           Fuzzy search across titles and descriptions. Filter by category and difficulty.
         </p>
       </header>
-      <SearchClient />
+      <Suspense fallback={null}>
+        <SearchClient />
+      </Suspense>
     </div>
   );
 }

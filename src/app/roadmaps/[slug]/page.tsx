@@ -10,7 +10,7 @@ import { DsaGrindList } from "@/components/dsaGrindList";
 import { UserStateBoot } from "@/components/userStateBoot";
 import { StageClient } from "./client";
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 export async function generateMetadata({
   params,

@@ -5,7 +5,7 @@ import { PageHero } from "@/components/pageHero";
 import { listDsaQuestions } from "@/lib/dsaRepository";
 import { repository } from "@/lib/repository";
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Categories",

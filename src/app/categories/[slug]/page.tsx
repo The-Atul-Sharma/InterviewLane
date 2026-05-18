@@ -11,7 +11,7 @@ import { listDsaQuestions } from "@/lib/dsaRepository";
 import { repository } from "@/lib/repository";
 import { siteUrl } from "@/lib/utils";
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 export async function generateMetadata({
   params,
