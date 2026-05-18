@@ -145,7 +145,7 @@ export default async function RoadmapsPage() {
 
                   <div className="md:self-center">
                     <span className="inline-flex items-center gap-1 text-sm font-medium transition-all group-hover:gap-1.5">
-                      Open stage <ArrowRight className="h-3.5 w-3.5" />
+                      Start stage <ArrowRight className="h-3.5 w-3.5" />
                     </span>
                   </div>
                 </div>

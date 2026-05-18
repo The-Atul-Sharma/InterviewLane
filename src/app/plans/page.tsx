@@ -79,7 +79,7 @@ export default async function PlansPage() {
                 </ul>
 
                 <div className="mt-auto inline-flex items-center gap-1 pt-4 text-[13px] font-medium text-foreground">
-                  Open plan <ArrowRight className="h-3.5 w-3.5" />
+                  Start plan <ArrowRight className="h-3.5 w-3.5" />
                 </div>
               </Link>
             );
