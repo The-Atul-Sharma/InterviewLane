@@ -30,21 +30,37 @@ A curated interview prep platform for engineers. Practice structured questions, 
 
 ## Screenshots
 
+### Home
+
+![Home](public/screenshots/home.png)
+
+### Dashboard
+
+![Dashboard](public/screenshots/dashboard.png)
+
 ### Categories
 
 ![Categories](public/screenshots/categories.png)
 
-### Category detail — JavaScript
+### Roadmaps
 
-![JavaScript category](public/screenshots/category-detail.png)
+![Roadmaps](public/screenshots/roadmaps.png)
 
-### DSA & Algorithms — Blind 75
+### Study Plans
 
-![DSA & Algorithms](public/screenshots/dsa.png)
+![Study Plans](public/screenshots/plans.png)
 
 ### Resources
 
 ![Resources](public/screenshots/resources.png)
+
+### Category
+
+![Category](public/screenshots/category.png)
+
+### Question
+
+![Question](public/screenshots/question.png)
 
 ---
 
