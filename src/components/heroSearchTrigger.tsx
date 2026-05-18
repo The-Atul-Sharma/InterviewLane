@@ -1,7 +1,7 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { useCommandPalette } from "@/components/commandPalette";
+import { useCommandPalette } from "@/components/commandPaletteStore";
 
 export function HeroSearchTrigger() {
   const setOpen = useCommandPalette((s) => s.setOpen);

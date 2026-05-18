@@ -22,8 +22,8 @@ import { CodeBlock } from "@/components/codeBlock";
 import { TableOfContents } from "@/components/toc";
 import { BookmarkAndCompleteButtons } from "@/components/bookmarkButton";
 import { UserStateBoot } from "@/components/userStateBoot";
-import { AdminAnswerEditor } from "@/components/admin/adminAnswerEditor";
-import { AdminRestoreQuestion } from "@/components/admin/adminRestoreQuestion";
+import { AdminAnswerEditorLazy } from "@/components/admin/adminAnswerEditorLazy";
+import { AdminRestoreQuestionLazy } from "@/components/admin/adminRestoreQuestionLazy";
 import { ReadingProgress } from "@/components/readingProgress";
 import { QuestionCard } from "@/components/questionCard";
 
@@ -66,14 +66,13 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
   const { question: q, isDeleted } = resolved;
 
   const cat = CATEGORY_META[q.category];
-  const { html, headings } = await renderMarkdown(q.answer);
+  const [{ html, headings }, related] = await Promise.all([
+    renderMarkdown(q.answer),
+    isDeleted ? Promise.resolve([]) : repository.listBySlugs(q.relatedSlugs.slice(0, 6)),
+  ]);
   const toc = headings
     .filter((h) => h.level <= 3)
     .map((h) => ({ id: h.id, text: h.text, level: h.level }));
-
-  const related = isDeleted
-    ? []
-    : await repository.listBySlugs(q.relatedSlugs.slice(0, 6));
 
   const qaJsonLd = !isDeleted
     ? {
@@ -165,7 +164,7 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
 
           {isDeleted && (
             <div className="mb-4">
-              <AdminRestoreQuestion slug={q.slug} />
+              <AdminRestoreQuestionLazy slug={q.slug} />
             </div>
           )}
 
@@ -208,7 +207,7 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
             </div>
             <div className="flex flex-wrap items-center gap-2">
               {!isDeleted && <BookmarkAndCompleteButtons slug={q.slug} />}
-              <AdminAnswerEditor question={q} isDeleted={isDeleted} />
+              <AdminAnswerEditorLazy question={q} isDeleted={isDeleted} />
             </div>
           </header>
 

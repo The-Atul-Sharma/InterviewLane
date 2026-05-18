@@ -14,20 +14,25 @@ export function StageClient({ topics }: { topics: RoadmapTopicWithQuestions[] })
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+    const elToSlug = new Map<Element, string>();
     for (const t of topics) {
       const el = sectionRefs.current[t.slug];
-      if (!el) continue;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveSlug(t.slug);
-        },
-        { rootMargin: "-30% 0px -60% 0px" },
-      );
-      obs.observe(el);
-      observers.push(obs);
+      if (el) elToSlug.set(el, t.slug);
     }
-    return () => observers.forEach((o) => o.disconnect());
+    if (elToSlug.size === 0) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const slug = elToSlug.get(entry.target);
+            if (slug) setActiveSlug(slug);
+          }
+        }
+      },
+      { rootMargin: "-30% 0px -60% 0px" },
+    );
+    for (const el of elToSlug.keys()) obs.observe(el);
+    return () => obs.disconnect();
   }, [topics]);
 
   const scrollTo = (slug: string) => {

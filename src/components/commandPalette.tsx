@@ -2,7 +2,6 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Command } from "cmdk";
-import { create } from "zustand";
 import {
   Search as SearchIcon,
   LayoutGrid,
@@ -17,6 +16,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { useCommandPalette } from "@/components/commandPaletteStore";
 
 type Item = {
   id: string;
@@ -26,15 +26,6 @@ type Item = {
   difficulty: string;
   short: string;
 };
-
-interface PaletteState {
-  open: boolean;
-  setOpen: (v: boolean) => void;
-}
-export const useCommandPalette = create<PaletteState>((set) => ({
-  open: false,
-  setOpen: (v) => set({ open: v }),
-}));
 
 const ROUTES = [
   { href: "/", title: "Home", icon: SearchIcon },
@@ -84,17 +75,6 @@ export function CommandPalette() {
     : ROUTES;
   const themeMatches = (label: string) =>
     !queryLower || label.toLowerCase().includes(queryLower) || "theme".includes(queryLower);
-
-  React.useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen(!open);
-      }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, setOpen]);
 
   React.useEffect(() => {
     if (!open || loaded) return;

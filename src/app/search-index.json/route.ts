@@ -8,7 +8,14 @@
 import { NextResponse } from "next/server";
 import { repository } from "@/lib/repository";
 
-export const revalidate = 60;
+export const revalidate = 300;
+
+const SHORT_MAX = 80;
+
+function truncate(s: string, n: number): string {
+  if (!s || s.length <= n) return s ?? "";
+  return s.slice(0, n - 1).trimEnd() + "…";
+}
 
 export async function GET() {
   const metas = await repository.listAll();
@@ -18,11 +25,11 @@ export async function GET() {
     title: m.title,
     category: m.category,
     difficulty: m.difficulty,
-    short: m.shortDescription,
+    short: truncate(m.shortDescription, SHORT_MAX),
   }));
   return NextResponse.json(payload, {
     headers: {
-      "cache-control": "public, max-age=0, s-maxage=60, stale-while-revalidate=300",
+      "cache-control": "public, max-age=0, s-maxage=300, stale-while-revalidate=600",
     },
   });
 }

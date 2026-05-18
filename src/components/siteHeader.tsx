@@ -6,7 +6,8 @@ import { Search, Github } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/themeToggle";
-import { CommandPalette, useCommandPalette } from "@/components/commandPalette";
+import { useCommandPalette } from "@/components/commandPaletteStore";
+import { CommandPaletteMount } from "@/components/commandPaletteMount";
 import { UserButton } from "@/components/userButton";
 import { Logo } from "@/components/logo";
 
@@ -140,7 +141,7 @@ export function SiteHeader() {
         </nav>
       </header>
 
-      <CommandPalette />
+      <CommandPaletteMount />
     </>
   );
 }
