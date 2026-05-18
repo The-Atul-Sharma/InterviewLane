@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Calendar, Target, Trophy, Zap, Clock } from "lucide-react";
-import { getPlans } from "@/lib/repository/roadmap-repository";
+import { getPlans } from "@/lib/repository/roadmapRepository";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 

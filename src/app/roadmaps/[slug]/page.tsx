@@ -3,11 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, BookOpen, Clock } from "lucide-react";
 import { ROADMAPS } from "@/lib/roadmaps";
-import { listDsaQuestions } from "@/lib/dsa-repository";
-import { getStageBySlug } from "@/lib/repository/roadmap-repository";
+import { listDsaQuestions } from "@/lib/dsaRepository";
+import { getStageBySlug } from "@/lib/repository/roadmapRepository";
 import { Badge } from "@/components/ui/badge";
-import { DsaGrindList } from "@/components/dsa-grind-list";
-import { UserStateBoot } from "@/components/user-state-boot";
+import { DsaGrindList } from "@/components/dsaGrindList";
+import { UserStateBoot } from "@/components/userStateBoot";
 import { StageClient } from "./client";
 
 export const revalidate = 86400;

@@ -3,7 +3,7 @@
  * Auth context. Subscribes to Supabase `onAuthStateChange` and exposes the
  * current user + loading state to descendants.
  *
- * Does NOT auto-hydrate the user-state store or fetch admin status on mount —
+ * Does NOT auto-hydrate the userState store or fetch admin status on mount —
  * pages that need user data render <UserStateBoot/>, and admin status is
  * fetched lazily by <UserButton/> when the menu opens. This keeps the
  * homepage (and other marketing pages) network-quiet.
@@ -12,7 +12,7 @@ import * as React from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
-import { useUserStore } from "@/lib/store/user-state";
+import { useUserStore } from "@/lib/store/userState";
 
 interface AuthCtx {
   user: User | null;

@@ -6,7 +6,7 @@ import type { PrepPlan } from "../../src/lib/schema/roadmap";
  * by sampling from the topic's question bucket, deterministically (seeded
  * by plan slug + day) so reloads are stable.
  */
-export interface DayTemplate {
+interface DayTemplate {
   /** Topic slugs to pull questions from on this day, in order. */
   topics: string[];
   focus: string;

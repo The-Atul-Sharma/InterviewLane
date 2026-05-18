@@ -4,10 +4,10 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { CATEGORIES, type Category } from "@/lib/schema/question";
 import { CATEGORY_META } from "@/lib/categories";
-import { CategoryQuestions } from "@/components/category-questions";
-import { DsaGrindList } from "@/components/dsa-grind-list";
-import { UserStateBoot } from "@/components/user-state-boot";
-import { listDsaQuestions } from "@/lib/dsa-repository";
+import { CategoryQuestions } from "@/components/categoryQuestions";
+import { DsaGrindList } from "@/components/dsaGrindList";
+import { UserStateBoot } from "@/components/userStateBoot";
+import { listDsaQuestions } from "@/lib/dsaRepository";
 import { repository } from "@/lib/repository";
 import { siteUrl } from "@/lib/utils";
 

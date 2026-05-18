@@ -1,6 +1,6 @@
 "use client";
 /**
- * Triggers user-state hydration on mount. Render once per page that consumes
+ * Triggers userState hydration on mount. Render once per page that consumes
  * the user store (dashboard, bookmarks, question detail, etc.) — pages that
  * don't read user data (home, marketing) should NOT include this so they stay
  * network-quiet for signed-in visitors.
@@ -9,8 +9,8 @@
  * so it's safe to mount this on every applicable page.
  */
 import * as React from "react";
-import { useUserStore } from "@/lib/store/user-state";
-import { useAuth } from "@/components/providers/auth-provider";
+import { useUserStore } from "@/lib/store/userState";
+import { useAuth } from "@/components/providers/authProvider";
 
 export function UserStateBoot() {
   const { user, loading } = useAuth();

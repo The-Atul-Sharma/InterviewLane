@@ -1,4 +1,4 @@
-import type { RoadmapStage, StageSlug } from "../../src/lib/schema/roadmap";
+import type { RoadmapStage } from "../../src/lib/schema/roadmap";
 
 export const STAGES: RoadmapStage[] = [
   {
@@ -62,7 +62,3 @@ export const STAGES: RoadmapStage[] = [
     difficultyBand: "hard",
   },
 ];
-
-export const STAGE_BY_SLUG: Record<StageSlug, RoadmapStage> = Object.fromEntries(
-  STAGES.map((s) => [s.slug, s]),
-) as Record<StageSlug, RoadmapStage>;

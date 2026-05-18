@@ -1,5 +1,5 @@
 import { highlightCode } from "@/lib/highlight";
-import { CopyButton } from "@/components/copy-button";
+import { CopyButton } from "@/components/copyButton";
 
 export async function CodeBlock({
   code,

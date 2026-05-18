@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { QuestionCard } from "@/components/question-card";
+import { QuestionCard } from "@/components/questionCard";
 import {
   Select,
   SelectContent,
@@ -10,8 +10,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { DIFFICULTIES, type Difficulty, type QuestionMeta } from "@/lib/schema/question";
-import { useAuth } from "@/components/providers/auth-provider";
-import { useUserStore } from "@/lib/store/user-state";
+import { useAuth } from "@/components/providers/authProvider";
+import { useUserStore } from "@/lib/store/userState";
 
 type Filter = Difficulty | "all" | "completed";
 

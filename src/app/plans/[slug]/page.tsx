@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Repeat } from "lucide-react";
-import { getPlanBySlug, getPlans } from "@/lib/repository/roadmap-repository";
+import { getPlanBySlug, getPlans } from "@/lib/repository/roadmapRepository";
 import { repository } from "@/lib/repository";
 import { Badge } from "@/components/ui/badge";
-import { UserStateBoot } from "@/components/user-state-boot";
-import { PlanDayList } from "./plan-day-list";
+import { UserStateBoot } from "@/components/userStateBoot";
+import { PlanDayList } from "./planDayList";
 
 export const revalidate = 86400;
 

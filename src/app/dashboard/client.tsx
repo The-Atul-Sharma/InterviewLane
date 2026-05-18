@@ -13,18 +13,18 @@ import {
   Target,
   Zap,
 } from "lucide-react";
-import { useUserStore } from "@/lib/store/user-state";
+import { useUserStore } from "@/lib/store/userState";
 import type { CategoryMeta, QuestionMeta } from "@/lib/schema/question";
 import type { RepoStats } from "@/lib/repository";
 import type { PrepPlan } from "@/lib/schema/roadmap";
-import { DSA_SLUG_PREFIX, leetcodeSlugKey, type GrindQuestion } from "@/lib/dsa-types";
+import { DSA_SLUG_PREFIX, leetcodeSlugKey, type GrindQuestion } from "@/lib/dsaTypes";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { AuthGate } from "@/components/auth-gate";
-import { useAuth } from "@/components/providers/auth-provider";
-import { useDashboardActivity, type ActivityEvent } from "./use-activity";
+import { AuthGate } from "@/components/authGate";
+import { useAuth } from "@/components/providers/authProvider";
+import { useDashboardActivity, type ActivityEvent } from "./useActivity";
 
 const WEEKLY_GOAL = 10;
 

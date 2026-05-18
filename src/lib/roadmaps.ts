@@ -1,4 +1,4 @@
-export interface RoadmapTopic {
+interface RoadmapTopic {
   slug: string;
   name: string;
   description: string;
@@ -152,44 +152,5 @@ export const ROADMAPS: Roadmap[] = [
         itemCount: 16,
       },
     ],
-  },
-];
-
-export const PREP_PLANS = [
-  {
-    slug: "7-day",
-    name: "7-Day Refresher",
-    tagline: "Interview in a week? Lock in the essentials.",
-    description:
-      "Hits the highest-frequency interview surfaces — React, JavaScript, performance, and system design — in a tight daily rotation. Perfect when you have little time and need maximum signal.",
-    days: 7,
-    questionsPerDay: 4,
-    totalQuestions: 28,
-    focus: ["React", "JavaScript", "Performance", "System Design"],
-    difficulty: "intermediate" as const,
-  },
-  {
-    slug: "30-day",
-    name: "30-Day Deep Prep",
-    tagline: "One month to senior-ready.",
-    description:
-      "A structured month of theory and applied questions with weekly deep-dive themes. Covers foundations, advanced patterns, DSA, and a capstone system-design sprint.",
-    days: 30,
-    questionsPerDay: 5,
-    totalQuestions: 150,
-    focus: ["Foundations", "Advanced React", "DSA", "System Design"],
-    difficulty: "advanced" as const,
-  },
-  {
-    slug: "90-day",
-    name: "90-Day Mastery",
-    tagline: "Staff-level prep from zero to hero.",
-    description:
-      "Three months covering every surface: JS foundations → senior engineering → DSA patterns → behavioral. Built for engineers targeting senior or staff roles at top-tier companies.",
-    days: 90,
-    questionsPerDay: 3,
-    totalQuestions: 270,
-    focus: ["Foundations", "Senior Engineering", "DSA & Algo", "Behavioral"],
-    difficulty: "comprehensive" as const,
   },
 ];

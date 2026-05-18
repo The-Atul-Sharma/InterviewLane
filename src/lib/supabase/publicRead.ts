@@ -3,7 +3,7 @@
  *
  * No cookies, no session — safe to call during static generation
  * (`generateStaticParams`, `force-static` pages) where `cookies()` would
- * throw. Uses the publishable key, which is constrained by public-read RLS
+ * throw. Uses the publishable key, which is constrained by publicRead RLS
  * on content tables.
  */
 import { createClient as createSupabaseClient, type SupabaseClient } from "@supabase/supabase-js";

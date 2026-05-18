@@ -5,9 +5,9 @@ import Link from "next/link";
 import { ArrowUpRight, Bookmark, Check, CheckCircle2, ChevronDown, Clock, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DifficultyBadge, Badge } from "@/components/ui/badge";
-import { useAuth } from "@/components/providers/auth-provider";
-import { useUserStore, useHydratedUserState } from "@/lib/store/user-state";
-import type { RoadmapTopicWithQuestions } from "@/lib/repository/roadmap-repository";
+import { useAuth } from "@/components/providers/authProvider";
+import { useUserStore, useHydratedUserState } from "@/lib/store/userState";
+import type { RoadmapTopicWithQuestions } from "@/lib/repository/roadmapRepository";
 
 export function StageClient({ topics }: { topics: RoadmapTopicWithQuestions[] }) {
   const [activeSlug, setActiveSlug] = useState<string | null>(topics[0]?.slug ?? null);

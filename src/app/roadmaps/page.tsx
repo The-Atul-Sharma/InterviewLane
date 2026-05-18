@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, BookOpen, BrainCircuit, CheckCircle2, Clock, Layers, Zap, Trophy, Rocket } from "lucide-react";
-import { getStagesWithTopics } from "@/lib/repository/roadmap-repository";
+import { getStagesWithTopics } from "@/lib/repository/roadmapRepository";
 import { ROADMAPS } from "@/lib/roadmaps";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { UserStateBoot } from "@/components/user-state-boot";
-import { StageProgressBar } from "./stage-progress";
+import { UserStateBoot } from "@/components/userStateBoot";
+import { StageProgressBar } from "./stageProgress";
 
 export const revalidate = 86400;
 export const metadata: Metadata = {

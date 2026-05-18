@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { repository } from "@/lib/repository";
-import { listDsaQuestions } from "@/lib/dsa-repository";
-import { UserStateBoot } from "@/components/user-state-boot";
+import { listDsaQuestions } from "@/lib/dsaRepository";
+import { UserStateBoot } from "@/components/userStateBoot";
 import { BookmarksClient } from "./client";
 
 export const revalidate = 86400;

@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bookmark, BookmarkCheck, CheckCircle2, Circle, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useUserStore } from "@/lib/store/user-state";
-import { useAuth } from "@/components/providers/auth-provider";
+import { useUserStore } from "@/lib/store/userState";
+import { useAuth } from "@/components/providers/authProvider";
 
 /**
  * Bookmark + complete buttons for the question detail page.

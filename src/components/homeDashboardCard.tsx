@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { ArrowRight, LayoutDashboard } from "lucide-react";
-import { useAuth } from "@/components/providers/auth-provider";
+import { useAuth } from "@/components/providers/authProvider";
 
 /**
  * Signed-in shortcut to the dashboard, rendered inside the homepage Shortcuts

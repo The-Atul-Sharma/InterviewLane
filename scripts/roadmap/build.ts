@@ -2,7 +2,7 @@
  * Roadmap build script.
  *
  *   Pulls all questions from Supabase, buckets each into exactly one topic
- *   using the routing rules in topic-metadata.ts, and writes a single JSON
+ *   using the routing rules in topicMetadata.ts, and writes a single JSON
  *   artifact at content/roadmap.generated.json that `seed.ts` upserts.
  *
  * Usage:
@@ -13,10 +13,10 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { createClient } from "@supabase/supabase-js";
-import { loadEnvLocal, requireEnv } from "./_env";
-import { STAGES } from "./stage-metadata";
-import { TOPICS, TOPIC_BY_SLUG, topicScore, type AuthoredTopic } from "./topic-metadata";
-import { PLANS } from "./plan-metadata";
+import { loadEnvLocal, requireEnv } from "../_env";
+import { STAGES } from "./stageMetadata";
+import { TOPICS, TOPIC_BY_SLUG, topicScore, type AuthoredTopic } from "./topicMetadata";
+import { PLANS } from "./planMetadata";
 
 loadEnvLocal();
 

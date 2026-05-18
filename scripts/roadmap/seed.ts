@@ -13,7 +13,7 @@
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { createClient } from "@supabase/supabase-js";
-import { loadEnvLocal, requireEnv } from "./_env";
+import { loadEnvLocal, requireEnv } from "../_env";
 
 loadEnvLocal();
 

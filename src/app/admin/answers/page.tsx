@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import { AdminGuard } from "@/components/admin/admin-guard";
-import { AdminAnswersList } from "@/components/admin/admin-answers-list";
+import { AdminGuard } from "@/components/admin/adminGuard";
+import { AdminAnswersList } from "@/components/admin/adminAnswersList";
 
 export const dynamic = "force-dynamic";
 

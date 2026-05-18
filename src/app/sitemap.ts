@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { repository } from "@/lib/repository";
 import { CATEGORIES } from "@/lib/schema/question";
 import { ROADMAPS } from "@/lib/roadmaps";
-import { getStages, getPlans } from "@/lib/repository/roadmap-repository";
+import { getStages, getPlans } from "@/lib/repository/roadmapRepository";
 import { siteUrl } from "@/lib/utils";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

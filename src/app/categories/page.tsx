@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CATEGORY_LIST } from "@/lib/categories";
-import { CategoryCard } from "@/components/category-card";
-import { listDsaQuestions } from "@/lib/dsa-repository";
+import { CategoryCard } from "@/components/categoryCard";
+import { listDsaQuestions } from "@/lib/dsaRepository";
 import { repository } from "@/lib/repository";
 
 export const revalidate = 86400;

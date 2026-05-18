@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Github } from "lucide-react";
 import { Logo } from "@/components/logo";
-import { useAuth } from "@/components/providers/auth-provider";
+import { useAuth } from "@/components/providers/authProvider";
 
 const COLUMNS = [
   {

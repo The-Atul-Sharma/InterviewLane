@@ -11,9 +11,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { type GrindDifficulty, type GrindQuestion, leetcodeSlugKey } from "@/lib/dsa-types";
-import { useAuth } from "@/components/providers/auth-provider";
-import { useUserStore } from "@/lib/store/user-state";
+import { type GrindDifficulty, type GrindQuestion, leetcodeSlugKey } from "@/lib/dsaTypes";
+import { useAuth } from "@/components/providers/authProvider";
+import { useUserStore } from "@/lib/store/userState";
 
 type DifficultyFilter = GrindDifficulty | "all" | "completed";
 

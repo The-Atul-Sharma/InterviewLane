@@ -3,7 +3,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Loader2, Wand2 } from "lucide-react";
-import { AdminGuard } from "@/components/admin/admin-guard";
+import { AdminGuard } from "@/components/admin/adminGuard";
 import { Button } from "@/components/ui/button";
 import {
   Select,

@@ -3,10 +3,10 @@ import Script from "next/script";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
-import { ThemeProvider } from "@/components/providers/theme-provider";
-import { AuthProvider } from "@/components/providers/auth-provider";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { ThemeProvider } from "@/components/providers/themeProvider";
+import { AuthProvider } from "@/components/providers/authProvider";
+import { SiteHeader } from "@/components/siteHeader";
+import { SiteFooter } from "@/components/siteFooter";
 import { siteUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {

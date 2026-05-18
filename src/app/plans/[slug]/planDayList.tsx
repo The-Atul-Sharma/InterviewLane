@@ -3,8 +3,8 @@ import Link from "next/link";
 import { CheckCircle2, FlaskConical, Repeat } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useUserStore, useHydratedUserState } from "@/lib/store/user-state";
-import { useAuth } from "@/components/providers/auth-provider";
+import { useUserStore, useHydratedUserState } from "@/lib/store/userState";
+import { useAuth } from "@/components/providers/authProvider";
 import { cn } from "@/lib/utils";
 
 export interface PlanQuestion {

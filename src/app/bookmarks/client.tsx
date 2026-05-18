@@ -1,17 +1,17 @@
 "use client";
 import Link from "next/link";
 import { Bookmark, Loader2 } from "lucide-react";
-import { useUserStore } from "@/lib/store/user-state";
+import { useUserStore } from "@/lib/store/userState";
 import type { QuestionMeta } from "@/lib/schema/question";
-import { QuestionCard } from "@/components/question-card";
-import { GrindCard } from "@/components/dsa-grind-list";
+import { QuestionCard } from "@/components/questionCard";
+import { GrindCard } from "@/components/dsaGrindList";
 import {
   DSA_SLUG_PREFIX,
   leetcodeSlugKey,
   type GrindQuestion,
-} from "@/lib/dsa-types";
+} from "@/lib/dsaTypes";
 import { Card } from "@/components/ui/card";
-import { AuthGate } from "@/components/auth-gate";
+import { AuthGate } from "@/components/authGate";
 
 export function BookmarksClient({
   pool,

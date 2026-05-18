@@ -5,7 +5,7 @@
  * during static generation.
  */
 import { cache } from "react";
-import { createPublicReadClient } from "../supabase/public-read";
+import { createPublicReadClient } from "../supabase/publicRead";
 import { asStringArray } from "../utils";
 import type {
   PrepPlan,
@@ -19,18 +19,7 @@ import type {
   StageSlug,
 } from "../schema/roadmap";
 
-// Re-export so callers can import from one place.
-export type {
-  PrepPlan,
-  PrepPlanDay,
-  PrepPlanWithDays,
-  RoadmapStage,
-  RoadmapStageWithTopics,
-  RoadmapTopic,
-  RoadmapTopicQuestion,
-  RoadmapTopicWithQuestions,
-  StageSlug,
-};
+export type { RoadmapTopicWithQuestions };
 
 interface StageRow {
   slug: string;
@@ -135,17 +124,6 @@ export const getStages = cache(async (): Promise<RoadmapStage[]> => {
     .order("position");
   if (error) throw new Error(`roadmap.stages: ${error.message}`);
   return (data as StageRow[]).map(stageFromRow);
-});
-
-export const getTopics = cache(async (): Promise<RoadmapTopic[]> => {
-  const sb = createPublicReadClient();
-  const { data, error } = await sb
-    .from("roadmap_topics")
-    .select("*")
-    .order("stage_slug")
-    .order("position");
-  if (error) throw new Error(`roadmap.topics: ${error.message}`);
-  return (data as TopicRow[]).map(topicFromRow);
 });
 
 interface BridgeRow {

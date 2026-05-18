@@ -6,8 +6,8 @@
  */
 import "server-only";
 import { cache } from "react";
-import { createPublicReadClient } from "./supabase/public-read";
-import type { GrindQuestion } from "./dsa-types";
+import { createPublicReadClient } from "./supabase/publicRead";
+import type { GrindQuestion } from "./dsaTypes";
 
 interface Row {
   slug: string;

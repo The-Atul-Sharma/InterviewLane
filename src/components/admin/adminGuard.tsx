@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/components/providers/auth-provider";
+import { useAuth } from "@/components/providers/authProvider";
 
 export function AdminGuard({ children }: { children: React.ReactNode }) {
   const { isAdmin, loading, user, ensureAdminChecked } = useAuth();

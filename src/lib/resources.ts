@@ -1,20 +1,16 @@
 import {
-  BookOpen,
-  Boxes,
   Braces,
   Brain,
   Code2,
   Component,
   Gauge,
   Layers,
-  ListChecks,
   MessageSquare,
   Network,
   Puzzle,
   Rocket,
   Shapes,
   Sparkles,
-  Workflow,
   type LucideIcon,
 } from "lucide-react";
 
@@ -460,10 +456,3 @@ export const STUDY_TRACK = [
   { week: "Week 8", focus: "Next.js + Redux/state", sections: ["nextjs", "redux"] },
   { week: "Extra", focus: "Behavioral stories + mocks", sections: ["behavioral", "platforms"] },
 ] as const;
-
-export const RESOURCE_ICONS = {
-  list: ListChecks,
-  bookOpen: BookOpen,
-  boxes: Boxes,
-  workflow: Workflow,
-};

@@ -3,7 +3,7 @@
  * Personalized "welcome back" panel rendered below the hero on the homepage.
  *
  * Renders nothing for signed-out visitors, so the homepage stays
- * network-quiet for them. For signed-in users it triggers user-state
+ * network-quiet for them. For signed-in users it triggers userState
  * hydration (idempotent), then shows real streak / completed / bookmarks
  * counts with a CTA into the dashboard.
  */
@@ -19,8 +19,8 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/components/providers/auth-provider";
-import { useUserStore } from "@/lib/store/user-state";
+import { useAuth } from "@/components/providers/authProvider";
+import { useUserStore } from "@/lib/store/userState";
 
 export function HomeWelcomeBack({ totalPool }: { totalPool: number }) {
   const { user, loading, configured } = useAuth();

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:add": "tsx scripts/db-add.ts",
+    "db:add": "tsx scripts/dbAdd.ts",
+    "db:reorder": "tsx scripts/applyOrderings.ts",
     "roadmap:build": "tsx scripts/roadmap/build.ts",
     "roadmap:seed": "tsx scripts/roadmap/seed.ts",
     "typecheck": "tsc --noEmit"

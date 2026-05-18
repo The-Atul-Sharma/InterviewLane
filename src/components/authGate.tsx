@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useAuth } from "@/components/providers/auth-provider";
+import { useAuth } from "@/components/providers/authProvider";
 
 /**
  * Wraps content that requires a signed-in user. Renders an inline

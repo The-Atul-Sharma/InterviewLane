@@ -7,7 +7,7 @@ import type { RoadmapTopic, StageSlug } from "../../src/lib/schema/roadmap";
  * Routing score for a question = keyword-hits × 10 + category-hit × 5,
  * with `priority` as the tiebreaker (higher = more specific).
  */
-export interface TopicRouting {
+interface TopicRouting {
   categories: string[];
   include: string[];
   exclude?: string[];

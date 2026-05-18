@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { repository } from "@/lib/repository";
-import { listDsaQuestions } from "@/lib/dsa-repository";
+import { listDsaQuestions } from "@/lib/dsaRepository";
 import { CATEGORY_LIST } from "@/lib/categories";
-import { getPlans } from "@/lib/repository/roadmap-repository";
-import { UserStateBoot } from "@/components/user-state-boot";
+import { getPlans } from "@/lib/repository/roadmapRepository";
+import { UserStateBoot } from "@/components/userStateBoot";
 import { DashboardClient } from "./client";
 
 export const revalidate = 86400;

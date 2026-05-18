@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 import { Search, Github, Bookmark, LayoutGrid, Map, BarChart3, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { CommandPalette, useCommandPalette } from "@/components/command-palette";
-import { UserButton } from "@/components/user-button";
+import { ThemeToggle } from "@/components/themeToggle";
+import { CommandPalette, useCommandPalette } from "@/components/commandPalette";
+import { UserButton } from "@/components/userButton";
 import { Logo } from "@/components/logo";
 
 const NAV = [

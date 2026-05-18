@@ -12,20 +12,20 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { repository } from "@/lib/repository";
-import { resolveQuestionForPage } from "@/lib/resolve-question-page";
+import { resolveQuestionForPage } from "@/lib/resolveQuestionPage";
 import { CATEGORY_META } from "@/lib/categories";
 import { renderMarkdown } from "@/lib/markdown";
 import { siteUrl } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { CodeBlock } from "@/components/code-block";
+import { CodeBlock } from "@/components/codeBlock";
 import { TableOfContents } from "@/components/toc";
-import { BookmarkAndCompleteButtons } from "@/components/bookmark-button";
-import { UserStateBoot } from "@/components/user-state-boot";
-import { AdminAnswerEditor } from "@/components/admin/admin-answer-editor";
-import { AdminRestoreQuestion } from "@/components/admin/admin-restore-question";
-import { ReadingProgress } from "@/components/reading-progress";
-import { QuestionCard } from "@/components/question-card";
+import { BookmarkAndCompleteButtons } from "@/components/bookmarkButton";
+import { UserStateBoot } from "@/components/userStateBoot";
+import { AdminAnswerEditor } from "@/components/admin/adminAnswerEditor";
+import { AdminRestoreQuestion } from "@/components/admin/adminRestoreQuestion";
+import { ReadingProgress } from "@/components/readingProgress";
+import { QuestionCard } from "@/components/questionCard";
 
 export const revalidate = 86400;
 

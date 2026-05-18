@@ -28,7 +28,7 @@ export const SENIORITY = ["junior", "mid", "senior", "staff"] as const;
 export type Category = (typeof CATEGORIES)[number];
 export type Difficulty = (typeof DIFFICULTIES)[number];
 export type Frequency = (typeof FREQUENCIES)[number];
-export type Seniority = (typeof SENIORITY)[number];
+type Seniority = (typeof SENIORITY)[number];
 
 export const CodeSnippetSchema = z.object({
   language: z.string(),
@@ -65,49 +65,27 @@ export const QuestionSchema = z.object({
   updatedAt: z.string(),
 });
 
-/**
- * Lean meta — what list pages, search, and dashboards consume.
- * ~250 bytes per question; an index of 3000 questions is ~750KB.
- */
-export const QuestionMetaSchema = z.object({
-  id: z.string(),
-  slug: z.string(),
-  title: z.string(),
-  category: z.enum(CATEGORIES),
-  tags: z.array(z.string()).default([]),
-  difficulty: z.enum(DIFFICULTIES),
-  frequency: z.enum(FREQUENCIES),
-  seniority: z.enum(SENIORITY),
-  shortDescription: z.string(),
-  estimatedReadingMinutes: z.number().int().positive(),
-  estimatedSolvingMinutes: z.number().int().positive(),
-});
-
 export type Question = z.infer<typeof QuestionSchema>;
-export type QuestionMeta = z.infer<typeof QuestionMetaSchema>;
-export type CodeSnippet = z.infer<typeof CodeSnippetSchema>;
 
-export function toMeta(q: Question): QuestionMeta {
-  return {
-    id: q.id,
-    slug: q.slug,
-    title: q.title,
-    category: q.category,
-    tags: q.tags,
-    difficulty: q.difficulty,
-    frequency: q.frequency,
-    seniority: q.seniority,
-    shortDescription: q.shortDescription,
-    estimatedReadingMinutes: q.estimatedReadingMinutes,
-    estimatedSolvingMinutes: q.estimatedSolvingMinutes,
-  };
+/** Lean meta — what list pages, search, and dashboards consume. */
+export interface QuestionMeta {
+  id: string;
+  slug: string;
+  title: string;
+  category: Category;
+  tags: string[];
+  difficulty: Difficulty;
+  frequency: Frequency;
+  seniority: Seniority;
+  shortDescription: string;
+  estimatedReadingMinutes: number;
+  estimatedSolvingMinutes: number;
 }
 
-export const CategoryMetaSchema = z.object({
-  slug: z.enum(CATEGORIES),
-  name: z.string(),
-  description: z.string(),
-  icon: z.string(),
-  accent: z.string(),
-});
-export type CategoryMeta = z.infer<typeof CategoryMetaSchema>;
+export interface CategoryMeta {
+  slug: Category;
+  name: string;
+  description: string;
+  icon: string;
+  accent: string;
+}

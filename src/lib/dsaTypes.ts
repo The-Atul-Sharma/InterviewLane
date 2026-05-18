@@ -3,7 +3,7 @@
  *
  * Shared between client and server — contains *no* runtime data.
  * The actual list lives in Supabase (`public.dsa_questions`) and is
- * fetched through `dsa-repository.ts`.
+ * fetched through `dsaRepository.ts`.
  */
 
 export type GrindDifficulty = "easy" | "medium" | "hard";

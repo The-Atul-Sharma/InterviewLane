@@ -2,7 +2,7 @@
  * Add or update a single question in Supabase from a draft TS file.
  *
  * Usage:
- *   npm run db:add                       # reads scripts/draft.question.ts
+ *   npm run db:add                       # reads scripts/draftQuestion.ts
  *   npm run db:add path/to/file.ts       # reads a custom path
  *
  * The draft file must `export default` a Question (or partial — defaults are
@@ -12,33 +12,13 @@
  * the row is upserted, the draft can be deleted or overwritten with the next.
  */
 import path from "node:path";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 import { createClient } from "@supabase/supabase-js";
+import { loadEnvLocal, requireEnv } from "./_env";
 import { QuestionSchema, type Question } from "../src/lib/schema/question";
 
-(function loadEnvLocal() {
-  const file = path.resolve(process.cwd(), ".env.local");
-  if (!existsSync(file)) return;
-  for (const raw of readFileSync(file, "utf8").split(/\r?\n/)) {
-    const line = raw.trim();
-    if (!line || line.startsWith("#")) continue;
-    const eq = line.indexOf("=");
-    if (eq < 0) continue;
-    const key = line.slice(0, eq).trim();
-    let v = line.slice(eq + 1).trim();
-    if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'")))
-      v = v.slice(1, -1);
-    if (process.env[key] === undefined) process.env[key] = v;
-  }
-})();
-
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
-const SECRET = process.env.SUPABASE_SECRET_KEY ?? "";
-if (!SUPABASE_URL || !SECRET) {
-  console.error("Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SECRET_KEY in .env.local");
-  process.exit(1);
-}
+loadEnvLocal();
 
 function toRow(q: Question) {
   return {
@@ -68,7 +48,7 @@ function toRow(q: Question) {
 
 async function main() {
   const arg = process.argv[2];
-  const draftPath = path.resolve(process.cwd(), arg ?? "scripts/draft.question.ts");
+  const draftPath = path.resolve(process.cwd(), arg ?? "scripts/draftQuestion.ts");
   if (!existsSync(draftPath)) {
     console.error(`Draft not found: ${draftPath}`);
     console.error(`Create it (export default a Question) or pass a path.`);
@@ -99,9 +79,11 @@ async function main() {
     ...raw,
   });
 
-  const supabase = createClient(SUPABASE_URL, SECRET, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
+  const supabase = createClient(
+    requireEnv("NEXT_PUBLIC_SUPABASE_URL"),
+    requireEnv("SUPABASE_SECRET_KEY"),
+    { auth: { autoRefreshToken: false, persistSession: false } },
+  );
 
   const { error } = await supabase
     .from("questions")

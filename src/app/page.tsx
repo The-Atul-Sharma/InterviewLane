@@ -2,12 +2,12 @@ import Link from "next/link";
 import { ArrowRight, Bolt, Calendar, Check, Flame, Play, Shuffle, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge, DifficultyBadge } from "@/components/ui/badge";
-import { CategoryCard } from "@/components/category-card";
-import { HomeDashboardCard } from "@/components/home-dashboard-card";
-import { HomeWelcomeBack } from "@/components/home-welcome-back";
+import { CategoryCard } from "@/components/categoryCard";
+import { HomeDashboardCard } from "@/components/homeDashboardCard";
+import { HomeWelcomeBack } from "@/components/homeWelcomeBack";
 import { repository } from "@/lib/repository";
 import { CATEGORY_LIST } from "@/lib/categories";
-import { listDsaQuestions } from "@/lib/dsa-repository";
+import { listDsaQuestions } from "@/lib/dsaRepository";
 import { formatNumber } from "@/lib/utils";
 
 export const revalidate = 3600;

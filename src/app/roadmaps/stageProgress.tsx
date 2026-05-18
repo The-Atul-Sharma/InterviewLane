@@ -1,5 +1,5 @@
 "use client";
-import { useHydratedUserState } from "@/lib/store/user-state";
+import { useHydratedUserState } from "@/lib/store/userState";
 
 export function StageProgressBar({ topicSlugs }: { topicSlugs: string[] }) {
   const completed = useHydratedUserState((s) => s.topicProgress, [] as string[]);

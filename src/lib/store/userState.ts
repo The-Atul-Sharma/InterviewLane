@@ -23,7 +23,7 @@ export interface UserStreak {
   days: number;
 }
 
-export interface PlanDayKey {
+interface PlanDayKey {
   planSlug: string;
   dayNum: number;
 }
@@ -319,9 +319,6 @@ export const useUserStore = create<UserState>((set, get) => ({
     }
   },
 }));
-
-// Backwards-compat alias used by older components.
-export const useUserState = useUserStore;
 
 /**
  * SSR-safe selector — returns `fallback` until the store has hydrated from

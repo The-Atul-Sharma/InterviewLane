@@ -7,7 +7,7 @@
  */
 import { cache } from "react";
 import { asStringArray } from "../utils";
-import { createPublicReadClient } from "../supabase/public-read";
+import { createPublicReadClient } from "../supabase/publicRead";
 import {
   type Question,
   type QuestionMeta,

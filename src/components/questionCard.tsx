@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 import { Badge, DifficultyBadge } from "@/components/ui/badge";
 import type { QuestionMeta } from "@/lib/schema/question";
 import { CATEGORY_META } from "@/lib/categories";
-import { useAuth } from "@/components/providers/auth-provider";
-import { useUserStore } from "@/lib/store/user-state";
+import { useAuth } from "@/components/providers/authProvider";
+import { useUserStore } from "@/lib/store/userState";
 
 export function QuestionCard({ q, compact }: { q: QuestionMeta; compact?: boolean }) {
   const cat = CATEGORY_META[q.category];

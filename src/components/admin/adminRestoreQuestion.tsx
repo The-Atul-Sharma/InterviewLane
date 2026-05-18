@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, RotateCcw } from "lucide-react";
-import { useAuth } from "@/components/providers/auth-provider";
+import { useAuth } from "@/components/providers/authProvider";
 import { Button } from "@/components/ui/button";
 
 export function AdminRestoreQuestion({ slug }: { slug: string }) {

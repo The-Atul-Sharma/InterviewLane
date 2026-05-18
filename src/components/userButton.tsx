@@ -12,7 +12,7 @@ import {
   PenSquare,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/components/providers/auth-provider";
+import { useAuth } from "@/components/providers/authProvider";
 
 export function UserButton() {
   const { user, loading, signOut, configured, isAdmin, ensureAdminChecked } = useAuth();
