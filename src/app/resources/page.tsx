@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, BookOpen, Sparkles } from "lucide-react";
+import { ArrowUpRight, BookOpen } from "lucide-react";
 import {
   RESOURCE_SECTIONS,
   KIND_LABEL,
@@ -10,6 +10,8 @@ import {
 } from "@/lib/resources";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { PageHero } from "@/components/pageHero";
 import { cn } from "@/lib/utils";
 
 export const revalidate = 86400;
@@ -23,71 +25,55 @@ const totalCount = RESOURCE_SECTIONS.reduce((n, s) => n + s.resources.length, 0)
 
 export default function ResourcesPage() {
   return (
-    <div className="container-page space-y-12 py-12">
-      <Hero />
+    <div className="pb-20">
+      <PageHero
+        eyebrow="Curated reading list"
+        title="Every link worth"
+        titleDim="bookmarking."
+        sub={`${totalCount} resources across ${RESOURCE_SECTIONS.length} tracks. From DSA fundamentals to behavioral stories. 10-week study track included.`}
+        actions={
+          <>
+            <Button asChild className="gap-2">
+              <a href="#dsa">Start with DSA</a>
+            </Button>
+            <Button asChild variant="outline" className="gap-2">
+              <Link href="/plans">
+                <BookOpen className="h-4 w-4" /> Daily prep plans
+              </Link>
+            </Button>
+          </>
+        }
+      />
 
-      <StudyTrack />
+      <div className="container-page space-y-12 py-12">
+        <StudyTrack />
 
-      <nav
-        aria-label="Section quick links"
-        className="sticky top-14 z-30 -mx-4 border-y bg-background/85 px-4 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/65"
-      >
-        <ul className="flex gap-1.5 overflow-x-auto">
-          {RESOURCE_SECTIONS.map((s) => (
-            <li key={s.slug}>
-              <a
-                href={`#${s.slug}`}
-                className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-md border bg-background/40 px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-              >
-                <s.icon className="h-3 w-3" />
-                {s.name}
-              </a>
-            </li>
+        <nav
+          aria-label="Section quick links"
+          className="sticky top-14 z-30 -mx-4 border-y bg-background/85 px-4 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/65"
+        >
+          <ul className="flex gap-1.5 overflow-x-auto">
+            {RESOURCE_SECTIONS.map((s) => (
+              <li key={s.slug}>
+                <a
+                  href={`#${s.slug}`}
+                  className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-md border bg-background/40 px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                >
+                  <s.icon className="h-3 w-3" />
+                  {s.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="space-y-12">
+          {RESOURCE_SECTIONS.map((section) => (
+            <Section key={section.slug} section={section} />
           ))}
-        </ul>
-      </nav>
-
-      <div className="space-y-12">
-        {RESOURCE_SECTIONS.map((section) => (
-          <Section key={section.slug} section={section} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function Hero() {
-  return (
-    <header className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-[hsl(var(--brand-soft))] via-background to-background p-8 sm:p-10">
-      <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[hsl(var(--brand)/0.15)] blur-3xl" />
-      <div className="relative space-y-3">
-        <Badge variant="brand" className="gap-1">
-          <Sparkles className="h-3 w-3" /> Curated reading list
-        </Badge>
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          Frontend interview resources
-        </h1>
-        <p className="max-w-2xl text-muted-foreground">
-          Every link worth bookmarking, organized by topic. {totalCount} resources across{" "}
-          {RESOURCE_SECTIONS.length} tracks — from DSA fundamentals to behavioral stories. 10-week
-          study track included.
-        </p>
-        <div className="flex flex-wrap gap-2 pt-2">
-          <a
-            href="#dsa"
-            className="inline-flex items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-xs font-medium text-background hover:opacity-90"
-          >
-            Start with DSA
-          </a>
-          <Link
-            href="/plans"
-            className="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
-          >
-            <BookOpen className="h-3 w-3" /> Daily prep plans
-          </Link>
         </div>
       </div>
-    </header>
+    </div>
   );
 }
 
@@ -100,7 +86,7 @@ function StudyTrack() {
             Suggested 10-week track
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Light scaffolding if you&apos;re starting from zero — adjust to the time you have.
+            Light scaffolding if you&apos;re starting from zero. Adjust to the time you have.
           </p>
         </div>
       </div>

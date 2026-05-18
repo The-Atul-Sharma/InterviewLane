@@ -5,6 +5,7 @@ import { ArrowRight, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/providers/authProvider";
 import { useUserStore } from "@/lib/store/userState";
+import { useDashboardActivity } from "@/app/dashboard/useActivity";
 
 const DUMMY_CELLS = (() => {
   const cols: number[][] = [];
@@ -32,6 +33,11 @@ export function HomeDashboardPreview({ totalPool }: { totalPool: number }) {
   const hydrated = useUserStore((s) => s.hydrated);
   const streak = useUserStore((s) => s.streak);
   const completed = useUserStore((s) => s.completed);
+  const userLoading = useUserStore((s) => s.loading);
+  // Pull the real 7×26 completion heatmap once the store has hydrated.
+  // The hook is a no-op when not enabled, so we keep it cheap for signed-out
+  // visitors by gating on `signedIn && hydrated`.
+  const activity = useDashboardActivity(!!user && !loading && hydrated && !userLoading);
 
   React.useEffect(() => {
     if (!loading && user) void hydrate();
@@ -45,7 +51,26 @@ export function HomeDashboardPreview({ totalPool }: { totalPool: number }) {
   const overallPct =
     showReal && totalPool > 0 ? Math.round((completed.length / totalPool) * 100) : 18;
 
-  const cells = DUMMY_CELLS;
+  // Build the 26-column × 7-row cell grid from real completion counts when
+  // signed in (activity.heatmap is [row 0=Sun..6=Sat][col 0=oldest..25]).
+  const cells = React.useMemo<number[][]>(() => {
+    if (!showReal || activity.loading) return DUMMY_CELLS;
+    const cols: number[][] = [];
+    for (let c = 0; c < 26; c++) {
+      const col: number[] = [];
+      for (let r = 0; r < 7; r++) {
+        const n = activity.heatmap[r]?.[c] ?? 0;
+        let lv = 0;
+        if (n >= 1) lv = 1;
+        if (n >= 2) lv = 2;
+        if (n >= 4) lv = 3;
+        if (n >= 6) lv = 4;
+        col.push(lv);
+      }
+      cols.push(col);
+    }
+    return cols;
+  }, [showReal, activity.loading, activity.heatmap]);
 
   const bgFor = (lv: number) => {
     switch (lv) {
@@ -94,7 +119,12 @@ export function HomeDashboardPreview({ totalPool }: { totalPool: number }) {
 
       <div className="mt-5">
         <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
-          Last 26 weeks {signedIn ? "" : "· sample"}
+          Last 26 weeks
+          {!signedIn
+            ? " · sample"
+            : activity.loading
+              ? " · loading…"
+              : ` · ${activity.totalSessions} completed`}
         </span>
         <div className="mt-2 flex h-[60px] gap-[2px]">
           {cells.map((col, i) => (
