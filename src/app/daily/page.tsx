@@ -12,26 +12,31 @@ export const metadata: Metadata = {
 };
 
 /**
- * Deterministic daily pick: hash today's date → pick an index in the sorted
- * question list. Same answer per UTC date for every viewer, no server needed.
+ * Deterministic daily pick: hash today's local date → pick an index in the
+ * sorted question list. Resets at local midnight.
  */
 export default async function DailyPage() {
   const all = await repository.listAll();
   const today = new Date();
-  const utcKey = `${today.getUTCFullYear()}-${today.getUTCMonth()}-${today.getUTCDate()}`;
-  const seed = [...utcKey].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 0);
+  const dayKey = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+  const seed = [...dayKey].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 0);
   const pick = all[seed % all.length];
+  const niceDate = today.toLocaleDateString(undefined, {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
 
   return (
     <div className="container-page py-12 space-y-10">
       <header className="space-y-2">
         <Badge variant="muted" className="gap-1">
-          <Calendar className="h-3 w-3" /> {today.toUTCString().slice(0, 16)}
+          <Calendar className="h-3 w-3" /> {niceDate}
         </Badge>
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Daily Challenge</h1>
         <p className="max-w-2xl text-muted-foreground">
-          One question, deterministic per UTC date. Read it, think it through, mark it complete to
-          extend your streak.
+          One question per day, deterministic by local date. Read it, think it through, mark it
+          complete to extend your streak.
         </p>
       </header>
 

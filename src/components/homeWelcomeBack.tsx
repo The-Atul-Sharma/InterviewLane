@@ -16,6 +16,7 @@ import {
   Eye,
   Flame,
   LayoutDashboard,
+  CloudUpload,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -35,7 +36,8 @@ export function HomeWelcomeBack({ totalPool }: { totalPool: number }) {
     if (!loading && user) void hydrate();
   }, [loading, user, hydrate]);
 
-  if (!configured || loading || !user) return null;
+  if (!configured || loading) return null;
+  if (!user) return <SignedOutSyncPromo />;
 
   const displayName =
     (user.user_metadata as { full_name?: string; name?: string } | undefined)?.full_name
@@ -122,6 +124,34 @@ export function HomeWelcomeBack({ totalPool }: { totalPool: number }) {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SignedOutSyncPromo() {
+  return (
+    <section className="border-b">
+      <div className="container-page py-6">
+        <div className="flex flex-wrap items-center gap-4 rounded-[14px] border bg-card px-5 py-4 sm:flex-nowrap">
+          <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-[hsl(var(--brand-soft))] text-[hsl(var(--brand))]">
+            <CloudUpload className="h-4 w-4" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-[14px] font-medium tracking-tight">
+              Sync your streak, bookmarks, and progress across devices.
+            </p>
+            <p className="mt-0.5 text-[12.5px] text-muted-foreground">
+              Free forever. Sign in once — pick up where you left off anywhere.
+            </p>
+          </div>
+          <Button asChild size="sm" className="shrink-0 gap-1.5">
+            <Link href="/login">
+              Sign in
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

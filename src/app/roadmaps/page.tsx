@@ -15,6 +15,7 @@ import { ROADMAPS } from "@/lib/roadmaps";
 import { Badge } from "@/components/ui/badge";
 import { PageHero } from "@/components/pageHero";
 import { UserStateBoot } from "@/components/userStateBoot";
+import { HomeRoadmapStrip, type HomeRoadmapStage } from "@/components/homeRoadmapStrip";
 import { StageProgressBar } from "./stageProgress";
 
 export const revalidate = 86400;
@@ -44,6 +45,22 @@ export default async function RoadmapsPage() {
   const stages = await getStagesWithTopics();
   const dsa = ROADMAPS.find((r) => r.slug === "dsa-for-frontend");
 
+  const STAGE_PCT: Record<string, number> = {
+    foundations: 100,
+    intermediate: 80,
+    advanced: 55,
+    senior: 20,
+    staff: 0,
+  };
+  const stripStages: HomeRoadmapStage[] = stages.map((s, i) => ({
+    num: i + 1,
+    slug: s.slug,
+    name: s.name,
+    meta: s.readinessLevel,
+    tone: STAGE_TONE[s.slug] ?? "hsl(var(--brand))",
+    pct: STAGE_PCT[s.slug] ?? (i + 1) * 18,
+  }));
+
   return (
     <div className="pb-20">
       <UserStateBoot />
@@ -56,37 +73,7 @@ export default async function RoadmapsPage() {
 
       {/* Stage strip — quick visual overview matching the home design */}
       <section className="container-page pt-10">
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
-          {stages.map((s, i) => {
-            const tone = STAGE_TONE[s.slug] ?? "hsl(var(--brand))";
-            return (
-              <Link
-                key={s.slug}
-                href={`/roadmaps/${s.slug}`}
-                className="surface-hover flex min-h-[150px] flex-col gap-2 rounded-[14px] border bg-card p-[18px]"
-              >
-                <span className="font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground">
-                  Stage {i + 1}
-                </span>
-                <h3
-                  className="text-[18px] font-semibold tracking-tight"
-                  style={{ color: tone }}
-                >
-                  {s.name}
-                </h3>
-                <span className="font-mono text-[10.5px] text-muted-foreground">
-                  {s.readinessLevel}
-                </span>
-                <div className="mt-auto h-1 w-full overflow-hidden rounded-full bg-secondary">
-                  <div
-                    className="h-full rounded-full"
-                    style={{ width: `${(i + 1) * 18}%`, background: tone }}
-                  />
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+        <HomeRoadmapStrip stages={stripStages} />
       </section>
 
       {/* Detailed stage list */}
@@ -140,7 +127,9 @@ export default async function RoadmapsPage() {
                       </span>
                       <Badge variant="muted">{s.difficultyBand}</Badge>
                     </div>
-                    <StageProgressBar topicSlugs={s.topics.map((t) => t.slug)} />
+                    <StageProgressBar
+                      questionSlugs={s.topics.flatMap((t) => t.questions.map((q) => q.slug))}
+                    />
                   </div>
 
                   <div className="md:self-center">

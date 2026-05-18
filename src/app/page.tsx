@@ -20,6 +20,8 @@ import { repository } from "@/lib/repository";
 import { CATEGORY_LIST } from "@/lib/categories";
 import { listDsaQuestions } from "@/lib/dsaRepository";
 import { getPlans } from "@/lib/repository/roadmapRepository";
+import { HomeRoadmapStrip, type HomeRoadmapStage } from "@/components/homeRoadmapStrip";
+import { HeroSearchTrigger } from "@/components/heroSearchTrigger";
 
 export const revalidate = 3600;
 
@@ -33,9 +35,9 @@ export default async function HomePage() {
   stats.byCategory["dsa-algorithms-75"] = dsaQuestions.filter((q) => q.inGrind75).length;
   stats.byCategory["dsa-algorithms-169"] = dsaQuestions.length;
 
-  // Daily pick rotates each day; trending rotates each ISO week.
+  // Daily pick rotates each local day; trending rotates each ISO week.
   const today = new Date();
-  const dayKey = `${today.getUTCFullYear()}-${today.getUTCMonth()}-${today.getUTCDate()}`;
+  const dayKey = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
   const daySeed = [...dayKey].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 0);
   const dailyPick = all[daySeed % all.length];
 
@@ -62,7 +64,7 @@ export default async function HomePage() {
 
   const sortedPlans = [...plans].sort((a, b) => a.days - b.days);
 
-  const stages = [
+  const stages: HomeRoadmapStage[] = [
     { num: 1, slug: "foundations", name: "Foundations", meta: "Junior screen ready", pct: 100, tone: "hsl(200 70% 65%)" },
     { num: 2, slug: "intermediate", name: "Intermediate", meta: "Mid-level ready", pct: 80, tone: "hsl(var(--success))" },
     { num: 3, slug: "advanced", name: "Advanced", meta: "Senior IC ready", pct: 55, tone: "hsl(var(--warning))" },
@@ -100,7 +102,7 @@ export default async function HomePage() {
       tone: "warning",
       href: "/daily",
       title: "Daily challenge",
-      desc: "One curated question each day. Build a streak. Resets at 00:00 UTC.",
+      desc: "One curated question each day. Build a streak. Resets at local midnight.",
       meta: "+ streak XP",
     },
     {
@@ -165,12 +167,11 @@ export default async function HomePage() {
             </Button>
           </div>
 
+          <HeroSearchTrigger />
+
           {/* Trust strip */}
           <div className="mt-8 flex flex-wrap justify-center gap-x-9 gap-y-2 font-mono text-[12px] text-muted-foreground">
             <span><b className="font-medium text-foreground">800+</b> questions</span>
-            <span><b className="font-medium text-foreground">{Object.keys(stats.byCategory).length}</b> surfaces</span>
-            <span><b className="font-medium text-foreground">{plans.length}</b> day-by-day plans</span>
-            <span><b className="font-medium text-foreground">5</b> roadmap stages</span>
             <span><b className="font-medium text-foreground">100%</b> free</span>
           </div>
         </div>
@@ -305,32 +306,7 @@ export default async function HomePage() {
               </Button>
             }
           />
-          <div className="mt-8 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
-            {stages.map((s) => (
-              <Link
-                key={s.num}
-                href={`/roadmaps/${s.slug}`}
-                className="surface-hover flex min-h-[150px] flex-col gap-2 rounded-[14px] border bg-background p-[18px]"
-              >
-                <span className="font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground">
-                  Stage {s.num}
-                </span>
-                <h3
-                  className="text-[18px] font-semibold tracking-tight"
-                  style={{ color: s.tone }}
-                >
-                  {s.name}
-                </h3>
-                <span className="font-mono text-[10.5px] text-muted-foreground">{s.meta}</span>
-                <div className="mt-auto h-1 w-full overflow-hidden rounded-full bg-secondary">
-                  <div
-                    className="h-full rounded-full"
-                    style={{ width: `${s.pct}%`, background: s.tone }}
-                  />
-                </div>
-              </Link>
-            ))}
-          </div>
+          <HomeRoadmapStrip stages={stages} />
         </div>
       </section>
 
