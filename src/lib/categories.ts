@@ -116,7 +116,7 @@ export const CATEGORY_META: Record<string, CategoryMeta> = {
   },
   "dsa-algorithms-75": {
     slug: "dsa-algorithms-75",
-    name: "DSA & Algorithms",
+    name: "DSA & Algorithms (Blind 75)",
     description:
       "75 hand-picked, priority-ranked LeetCode problems. Arrays, graphs, trees, DP, and more",
     icon: "Binary",
@@ -124,7 +124,7 @@ export const CATEGORY_META: Record<string, CategoryMeta> = {
   },
   "dsa-algorithms-169": {
     slug: "dsa-algorithms-169",
-    name: "DSA & Algorithms",
+    name: "DSA & Algorithms (Blind 169)",
     description:
       "169 problem set covering every 75 problems plus deeper coverage across all major patterns.",
     icon: "Binary",
