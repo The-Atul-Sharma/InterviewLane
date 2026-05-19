@@ -600,7 +600,13 @@ function DailyChallengeCard({ streakDays }: { streakDays: number }) {
   const dateLabel = today
     .toLocaleDateString("en-US", { month: "short", day: "numeric" })
     .toUpperCase();
-  const week = Array.from({ length: 7 }, (_, i) => i < Math.min(7, streakDays));
+  // Monday-first weekday index (Mon=0 … Sun=6)
+  const todayIdx = (today.getDay() + 6) % 7;
+  const week = Array.from({ length: 7 }, (_, i) => ({
+    isToday: i === todayIdx,
+    isPast: i < todayIdx && i >= todayIdx - Math.max(0, streakDays - 1),
+  }));
+  const dayLabels = ["M", "T", "W", "T", "F", "S", "S"];
   return (
     <Card className="relative flex flex-col gap-3 overflow-hidden p-5">
       <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-[hsl(var(--warning)/0.12)] blur-2xl" />
@@ -617,17 +623,19 @@ function DailyChallengeCard({ streakDays }: { streakDays: number }) {
         One curated question, fresh each day. Keep your streak alive.
       </p>
       <div className="relative mt-1 flex items-center gap-1">
-        {week.map((on, i) => (
+        {week.map(({ isToday, isPast }, i) => (
           <div
             key={i}
             className={cn(
               "flex h-6 flex-1 items-center justify-center rounded-md text-[10px] font-semibold tabular-nums",
-              on
+              isToday
                 ? "bg-[hsl(var(--warning))] text-background"
-                : "bg-muted text-muted-foreground/60",
+                : isPast
+                  ? "bg-[hsl(var(--warning)/0.25)] text-[hsl(var(--warning))]"
+                  : "bg-muted text-muted-foreground",
             )}
           >
-            {i + 1}
+            {dayLabels[i]}
           </div>
         ))}
       </div>
