@@ -74,6 +74,14 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
     .filter((h) => h.level <= 3)
     .map((h) => ({ id: h.id, text: h.text, level: h.level }));
 
+  const author = {
+    "@type": "Organization",
+    name: "InterviewLane",
+    url: siteUrl(),
+  };
+  const datePublished = q.createdAt;
+  const dateModified = q.updatedAt;
+
   const qaJsonLd = !isDeleted
     ? {
         "@context": "https://schema.org",
@@ -83,10 +91,17 @@ export default async function QuestionPage({ params }: { params: Promise<{ slug:
           name: q.title,
           text: q.shortDescription,
           answerCount: 1,
+          upvoteCount: 0,
+          datePublished,
+          dateModified,
+          author,
           acceptedAnswer: {
             "@type": "Answer",
             text: answerSnippetForSeo(q.answer, q.shortDescription),
             url: siteUrl(`/questions/${q.slug}`),
+            upvoteCount: 0,
+            datePublished,
+            author,
           },
         },
       }
