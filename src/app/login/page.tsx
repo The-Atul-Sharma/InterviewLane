@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { LoginForm } from "./form";
 
 export const revalidate = 86400;
@@ -18,7 +19,9 @@ export default function LoginPage() {
             Use your Google account to continue. No password needed.
           </p>
         </div>
-        <LoginForm />
+        <Suspense fallback={null}>
+          <LoginForm />
+        </Suspense>
       </div>
     </div>
   );
